@@ -94,7 +94,7 @@ jobs:
       - run:
           name: Ensure gulp4 is installed
           command: |
-            npm install -g gulp@next
+            npm install -g gulp@4.0.0
 
       - run:
           name: Install node dependencies
