@@ -57,9 +57,11 @@ DEFAULT_FIELD_TITLE_MAP = {
     'price_including_iff': 'Price Offered to GSA (including IFF)',
 }
 
+
 def glean_labor_categories_from_file(f, sheet_name=DEFAULT_SHEET_NAME):
     book = xlrd.open_workbook(file_contents=f.read())
     return glean_labor_categories_from_book(book, sheet_name)
+
 
 def glean_labor_categories_from_book(book, sheet_name=DEFAULT_SHEET_NAME):
 
@@ -111,6 +113,7 @@ def glean_labor_categories_from_book(book, sheet_name=DEFAULT_SHEET_NAME):
 
     return cats
 
+
 class Region3PriceListRow(forms.Form):
     sin = forms.CharField(label='SIN(s) Proposed')
     labor_category = forms.CharField(
@@ -153,6 +156,7 @@ class Region3PriceListRow(forms.Form):
     def contract_model_base_year_rate(self):
         return self.cleaned_data['price_including_iff']
 
+
 class Region3PriceList(BasePriceList):
 
     title = 'Region 3'  
@@ -184,15 +188,19 @@ class Region3PriceList(BasePriceList):
                 sin=row.cleaned_data['sin']
             )
 
+
     def serialize(self):
         return self.rows
+
 
     def to_table(self):
         return render_to_string(self.table_template,
                                 {'rows': self.valid_rows})
+
     def to_error_table(self):
         return render_to_string(self.table_template,
                                 {'rows': self.invalid_rows})
+
 
     @classmethod
     def get_upload_example_context(cls):
@@ -200,10 +208,12 @@ class Region3PriceList(BasePriceList):
             'sheet_name': DEFAULT_SHEET_NAME,
             'sheet_rows': EXAMPLE_SHEET_ROWS,
         }
+        
     
     @classmethod
     def deserialize(cls, rows):
         return cls(rows)
+
 
     @classmethod
     def load_from_upload(cls, f):
