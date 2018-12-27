@@ -159,7 +159,7 @@ class Region3PriceListRow(forms.Form):
 
 class Region3PriceList(BasePriceList):
 
-    title = 'Region 3'  
+    title = 'Region 3'
 
     table_template = 'data_capture/price_list/tables/region_3.html'
 
@@ -188,10 +188,8 @@ class Region3PriceList(BasePriceList):
                 sin=row.cleaned_data['sin']
             )
 
-
     def serialize(self):
         return self.rows
-
 
     def to_table(self):
         return render_to_string(self.table_template,
@@ -201,19 +199,16 @@ class Region3PriceList(BasePriceList):
         return render_to_string(self.table_template,
                                 {'rows': self.invalid_rows})
 
-
     @classmethod
     def get_upload_example_context(cls):
         return {
             'sheet_name': DEFAULT_SHEET_NAME,
             'sheet_rows': EXAMPLE_SHEET_ROWS,
         }
-        
-    
+
     @classmethod
     def deserialize(cls, rows):
         return cls(rows)
-
 
     @classmethod
     def load_from_upload(cls, f):
