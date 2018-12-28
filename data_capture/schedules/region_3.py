@@ -50,7 +50,7 @@ EXAMPLE_SHEET_ROWS = [
 
 DEFAULT_FIELD_TITLE_MAP = {
     'sin': 'SIN(s) Proposed',
-    'labor_category': 'SERVICE PROPOSED (e.g. Job Title/Task)',  # noqa
+    'labor_category': 'Service Proposed (e.g. Job Title/Task)',  # noqa
     'education_level': 'Minimum Education / Certification Level',
     'min_years_experience': 'Minimum Years of Experience',
     'unit_of_issue': 'Unit of Issue (e.g. Hour, Task, Sq Ft)',
@@ -127,6 +127,7 @@ class Region3PriceListRow(forms.Form):
     )
     unit_of_issue = forms.CharField(
         label="Unit of issue",
+        required=False,
         validators=[hourly_rates_only_validator]
     )
     price_including_iff = forms.DecimalField(
