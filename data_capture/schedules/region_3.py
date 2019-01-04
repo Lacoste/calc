@@ -12,7 +12,7 @@ from .coercers import (strip_non_numeric, extract_min_education,
                        extract_hour_unit_of_issue)
 from contracts.models import EDUCATION_CHOICES
 
-DEFAULT_SHEET_NAME = 'Service Pricing'
+DEFAULT_SHEET_NAME = 'Labor Category'
 
 EXAMPLE_SHEET_ROWS = [
     [
