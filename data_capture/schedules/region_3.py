@@ -160,7 +160,7 @@ class Region3PriceListRow(forms.Form):
 
 class Region3PriceList(BasePriceList):
 
-    title = 'Region 3'
+    title = 'Comprehensive Furniture Management Services'
 
     table_template = 'data_capture/price_list/tables/region_3.html'
 
