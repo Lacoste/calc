@@ -68,7 +68,8 @@
   "resolutions": {
     "uswds/browserify/cached-path-relative": "1.0.2",
     "jest/jest-cli/yargs/os-locale/mem": "^4.0.0",
-    "webpack/uglifyjs-webpack-plugin/cacache/chownr": "^1.1.0"
+    "webpack/uglifyjs-webpack-plugin/cacache/chownr": "^1.1.0",
+    "jest/jest-cli/jest-haste-map/sane/exec-sh/merge":"^1.2.1"
   },
   "scripts": {
     "gulp": "gulp",
