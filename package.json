@@ -44,7 +44,7 @@
     "gulp-sourcemaps": "1.6.0",
     "gulp-uglify": "^3.0.1",
     "gulp-util": "^3.0.7",
-    "jest": "23.5.0",
+    "jest": "24.0.0",
     "jquery": "3.2.1",
     "prop-types": "^15.6.1",
     "raf": "^3.4.0",
@@ -58,15 +58,16 @@
     "redux-logger": "^2.7.4",
     "sinon": "2.1.0",
     "typescript": "^2.9.2",
-    "uswds": "^1.6.0",
+    "uswds": "1.6.9",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.4.1",
     "webpack-bundle-analyzer": "2.7.0",
-    "webpack-stream": "^4.0.3",
+    "webpack-stream": "5.0.0",
     "xhr": "^2.4.0"
   },
   "resolutions": {
-    "uswds/browserify/cached-path-relative": "1.0.2"
+    "uswds/browserify/cached-path-relative": "1.0.2",
+    "uswds/jest/webpack-stream": "1.0.2"
   },
   "scripts": {
     "gulp": "gulp",
