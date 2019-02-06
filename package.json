@@ -66,8 +66,7 @@
     "xhr": "^2.4.0"
   },
   "resolutions": {
-    "uswds/browserify/cached-path-relative": "1.0.2",
-    "uswds/jest/webpack-stream": "1.0.2"
+    "uswds/browserify/cached-path-relative": "1.0.2"
   },
   "scripts": {
     "gulp": "gulp",
