@@ -15,7 +15,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "bourbon-neat": "1.8.0",
-    "cached-path-relative": "1.0.2",
+    "cached-path-relative": "^1.0.2",
     "classnames": "^2.2.5",
     "d3-array": "^1.1.0",
     "d3-axis": "^1.0.5",
@@ -58,12 +58,17 @@
     "redux-logger": "^2.7.4",
     "sinon": "2.1.0",
     "typescript": "^2.9.2",
-    "uswds": "^1.6.0",
+    "uswds": "1.6.9",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.4.1",
-    "webpack-bundle-analyzer": "2.7.0",
+    "webpack-bundle-analyzer": "2.13.1",
     "webpack-stream": "^4.0.3",
     "xhr": "^2.4.0"
+  },
+  "resolutions": {
+    "uswds/browserify/cached-path-relative": "1.0.2",
+    "jest/jest-cli/yargs/os-locale/mem": "^4.0.0",
+    "webpack/uglifyjs-webpack-plugin/cacache/chownr": "^1.1.0"
   },
   "scripts": {
     "gulp": "gulp",
