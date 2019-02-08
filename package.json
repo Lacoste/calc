@@ -66,7 +66,9 @@
   },
   "resolutions": {
     "babel-core/**/lodash":"^4.17.11",
+    "babel-eslint/**/lodash":"^4.17.11",
     "redux/**/lodash": "^4.17.11",
+    "react-redux/**/lodash": "^4.17.11",
     "gulp-uglify/**/lodash": "^4.17.11",
     "enzyme/**/lodash": "^4.17.11",
     "eslint/**/lodash": "^4.17.11",
