@@ -9,7 +9,7 @@ from .common import (StepTestCase, R10_XLSX_PATH, XLSX_CONTENT_TYPE,
                      create_bulk_upload_contract_source)
 from ..views import bulk_upload
 
-# from contracts.models import Contract, BulkUploadContractSource
+from contracts.models import BulkUploadContractSource
 
 
 class BulkUploadViewTests(unittest.TestCase):
