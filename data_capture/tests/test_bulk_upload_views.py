@@ -4,12 +4,12 @@ import unittest
 from django.core.files.base import ContentFile
 
 from ..management.commands.initgroups import BULK_UPLOAD_PERMISSION
-from .test_jobs import process_worker_jobs
+# from .test_jobs import process_worker_jobs
 from .common import (StepTestCase, R10_XLSX_PATH, XLSX_CONTENT_TYPE,
                      create_bulk_upload_contract_source)
 from ..views import bulk_upload
 
-from contracts.models import Contract, BulkUploadContractSource
+# from contracts.models import Contract, BulkUploadContractSource
 
 
 class BulkUploadViewTests(unittest.TestCase):
