@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.schemas import AutoSchema
 from rest_framework.compat import coreapi, coreschema
+from django.utils.html import strip_tags
 from rest_framework import generics
 
 from api.pagination import ContractPagination
@@ -287,9 +288,13 @@ def get_contracts_queryset(request_params, wage_field):
         if field.startswith('-'):
             field = field[1:]
         if field not in ALL_CONTRACT_FIELDS:
-            raise serializers.ValidationError(f'"{field}" is not a valid field to sort on')
+            stripped = strip_tags(field)
+            clean_field = bleach.clean(stripped, tags=[], strip=True)
+            raise serializers.ValidationError(f'"{clean_field}" is not a valid field to sort on')
         if field not in SORTABLE_CONTRACT_FIELDS:
-            raise serializers.ValidationError(f'Unable to sort on the field "{field}"')
+            stripped = strip_tags(field)
+            clean_field = bleach.clean(stripped, tags=[], strip=True)
+            raise serializers.ValidationError(f'Unable to sort on the field "{clean_field}"')
 
     return contracts.order_by(*sort)
 
