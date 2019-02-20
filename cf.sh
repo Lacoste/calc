@@ -10,7 +10,7 @@ if [ $CF_INSTANCE_INDEX = "0" ]; then
     python manage.py update_search_field
 
     echo "----- Initializing Groups -----"
-    # python manage.py initgroups
+    python manage.py initgroups
 
 fi
 echo "------ Starting APP ------"
