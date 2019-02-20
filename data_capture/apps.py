@@ -36,7 +36,7 @@ class DataCaptureSchedulerApp(AppConfig):
 
     def ready(self):
         # Import needs to happen after app is ready
-        from . import periodic_jobs
+        # from . import periodic_jobs
 
         logger = logging.getLogger('rq_scheduler')
 
@@ -51,5 +51,5 @@ class DataCaptureSchedulerApp(AppConfig):
         # about approving price lists
         logger.info('Adding send_admin_approval_reminder_email job on cron '
                     'schedule "{}"'.format(self.admin_reminder_cron))
-        scheduler.cron(self.admin_reminder_cron,
-                       periodic_jobs.send_admin_approval_reminder_email)
+        # scheduler.cron(self.admin_reminder_cron,
+        #                periodic_jobs.send_admin_approval_reminder_email)
