@@ -18,8 +18,9 @@ class DataCaptureSchedulerAppTests(TestCase):
         config.ready()  # call the ready() method
         scheduler = django_rq.get_scheduler('default')
         jobs = scheduler.get_jobs()
-        # self.assertEqual(len(jobs), 1)
-        the_job = jobs[0]
+        job_list = list(jobs)
+        self.assertEqual(len(job_list), 1)
+        the_job = job_list[0]
         self.assertEqual(
             the_job.func,
             periodic_jobs.send_admin_approval_reminder_email)
