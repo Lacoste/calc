@@ -56,7 +56,7 @@ else
 fi
 
 
-cf push $APP_NAME -f $MANIFEST
+cf zero-downtime-push $APP_NAME -f $MANIFEST
 
 # use a regular `cf push` for the worker and scheduler apps
 # because we don't want multiple instances processing the queue
