@@ -51,5 +51,5 @@ class DataCaptureSchedulerApp(AppConfig):
         # about approving price lists
         logger.info('Adding send_admin_approval_reminder_email job on cron '
                     'schedule "{}"'.format(self.admin_reminder_cron))
-        scheduler.cron(self.admin_reminder_cron,
-                       periodic_jobs.send_admin_approval_reminder_email)
+        # scheduler.cron(self.admin_reminder_cron,
+        #                periodic_jobs.send_admin_approval_reminder_email)
