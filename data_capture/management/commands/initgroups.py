@@ -65,7 +65,6 @@ class Command(BaseCommand):
         except Exception as e:
             print(e)
    
-
     @transaction.atomic
     def handle(self, *args, **kwargs):
         self.verbosity = int(kwargs['verbosity'])
