@@ -4,12 +4,12 @@ import unittest
 from django.core.files.base import ContentFile
 
 from ..management.commands.initgroups import BULK_UPLOAD_PERMISSION
-# from .test_jobs import process_worker_jobs
+from .test_jobs import process_worker_jobs
 from .common import (StepTestCase, R10_XLSX_PATH, XLSX_CONTENT_TYPE,
                      create_bulk_upload_contract_source)
 from ..views import bulk_upload
 
-from contracts.models import BulkUploadContractSource
+from contracts.models import Contract, BulkUploadContractSource
 
 
 class BulkUploadViewTests(unittest.TestCase):
@@ -127,43 +127,43 @@ class Region10UploadStep2Tests(R10StepTestCase):
         self.assertEqual(res.status_code, 200)
         self.assertIn('file_metadata', res.context)
 
-    # def test_post_is_ok_and_contracts_are_created_properly(self):
-    #     user = self.login()
-    #     self.setup_upload_source(user)
-    #     res = self.client.post(self.url)
-    #     self.assertRedirects(res, Region10UploadStep3Tests.url)
+    def test_post_is_ok_and_contracts_are_created_properly(self):
+        user = self.login()
+        self.setup_upload_source(user)
+        res = self.client.post(self.url)
+        self.assertRedirects(res, Region10UploadStep3Tests.url)
 
-    #     process_worker_jobs()
+        process_worker_jobs()
 
-    #     contracts = Contract.objects.all()
-    #     self.assertEqual(len(contracts), 3)
-    #     upload_source = BulkUploadContractSource.objects.all()[0]
-    #     self.assertTrue(upload_source.has_been_loaded)
-    #     for c in contracts:
-    #         self.assertIsNotNone(c.search_index)
-    #     self.assertNotIn('data_capture:upload_source_id', self.client.session)
+        contracts = Contract.objects.all()
+        self.assertEqual(len(contracts), 3)
+        upload_source = BulkUploadContractSource.objects.all()[0]
+        self.assertTrue(upload_source.has_been_loaded)
+        for c in contracts:
+            self.assertIsNotNone(c.search_index)
+        self.assertNotIn('data_capture:upload_source_id', self.client.session)
 
-    # def test_old_contracts_are_deleted(self):
-    #     user = self.login()
-    #     other_source = BulkUploadContractSource.objects.create(
-    #         procurement_center=BulkUploadContractSource.REGION_10
-    #     )
-    #     Contract.objects.create(
-    #         min_years_experience=1,
-    #         hourly_rate_year1=20.20,
-    #         idv_piid='abc',
-    #         vendor_name='blah',
-    #         labor_category='whatever',
-    #         upload_source=other_source
-    #     )
-    #     self.setup_upload_source(user)
-    #     res = self.client.post(self.url)
-    #     self.assertRedirects(res, Region10UploadStep3Tests.url)
+    def test_old_contracts_are_deleted(self):
+        user = self.login()
+        other_source = BulkUploadContractSource.objects.create(
+            procurement_center=BulkUploadContractSource.REGION_10
+        )
+        Contract.objects.create(
+            min_years_experience=1,
+            hourly_rate_year1=20.20,
+            idv_piid='abc',
+            vendor_name='blah',
+            labor_category='whatever',
+            upload_source=other_source
+        )
+        self.setup_upload_source(user)
+        res = self.client.post(self.url)
+        self.assertRedirects(res, Region10UploadStep3Tests.url)
 
-    #     process_worker_jobs()
+        process_worker_jobs()
 
-    #     contracts = Contract.objects.all()
-    #     self.assertEqual(len(contracts), 3)
+        contracts = Contract.objects.all()
+        self.assertEqual(len(contracts), 3)
 
     def test_cancel_clears_session_and_redirects(self):
         user = self.login()
