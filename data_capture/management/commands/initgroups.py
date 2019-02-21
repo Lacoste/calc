@@ -66,7 +66,6 @@ class Command(BaseCommand):
             print(e)
    
 
-
     @transaction.atomic
     def handle(self, *args, **kwargs):
         self.verbosity = int(kwargs['verbosity'])
