@@ -11,9 +11,7 @@ def get_permissions_from_ns_codenames(ns_codenames):
     Returns a list of Permission objects for the specified namespaced codenames
     '''
     splitnames = [ns_codename.split('.') for ns_codename in ns_codenames]
-    print('split 0 is ' + splitnames[0] + ' and split 1 is ' + splitnames[1])
     return [
-        # self.stdout.write(f"codename is {codename} and app_label is {app_label}")
         Permission.objects.get(codename=codename,
                                content_type__app_label=app_label)
         for app_label, codename in splitnames
