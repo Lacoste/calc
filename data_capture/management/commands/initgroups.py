@@ -59,7 +59,7 @@ class Command(BaseCommand):
             self.stdout.write("  Group does not exist, creating it.")
             group = Group(name=groupname)
             group.save()
-        group.permissions = get_permissions_from_ns_codenames(self, perms)
+        group.permissions = get_permissions_from_ns_codenames(perms)
         group.save()
 
     @transaction.atomic
