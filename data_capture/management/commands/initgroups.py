@@ -62,8 +62,9 @@ class Command(BaseCommand):
         try:
             group.permissions = get_permissions_from_ns_codenames(perms)
             group.save()
-        except:
-            self.stdout.write("Failed to store permissions for group '%s'." % groupname)
+        except Exception as e:
+            print(e)
+   
 
 
     @transaction.atomic
