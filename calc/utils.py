@@ -6,12 +6,14 @@ from django.contrib.auth.models import Permission
 from django.utils.text import SafeText
 
 
-def get_permissions_from_ns_codenames(ns_codenames):
+def get_permissions_from_ns_codenames(self, ns_codenames):
     '''
     Returns a list of Permission objects for the specified namespaced codenames
     '''
     splitnames = [ns_codename.split('.') for ns_codename in ns_codenames]
+    self.stdout.write(f"split 0 {splitnames[0]} split 1 {splitnames[0]}")
     return [
+        # self.stdout.write(f"codename is {codename} and app_label is {app_label}")
         Permission.objects.get(codename=codename,
                                content_type__app_label=app_label)
         for app_label, codename in splitnames
