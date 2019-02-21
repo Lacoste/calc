@@ -63,6 +63,7 @@ class Command(BaseCommand):
             group.permissions = get_permissions_from_ns_codenames(perms)
             group.save()
         except Exception as e:
+            self.stderr.write("Error stroing group. " + e)
             print(e)
 
     @transaction.atomic
