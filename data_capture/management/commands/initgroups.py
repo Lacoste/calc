@@ -59,8 +59,12 @@ class Command(BaseCommand):
             self.stdout.write("  Group does not exist, creating it.")
             group = Group(name=groupname)
             group.save()
-        group.permissions = get_permissions_from_ns_codenames(perms)
-        group.save()
+        try:
+            group.permissions = get_permissions_from_ns_codenames(perms)
+            group.save()
+        except:
+            self.stdout.write("Failed to store permissions for group '%s'." % groupname)
+
 
     @transaction.atomic
     def handle(self, *args, **kwargs):
