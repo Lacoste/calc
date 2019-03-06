@@ -66,7 +66,7 @@
     "xhr": "^2.4.0"
   },
   "resolutions": {
-    "babel-core/**/lodash":"^4.17.11",
+    "babel-core/**/lodash": "^4.17.11",
     "redux/**/lodash": "^4.17.11",
     "gulp-uglify/**/lodash": "^4.17.11",
     "enzyme/**/lodash": "^4.17.11",
@@ -75,12 +75,14 @@
     "gulp-sass/**/lodash": "^4.17.11",
     "webpack-stream/**/lodash": "^4.17.11",
     "jest/**/lodash": "^4.17.11",
-    "jest/**/braces":"2.3.1",
-    "babel-jest/**/braces":"2.3.1",
+    "jest/**/braces": "2.3.1",
+    "babel-jest/**/braces": "2.3.1",
     "uswds/browserify/cached-path-relative": "1.0.2",
     "jest/jest-cli/yargs/os-locale/mem": "^4.0.0",
     "webpack/uglifyjs-webpack-plugin/cacache/chownr": "^1.1.0",
-    "jest/jest-cli/jest-haste-map/sane/exec-sh/merge":"^1.2.1"
+    "jest/jest-cli/jest-haste-map/sane/exec-sh/merge": "^1.2.1",
+    "jest/**/handlebars" :"4.0.13"
+
   },
   "scripts": {
     "gulp": "gulp",
