@@ -88,7 +88,7 @@
     "gulp": "gulp",
     "eslint": "eslint --max-warnings 0 --ext .jsx --ext .js .",
     "typescript": "tsc",
-    "test": "snyk test && jest",
+    "test": "jest",
     "test:watch": "jest --watch",
     "analyze-webpack": "webpack-bundle-analyzer -h 0.0.0.0 ./frontend/static/frontend/built/js/stats.json"
   },
@@ -118,8 +118,5 @@
     ],
     "coverageDirectory": "./coverage/jest/",
     "setupTestFrameworkScriptFile": "./frontend/source/js/data-explorer/tests/setup.js"
-  },
-  "devDependencies": {
-    "snyk": "^1.124.1"
   }
 }
