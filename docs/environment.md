@@ -109,9 +109,6 @@ These are useful for any kind of deployment of CALC.
   for the associated Google Analytics account.
   It will default to the empty string if not found in the environment.
 
-* `NEW_RELIC_LICENSE_KEY` is the private New Relic license key for this project.
-  If it is present, then the WSGI app will be wrapped with the  New Relic agent.
-
 * `SLACKBOT_WEBHOOK_URL` is the URL of a [Slack incoming webhook][] that
   will be sent messages whenever certain kinds of
   [events](../slackbot/signals.py) occur in the app.
