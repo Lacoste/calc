@@ -22,15 +22,6 @@ snippets included in HTML templates are in
 Please see these files for further documentation on how to track custom
 events, virtual pageviews, and more.
 
-#### New Relic
-
-If the `NEW_RELIC_LICENSE_KEY` environment variable has been set
-and the associated New Relic account has [New Relic Browser][]
-enabled, the New Relic Python agent will automatically
-inject JavaScript analytics script tags into CALC pages.
-
-[New Relic Browser]: https://docs.newrelic.com/docs/browser/new-relic-browser/getting-started/introduction-new-relic-browser
-
 ### Server
 
 When deploying via Cloud Foundry, Kibana
