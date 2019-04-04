@@ -95,7 +95,7 @@ See the [Identity Provider Service docs][IPS] for up-to-date information on its 
 #### User Provided Service (UPS)
 
 For cloud.gov deployments, this project makes use of a [User Provided Service (UPS)][UPS] to get its configuration
-variables, instead of using the local environment (except for [New Relic-related environment variables](#new-relic-environment-variables)).
+variables, instead of using the local environment.
 You will need to create a UPS called `calc-env`, provide 'credentials' to it, and link it to the
 application instance. This will need to be done for every Cloud Foundry `space`.
 
@@ -147,15 +147,6 @@ cf bind-service <APP_INSTANCE> calc-redis32
 ```
 
 For more information on cloud.gov's Redis service, see its [docs](https://cloud.gov/docs/services/redis/).
-
-### New Relic environment variables
-
-Basic New Relic configuration is done in [newrelic.ini](../newrelic.ini), with
-additional settings specified in each deployment environment's [manifest](../manifests/) file.
-
-As described in [Environment variables](environment.md), you will need
-to supply the `NEW_RELIC_LICENSE_KEY` as part of each deployment's
-[User Provided Service](#user-provided-service-ups).
 
 ### Deployed instances
 
