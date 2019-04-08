@@ -10,8 +10,9 @@ import {
   EDU_LABELS,
   SITE_LABELS,
   BUSINESS_SIZE_LABELS,
-  SCHEDULE_LABELS,
 } from '../constants';
+
+import { scheduleLabels } from '../schedule-metadata';
 
 import { formatCommas, stripTrailingComma } from '../util';
 
@@ -27,11 +28,12 @@ export function Description({
   laborCategory,
 }) {
   let results = ' results ';
+  const laborCategories = [];
   const filtersClasses = ['filters'];
   const filters = [];
 
   if (laborCategory) {
-    filters.push(
+    laborCategories.push(
       <DescriptionFilter key="lab">
         {stripTrailingComma(laborCategory)}
       </DescriptionFilter>,
@@ -41,7 +43,8 @@ export function Description({
   if (education.length) {
     filters.push(
       <DescriptionFilter
-        key="edu" label="education level"
+        key="edu"
+        label="education level"
         extraClassName="education-filter"
       >
         {education.map(x => EDU_LABELS[x]).join(', ')}
@@ -49,11 +52,16 @@ export function Description({
     );
   }
 
-  if (minExperience !== MIN_EXPERIENCE ||
-      maxExperience !== MAX_EXPERIENCE) {
+  if (minExperience !== MIN_EXPERIENCE
+      || maxExperience !== MAX_EXPERIENCE) {
     filters.push(
       <DescriptionFilter key="exp" label="experience">
-        {minExperience} - {maxExperience} years
+        {minExperience}
+        {' '}
+-
+        {maxExperience}
+        {' '}
+years
       </DescriptionFilter>,
     );
   }
@@ -77,7 +85,7 @@ export function Description({
   if (schedule) {
     filters.push(
       <DescriptionFilter key="sch" label="schedule">
-        {SCHEDULE_LABELS[schedule]}
+        {scheduleLabels[schedule]}
       </DescriptionFilter>,
     );
   }
@@ -88,19 +96,27 @@ export function Description({
     filtersClasses.push('hidden');
   }
 
-  // TODO: The original version of this faded-in (but never out)
-  // whenever it changed. We might want to do that too, or choose
-  // a different animation.
-
   return (
-    <p className="">
-      {`Showing ${formatCommas(shownResults)} of `}
-      <span className="total">{formatCommas(totalResults)}</span>
-      {results}
-      <span className={filtersClasses.join(' ')}>
-        {filters}
-      </span>
-    </p>
+    <div id="description">
+      <h4>
+        Hourly rate data
+        <span>
+          { laborCategories.length ? ' for ' : '' }
+        </span>
+        { laborCategories }
+      </h4>
+      <p>
+        { shownResults === totalResults ? '' : `Showing ${formatCommas(shownResults)} of ` }
+        <span className="total">
+          {formatCommas(totalResults)}
+        </span>
+        {results}
+
+        <span className={filtersClasses.join(' ')}>
+          {filters}
+        </span>
+      </p>
+    </div>
   );
 }
 

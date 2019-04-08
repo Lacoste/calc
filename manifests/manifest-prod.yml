@@ -18,11 +18,6 @@ applications:
     - route: calc.gsa.gov
     - route: calc-prod.app.cloud.gov
   command: bash cf.sh
-  env:
-    NEW_RELIC_APP_NAME: "CALC (production)"
-    NEW_RELIC_CONFIG_FILE: "newrelic.ini"
-    NEW_RELIC_ENV: "production"
-    NEW_RELIC_LOG: "stdout"
 
 - name: calc-rqworker
   <<: *defaults

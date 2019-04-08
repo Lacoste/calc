@@ -2,7 +2,9 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 from contracts.mommy_recipes import get_contract_recipe
 from model_mommy.recipe import seq
@@ -104,7 +106,9 @@ class DataExplorerTests(SeleniumTestCase):
         return self.driver
 
     def get_form(self):
-        return self.driver.find_element_by_id('search')
+        wait = WebDriverWait(self.driver, 10)
+        element = wait.until(EC.element_to_be_clickable((By.ID, 'search')))
+        return element
 
     def submit_form(self):
         form = self.get_form()
@@ -181,12 +185,9 @@ class DataExplorerTests(SeleniumTestCase):
         self.load('/styleguide/')
         axe.run_and_validate(self.driver)
 
-    def test_schedule_column_is_open_by_default(self):
-        get_contract_recipe().make(_quantity=5)
-        driver = self.load()
-        col_header = find_column_header(driver, 'schedule')
-
-        self.assertFalse(has_class(col_header, 'collapsed'))
+    def test_styleguide_docs_accessibility(self):
+        self.load('/styleguide/docs/')
+        axe.run_and_validate(self.driver)
 
     def test_schedule_column_is_last(self):
         get_contract_recipe().make(_quantity=5)
@@ -282,20 +283,6 @@ class DataExplorerTests(SeleniumTestCase):
             self.assertTrue('Engineer' in cell.text,
                             'found cell without "Engineer": "%s"' % cell.text)
 
-    def test_query_type_matches_phrase(self):
-        get_contract_recipe().make(_quantity=3, labor_category=cycle(
-            ['Systems Engineer I', 'Software Engineer II', 'Consultant II']))
-        driver = self.load()
-        self.wait_for(self.data_is_loaded)
-        self.search_for_query_type('software engineer', 'match_phrase')
-        self.submit_form_and_wait()
-        cells = driver.find_elements_by_css_selector(
-            'table.results tbody .column-labor_category')
-        self.assertEqual(
-            len(cells), 1, 'wrong cell count: %d (expected 1)' % len(cells))
-        self.assertEqual(cells[0].text, 'Software Engineer II',
-                         'bad cell text: "%s"' % cells[0].text)
-
     def test_query_type_matches_exact(self):
         get_contract_recipe().make(_quantity=3, labor_category=cycle(
             ['Software Engineer I', 'Software Engineer',
@@ -346,7 +333,10 @@ class DataExplorerTests(SeleniumTestCase):
             field_type = field.get_attribute('type')
             if field_type in ('checkbox', 'radio'):
                 for _field in fields:
-                    if _field.get_attribute('value') == value:
+                    # the exact match toggle changes value based on querytype,
+                    # but always possesses the name "match_exact"
+                    if _field.get_attribute('value') == value or \
+                            _field.get_attribute('name').find(value):
                         self.get_label_for_input(_field, form).click()
             else:
                 field.send_keys(str(value))

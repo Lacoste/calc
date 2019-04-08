@@ -1,5 +1,9 @@
+import bleach
+
+from markdown import markdown
 from typing import Any, List, Iterable
 from django.contrib.auth.models import Permission
+from django.utils.text import SafeText
 
 
 def get_permissions_from_ns_codenames(ns_codenames):
@@ -60,3 +64,22 @@ def humanlist(items: Iterable[str], word: str='and') -> str:
     if len(itemlist) < 2:
         return ''.join(items)
     return ', '.join(itemlist[:-1]) + f', {word} ' + itemlist[-1]
+
+
+def markdown_to_sanitized_html(text: str) -> SafeText:
+    '''
+    Render the given untrusted Markdown to sanitized HTML.
+
+    Examples:
+
+       >>> markdown_to_sanitized_html('hello **there** *u*')
+       '<p>hello <strong>there</strong> <em>u</em></p>'
+
+       >>> markdown_to_sanitized_html('<script>meh</script>')
+       '&lt;script&gt;meh&lt;/script&gt;'
+    '''
+
+    return SafeText(bleach.clean(
+        markdown(text),
+        tags=['p', 'strong', 'em']
+    ))

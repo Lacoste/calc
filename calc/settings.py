@@ -85,7 +85,6 @@ TEMPLATES = [{
     'APP_DIRS': True,
     'OPTIONS': {
         'context_processors': [
-            'calc.context_processors.canonical_url',
             'calc.context_processors.show_debug_ui',
             'calc.context_processors.google_analytics_tracking_id',
             'calc.context_processors.help_email',
@@ -344,7 +343,11 @@ ENABLE_SEO_INDEXING = 'ENABLE_SEO_INDEXING' in os.environ
 SECURITY_HEADERS_ON_ERROR_ONLY = 'SECURITY_HEADERS_ON_ERROR_ONLY' in os.environ
 
 DATA_CAPTURE_SCHEDULES = (
+    'data_capture.schedules.region_10.Region10PriceList',
     'data_capture.schedules.s70.Schedule70PriceList',
+    'data_capture.schedules.s03fac.Schedule03FACPriceList',
+    'data_capture.schedules.s736.Schedule736PriceList',
+    'data_capture.schedules.region_3.Region3PriceList',
 )  # type: Tuple[str, ...]
 
 if DEBUG and not HIDE_DEBUG_UI:
@@ -411,6 +414,10 @@ DEBUG_TOOLBAR_PANELS = [
     'data_capture.panels.ScheduledJobsPanel',
 ]
 
+PRICE_LIST_ANALYSIS_FINDERS = [
+    'data_capture.analysis.finders.GteEduAndExpFinder',
+]
+
 if DEBUG:
     INSTALLED_APPS += (
         'django.contrib.admindocs',
@@ -444,6 +451,9 @@ ADMIN_REORDER = (
             'model': 'data_capture.AttemptedPriceListSubmission',
             'label': 'Replay uncompleted price list submission attempts'
         },
+    )},
+    {'app': 'contracts', 'label': 'Contracting Metadata', 'models': (
+        {'model': 'contracts.ScheduleMetadata', 'label': 'Available schedules'},
     )},
     {'app': 'auth', 'label': 'Authentication and authorization', 'models': (
         'auth.User',

@@ -2,6 +2,7 @@ import json
 
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.http import HttpResponseBadRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
@@ -71,6 +72,20 @@ def clear_gleaned_data_if_different_schedule(request):
         del sess[SESSION_KEY]['gleaned_data']
 
 
+def tutorial(request):
+    from ..schedules.s70 import Schedule70PriceList
+
+    upload_example_info = render_to_string(
+        Schedule70PriceList.upload_example_template,
+        Schedule70PriceList.get_upload_example_context()
+    )
+
+    return render(request, 'data_capture/tutorial.html', {
+        'current_selected_tab': 'upload_price_data',
+        'upload_example_info': upload_example_info,
+    })
+
+
 @steps.step(label='Basic information')
 @login_required
 @permission_required(PRICE_LIST_UPLOAD_PERMISSION, raise_exception=True)
@@ -103,10 +118,9 @@ def step_1(request, step):
             details_url = build_url('data_capture:price_list_details',
                                     reverse_kwargs={'id': latest.pk})
             msg = mark_safe(  # nosec
-                "We found an existing price list for contract number {}.</br>"
-                "If you'd like, you may "
-                "<a href='{}'>see its details</a>.".format(
-                    escape(contract_number), details_url))
+                "We found an <a href='{}' target='_blank'>existing price list</a> "
+                "for contract number {}.".format(
+                    details_url, escape(contract_number)))
             messages.add_message(request, messages.ERROR, msg)
         else:
             add_generic_form_error(request, form)

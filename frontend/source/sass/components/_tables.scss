@@ -21,9 +21,9 @@ table {
   tbody {
     tr {
       &:nth-child(odd) {
-        background: #f9f9f9;
+        background: $color-gray-lightest;
         td.sorted {
-          background: #f0f0f0;
+          background: $color-gray-lighter;
         }
       }
     }
@@ -51,17 +51,31 @@ table {
   &.price-list-table,
   &#result_list {
     thead {
+      .umbrella-header th {
+        border-bottom: none;
+        border-top: none;
+        color: $color-gray;
+        font-size: $small-font-size;
+        &:first-child,
+        &:last-child {
+          padding-bottom: $space-half;
+          padding-left: 0;
+        }
+      }
       th {
+        color: $color-gray-dark;
         position: relative;
         vertical-align: top;
-        color: $color-gray;
-        border-bottom: 2px solid;
-        border-top: 2px solid;
+        border-bottom: 2px solid $color-gray-medium;
+        border-top: 2px solid $color-gray-medium;
         &.sortable {
-          text-decoration: underline;
+          color: $color-blue;
+          text-decoration: none;
           cursor: pointer;
-          padding-right: 1.5em;
           padding-bottom: 1.3em;
+          &:hover {
+            text-decoration: underline;
+          }
           &:after {
             display: inline-block;
             line-height: 1em;
@@ -69,7 +83,6 @@ table {
             position: absolute;
             padding-right: 0;
             margin-top: -.5em;
-            margin-right: .25em;
             font-weight: normal;
             font-size: .9em;
           }
@@ -78,8 +91,8 @@ table {
           text-align: right;
         }
         &.sorted {
-          color: $color-black;
-          background: #f8f8f8;
+          color: $color-gray-dark;
+          background: $color-gray-lightest;
           position: relative;
           &:after {
             content: "▲";
@@ -100,12 +113,13 @@ table {
     tbody {
       tr {
         &:hover > * {
-          background: $color-gold-lightest !important;
+          background: $color-green-lightest !important;
         }
       }
     }
   }
 }
+
 .price-list-table {
   td,
   td:first-child,
@@ -134,13 +148,47 @@ table {
   th:first-child,
   th:last-child {
     position: relative;
-    padding: $space-2x $space-1x;
+    padding: $space-2x $space-2x;
     vertical-align: top;
   }
 }
 
+.table-gap {
+  border-right: 8px solid white;
+}
+
 td.sorted {
-  background: #fafafa;
+  background: $color-gray-lightest;
+}
+
+/* price analysis results styles */
+.analysis {
+  td {
+    border-bottom: 3px solid white;
+    &:first-of-type {
+      font-weight: $font-weight-bold;
+    }
+    span {
+      font-weight: $font-weight-normal;
+    }
+  }
+  td.table-error-severe {
+    background-color: $color-red-lightest;
+    font-weight: $font-weight-bold;
+    padding-left: 1.5rem;
+    span {
+      font-weight: $font-weight-normal;
+    }
+    &:before {
+      background-color: $color-red-dark;
+      content: '';
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 4px;
+    }
+  }
 }
 
 /* used on price list upload error page */
@@ -245,6 +293,7 @@ th.exclude a.restore {
   position: absolute;
   font-size: 1rem;
   margin-bottom: $space-1x;
+  margin-left: $space-2x;
   padding: 2px 0;
   text-transform: uppercase;
   text-decoration: underline;
@@ -270,7 +319,8 @@ th.number {
 }
 
 
-td.number {
+td.number,
+.number {
   font-family: $font-family-mono;
   text-align: right;
   &.number--currency:before {
@@ -296,7 +346,9 @@ td.number {
 /* Some labor categories (especially the "interpreter" categories)
  * are incredibly long, so we should limit the width. */
 th.column-labor_category {
+  font-weight: $font-weight-bold;
   word-wrap: break-word;
+  padding-left: 0;
   overflow-wrap: break-word;
   max-width: 22rem;
 }

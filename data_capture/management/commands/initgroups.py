@@ -6,6 +6,7 @@ from calc.utils import get_permissions_from_ns_codenames
 
 BULK_UPLOAD_PERMISSION = 'contracts.add_bulkuploadcontractsource'
 PRICE_LIST_UPLOAD_PERMISSION = 'data_capture.add_submittedpricelist'
+ANALYZE_PRICES_PERMISSION = PRICE_LIST_UPLOAD_PERMISSION  # May change later.
 VIEW_ATTEMPT_PERMISSION = 'data_capture.change_attemptedpricelistsubmission'
 
 ROLES = {}
@@ -14,9 +15,13 @@ ROLES = {}
 # the "Authentication and Authorization" section of docs/auth.md.
 
 ROLES['Data Administrators'] = set([
+    ANALYZE_PRICES_PERMISSION,
     'auth.add_user',
     'auth.change_user',
     BULK_UPLOAD_PERMISSION,
+    'contracts.add_schedulemetadata',
+    'contracts.change_schedulemetadata',
+    'contracts.delete_schedulemetadata',
     'data_capture.change_submittedpricelist',
     'data_capture.change_submittedpricelistrow',
     'data_capture.change_unreviewedpricelist',
@@ -26,6 +31,7 @@ ROLES['Data Administrators'] = set([
 ])
 
 ROLES['Contract Officers'] = set([
+    ANALYZE_PRICES_PERMISSION,
     PRICE_LIST_UPLOAD_PERMISSION,
     'data_capture.add_submittedpricelistrow',
 ])
@@ -53,8 +59,12 @@ class Command(BaseCommand):
             self.stdout.write("  Group does not exist, creating it.")
             group = Group(name=groupname)
             group.save()
-        group.permissions = get_permissions_from_ns_codenames(perms)
-        group.save()
+        try:
+            group.permissions = get_permissions_from_ns_codenames(perms)
+            group.save()
+        except Exception as e:
+            self.stderr.write(f"Error stroing group  {e}.")
+            print(e)
 
     @transaction.atomic
     def handle(self, *args, **kwargs):

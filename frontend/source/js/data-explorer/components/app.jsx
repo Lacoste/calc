@@ -1,3 +1,5 @@
+/* eslint-disable react/button-has-type, jsx-a11y/anchor-is-valid */
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -14,13 +16,14 @@ import { trackEvent } from '../../common/ga';
 import Description from './description';
 import Highlights from './highlights';
 import Histogram from './histogram';
-import ProposedPrice from './proposed-price';
 import ExportData from './export-data';
 import ResultsTable from './results-table';
+import ProposedPrice from './proposed-price';
 import QueryType from './query-type';
 import LoadableOptionalFilters from './optional-filters/loadable-optional-filters';
 import LaborCategory from './labor-category';
 import LoadingIndicator from './loading-indicator';
+import SearchCategory from './search-category';
 import TitleTagSynchronizer from './title-tag-synchronizer';
 
 import { autobind } from '../util';
@@ -88,26 +91,23 @@ class App extends React.Component {
         id={prefixId('search')}
         className={classNames(this.getContainerClassNames())}
         onSubmit={this.handleSubmit}
-        role="form"
       >
-        <div className="row">
-          <p className="help-text columns nine">
-            Enter your search terms below, separated by commas.
-            {' '}
-            (For example: Engineer, Consultant)
-          </p>
-        </div>
-        <div className="row">
-          <div className="columns nine">
+        <div className="row card dominant">
+          <div className="search-header columns twelve content">
+            <h2>
+              Search CALC
+            </h2>
             <TitleTagSynchronizer />
             <section className="search">
               <div className="container clearfix">
                 <div className="row">
                   <div className="twelve columns">
+                    <SearchCategory />
                     <LaborCategory api={this.props.api}>
-                      <button className="submit usa-button-primary">
-                        Search
-                      </button>
+                      <button
+                        className="submit usa-button-primary icon-search"
+                        aria-label="Search CALC"
+                      />
                       {' '}
                       <input
                         onClick={this.handleResetClick}
@@ -118,29 +118,28 @@ class App extends React.Component {
                     </LaborCategory>
                   </div>
                   <div className="twelve columns">
-                    <div id={prefixId('query-types')}>
-                      <QueryType />
-                    </div>
+                    <QueryType />
                   </div>
                 </div>
               </div>
             </section>
+          </div>
+        </div>
+        <div className="row card secondary">
+          <div className="columns nine">
 
             <div className="graph-block">
               {/* for converting the histogram into an img --> */}
               <canvas
                 ref={(el) => { this.canvasEl = el; }}
                 id={prefixId('graph') /* Selenium needs it. */}
-                className="hidden" width="710" height="280"
+                className="hidden"
+                width="710"
+                height="280"
               />
 
-              <div id={prefixId('description')}>
-                <Description />
-              </div>
+              <Description />
 
-              <h4>Hourly rate data</h4>
-
-              <ProposedPrice />
               <LoadingIndicator />
 
               <div className="graph">
@@ -149,24 +148,21 @@ class App extends React.Component {
                 </div>
               </div>
 
-              <Highlights />
+              <div className="highlights-container">
+                <Highlights />
+                <ProposedPrice />
+              </div>
 
-              <div className="download-buttons row">
-                <div className="four columns">
-                  <a
-                    className="usa-button usa-button-primary"
-                    id={prefixId('download-histogram') /* Selenium needs it. */}
-                    href=""
-                    onClick={this.handleDownloadClick}
-                  >
-                    ⬇ Download graph
-                  </a>
-                </div>
-
-                <div>
-                  <ExportData />
-                </div>
-
+              <div className="">
+                <a
+                  className="usa-button usa-button-primary"
+                  id={prefixId('download-histogram') /* Selenium needs it. */}
+                  href=""
+                  onClick={this.handleDownloadClick}
+                >
+                  ⬇ Download graph
+                </a>
+                <ExportData />
                 <p className="help-text">
                   The rates shown here are fully burdened, applicable
                   {' '}
@@ -182,7 +178,9 @@ class App extends React.Component {
 
           <div className="filter-container columns three">
             <div className="filter-block">
-              <h5 className="filter-title">Optional filters</h5>
+              <h5 className="filter-title">
+Optional filters
+              </h5>
               <LoadableOptionalFilters />
             </div>
           </div>

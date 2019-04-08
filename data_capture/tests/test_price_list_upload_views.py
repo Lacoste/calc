@@ -3,7 +3,7 @@ from datetime import datetime
 
 from model_mommy import mommy
 from django.utils import timezone
-from django.test import override_settings
+from django.test import override_settings, TestCase
 from freezegun import freeze_time
 
 from ..models import SubmittedPriceList, AttemptedPriceListSubmission
@@ -66,7 +66,13 @@ class PriceListStepTestCase(StepTestCase):
         return super().login(**kwargs)
 
 
-class Step1Tests(PriceListStepTestCase, HandleCancelMixin):
+class TutorialTests(TestCase):
+    def test_get_is_ok(self):
+        res = self.client.get('/data-capture/tutorial')
+        self.assertEqual(res.status_code, 200)
+
+
+class Step1Tests(PriceListStepTestCase):
     url = '/data-capture/step/1'
 
     valid_form = {
@@ -159,8 +165,11 @@ class Step1Tests(PriceListStepTestCase, HandleCancelMixin):
         self.assertEqual(res.status_code, 200)
         self.assertContains(res, 'A price list with this contract number has '
                                  'already been submitted.')
-        self.assertContains(res, 'We found an existing price list for '
-                                 'contract number gs-boop.')
+        self.assertContains(res, 'We found an <a href=')
+        self.assertContains(
+            res,
+            'existing price list</a> for contract number gs-boop.'
+        )
 
     def test_duplicate_contract_post_message_contract_num_is_escaped(self):
         mommy.make(SubmittedPriceList,
@@ -170,8 +179,11 @@ class Step1Tests(PriceListStepTestCase, HandleCancelMixin):
             'schedule': FAKE_SCHEDULE,
             'contract_number': '<boop>'})
         self.assertEqual(res.status_code, 200)
-        self.assertContains(res, 'We found an existing price list for '
-                                 'contract number &lt;boop&gt;.')
+        self.assertContains(res, 'We found an <a href=')
+        self.assertContains(
+            res,
+            'existing price list</a> for contract number &lt;boop&gt;.'
+        )
 
 
 class Step2Tests(PriceListStepTestCase, HandleCancelMixin):

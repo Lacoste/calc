@@ -82,17 +82,24 @@ jobs:
             nvm install $CI_NODE_VERSION
 
       - run:
+          name: Uninstall any old version of gulp (only needed for upgrade)
+          command: |
+            npm rm --g gulp
+      
+      - run:
           name: Install yarn and gulp
           command: |
             npm install -g yarn gulp-cli
+      
+      - run:
+          name: Ensure gulp4 is installed
+          command: |
+            npm install -g gulp4
 
-
-      - restore_cache:
-          key: v1-node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install node dependencies
           command: |
-            yarn --pure-lockfile
+            yarn --frozen-lockfile
       - save_cache:
           name: Save node deps cache
           key: v1-node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
@@ -117,7 +124,7 @@ jobs:
           name: Build front end and run front end tests
           command: |
             yarn gulp build
-            yarn test
+            yarn test --runInBand
 
       - run:
           name: CodeClimate before-build
@@ -148,12 +155,6 @@ jobs:
           command: |
             if [[ "${CIRCLE_BRANCH}" == "develop" ]]; then
               DEPLOY_ENV=dev ./.circleci/deploy-circle.sh
-            fi
-      - deploy:
-          name: Deploy to staging
-          command: |
-            if [[ "${CIRCLE_BRANCH}" == "staging" ]]; then
-              DEPLOY_ENV=staging ./.circleci/deploy-circle.sh
             fi
       - deploy:
           name: Deploy to prod

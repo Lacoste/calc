@@ -109,8 +109,11 @@ class GetRatesTests(TestCase):
                                   'business_size': None}])
 
     def test_multi_word_search_results__miss(self):
+        """
+        Should return an empty set if no words in the query match
+        """
         self.make_test_set()
-        resp = self.c.get(self.path, {'q': 'legal advice'})
+        resp = self.c.get(self.path, {'q': 'bear advice'})
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.data['results'], [])
 
@@ -287,7 +290,6 @@ class GetRatesTests(TestCase):
         resp = self.c.get(
             self.path, {'min_education': 'AA', 'sort': 'education_level'})
         self.assertEqual(resp.status_code, 200)
-
         # if this is working properly, it does not include HS in the results
         self.assertResultsEqual(resp.data['results'], [
             {'idv_piid': 'ABC1234',
@@ -556,6 +558,9 @@ class GetRatesTests(TestCase):
                                   'business_size': None}])
 
     def test_filter_by_zero_experience(self):
+        """
+        Should filter out any results that require greater than 0 experience
+        """
         self.make_test_set()
 
         mommy.make(
@@ -934,6 +939,74 @@ class GetRatesTests(TestCase):
                                   'min_years_experience': 10,
                                   'hourly_rate_year1': 18.0,
                                   'current_price': 18.0,
+                                  'schedule': None,
+                                  'contractor_site': None,
+                                  'business_size': None}])
+
+    def test_query_by_vendor_name(self):
+        self.make_test_set()
+        resp = self.c.get(
+            self.path, {'q': 'ACME', 'query_by': 'vendor_name'})
+        self.assertEqual(resp.status_code, 200)
+
+        self.assertResultsEqual(resp.data['results'],
+                                [{'idv_piid': 'ABC123',
+                                  'vendor_name': 'ACME Corp.',
+                                  'labor_category': 'Legal Services',
+                                  'education_level': None,
+                                  'min_years_experience': 10,
+                                  'hourly_rate_year1': 18.0,
+                                  'current_price': 18.0,
+                                  'schedule': None,
+                                  'contractor_site': None,
+                                  'business_size': None}])
+
+        resp = self.c.get(
+            self.path, {'q': 'numbers', 'query_by': 'vendor_name'})
+        self.assertEqual(resp.status_code, 200)
+
+        self.assertResultsEqual(resp.data['results'],
+                                [{'idv_piid': 'ABC234',
+                                  'vendor_name': 'Numbers R Us',
+                                  'labor_category': 'Accounting, CPA',
+                                  'education_level': 'Masters',
+                                  'min_years_experience': 5,
+                                  'hourly_rate_year1': 50.0,
+                                  'current_price': 50.0,
+                                  'schedule': None,
+                                  'contractor_site': None,
+                                  'business_size': None}])
+
+    def test_query_by_vendor_id(self):
+        self.make_test_set()
+        resp = self.c.get(
+            self.path, {'q': 'ABC123', 'query_by': 'idv_piid'})
+        self.assertEqual(resp.status_code, 200)
+
+        self.assertResultsEqual(resp.data['results'],
+                                [{'idv_piid': 'ABC123',
+                                  'vendor_name': 'ACME Corp.',
+                                  'labor_category': 'Legal Services',
+                                  'education_level': None,
+                                  'min_years_experience': 10,
+                                  'hourly_rate_year1': 18.0,
+                                  'current_price': 18.0,
+                                  'schedule': None,
+                                  'contractor_site': None,
+                                  'business_size': None}])
+
+        resp = self.c.get(
+            self.path, {'q': 'ABC234', 'query_by': 'idv_piid'})
+        self.assertEqual(resp.status_code, 200)
+
+        self.assertResultsEqual(resp.data['results'],
+                                [{'idv_piid': 'ABC234',
+                                  'vendor_name': 'Numbers R Us',
+                                  'labor_category': 'Accounting, CPA',
+                                  'education_level': 'Masters',
+                                  'min_years_experience': 5,
+                                  'hourly_rate_year1': 50.0,
+                                  'current_price': 50.0,
                                   'schedule': None,
                                   'contractor_site': None,
                                   'business_size': None}])

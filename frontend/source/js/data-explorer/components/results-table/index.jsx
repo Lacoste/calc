@@ -9,22 +9,18 @@ import * as LaborCategoryColumn from './labor-category-column';
 import * as EducationColumn from './education-column';
 import * as ExperienceColumn from './experience-column';
 import * as PriceColumn from './price-column';
-import * as ContractNumberColumn from './contract-number-column';
+import * as VendorColumn from './vendor';
 
 const COLUMNS = [
   ExcludedColumn,
   LaborCategoryColumn,
+  PriceColumn,
   EducationColumn,
   ExperienceColumn,
-  PriceColumn,
-  ContractNumberColumn,
-  createSortableColumn({
-    key: 'vendor_name',
-    title: 'Vendor',
-  }),
+  VendorColumn,
   createSortableColumn({
     key: 'schedule',
-    title: 'Schedule',
+    title: 'Contract vehicle',
   }),
 ];
 
@@ -69,7 +65,9 @@ export class ResultsTable extends React.Component {
         <tfoot>
           <tr>
             <td colSpan={COLUMNS.length} className="results-table_return-link">
-              <a href={idHref}>Return to the top</a>
+              <a href={idHref}>
+Return to the top
+              </a>
             </td>
           </tr>
         </tfoot>
