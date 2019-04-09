@@ -13,7 +13,7 @@ if [ "$DEPLOY_ENV" == "dev" ]; then
   DEPLOY_USER=$CF_DEV_USER
   DEPLOY_PASS=$CF_DEV_PASSWORD
   SPACE=dev
-if [ "$DEPLOY_ENV" == "dev" ]; then
+elif [ "$DEPLOY_ENV" == "dev" ]; then
   DEPLOY_USER=$CF_DEV_USER
   DEPLOY_PASS=$CF_DEV_PASSWORD
   SPACE=staging
