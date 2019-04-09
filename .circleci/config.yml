@@ -160,7 +160,7 @@ jobs:
           name: Deploy to staging
           command: |
             if [[ "${CIRCLE_BRANCH}" == "staging" ]]; then
-              DEPLOY_ENV=dev ./.circleci/deploy-circle.sh
+              DEPLOY_ENV=staging ./.circleci/deploy-circle.sh
             fi
       - deploy:
           name: Deploy to prod
