@@ -1,6 +1,6 @@
 {
   "name": "calc",
-  "version": "v1.15.2",
+  "version": "1.0.0",
   "private": true,
   "description": "An estimator for hourly rates on professional services contracts",
   "dependencies": {
@@ -61,7 +61,7 @@
     "uswds": "1.6.9",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.4.1",
-    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-bundle-analyzer": "2.13.1",
     "webpack-stream": "^4.0.3",
     "xhr": "^2.4.0"
   },
@@ -83,9 +83,9 @@
     "jest/jest-cli/yargs/os-locale/mem": "^4.0.0",
     "webpack/uglifyjs-webpack-plugin/cacache/chownr": "^1.1.0",
     "jest/jest-cli/jest-haste-map/sane/exec-sh/merge": "^1.2.1",
-    "jest/**/handlebars": "^4.1.2",
-    "jest/**/js-yaml": "^3.13.1",
-    "eslint/js-yaml": "^3.13.1"
+    "jest/**/handlebars" :"^4.1.2",
+    "jest/**/js-yaml" :"^3.13.1",
+    "eslint/js-yaml" :"^3.13.1"
   },
   "scripts": {
     "gulp": "gulp",
@@ -106,7 +106,7 @@
   },
   "homepage": "https://github.com/18F/CALC#readme",
   "engines": {
-    "node": ">=6.15.0 <7.0",
+    "node": ">=6.13 <7.0",
     "npm": ">=3.10.0"
   },
   "jest": {
