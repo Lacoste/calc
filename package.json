@@ -61,7 +61,7 @@
     "uswds": "1.6.9",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.4.1",
-    "webpack-bundle-analyzer": "2.13.1",
+    "webpack-bundle-analyzer": "3.3.2",
     "webpack-stream": "^4.0.3",
     "xhr": "^2.4.0"
   },
