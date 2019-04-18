@@ -61,7 +61,7 @@
     "uswds": "1.6.9",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.4.1",
-    "webpack-bundle-analyzer": "2.13.1",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-stream": "^4.0.3",
     "xhr": "^2.4.0"
   },
@@ -106,7 +106,7 @@
   },
   "homepage": "https://github.com/18F/CALC#readme",
   "engines": {
-    "node": ">=6.13 <7.0",
+    "node": ">=6.16.0 <7.0",
     "npm": ">=3.10.0"
   },
   "jest": {
