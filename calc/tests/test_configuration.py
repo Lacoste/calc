@@ -66,7 +66,7 @@ class NodeVersionTests(TestCase):
     the same Node version.
     '''
 
-    version = Version('6.13', partial=True)
+    version = Version('6.14.4', partial=True)
 
     def test_package_json(self):
         with open(path('package.json')) as f:

@@ -44,7 +44,7 @@
     "gulp-uglify": "^3.0.1",
     "gulp-util": "^3.0.7",
     "jest": "23.5.0",
-    "jquery": "3.2.1",
+    "jquery": "3.4.0",
     "prop-types": "^15.6.1",
     "raf": "^3.4.0",
     "rc-slider": "^8.6.1",
@@ -60,7 +60,7 @@
     "uswds": "1.6.9",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.4.1",
-    "webpack-bundle-analyzer": "2.13.1",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-stream": "^4.0.3",
     "xhr": "^2.4.0"
   },
@@ -74,6 +74,8 @@
     "eslint/**/lodash": "^4.17.11",
     "bourbon-neat/**/lodash": "^4.17.11",
     "gulp-sass/**/lodash": "^4.17.11",
+    "gulp-sass/**/tar": "^4.4.2",
+    "bourbon-neat/**/tar": "^4.4.2",
     "webpack-stream/**/lodash": "^4.17.11",
     "jest/**/lodash": "^4.17.11",
     "jest/**/braces":"2.3.1",
@@ -82,9 +84,9 @@
     "jest/jest-cli/yargs/os-locale/mem": "^4.0.0",
     "webpack/uglifyjs-webpack-plugin/cacache/chownr": "^1.1.0",
     "jest/jest-cli/jest-haste-map/sane/exec-sh/merge": "^1.2.1",
-    "jest/**/handlebars" :"4.0.13",
-    "jest/**/js-yaml" :"^3.13.0",
-    "eslint/js-yaml" :"^3.13.0"
+    "jest/**/handlebars" :"^4.1.2",
+    "jest/**/js-yaml" :"^3.13.1",
+    "eslint/js-yaml" :"^3.13.1"
   },
   "scripts": {
     "gulp": "gulp",
@@ -105,7 +107,7 @@
   },
   "homepage": "https://github.com/18F/CALC#readme",
   "engines": {
-    "node": ">=6.13 <7.0",
+    "node": ">=6.14.4 <7.0",
     "npm": ">=3.10.0"
   },
   "jest": {
