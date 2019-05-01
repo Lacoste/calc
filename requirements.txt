@@ -30,3 +30,4 @@ bleach>=2.1.4
 # Needed for price list analysis
 nltk==3.3
 xlsxwriter==0.9.6
+urllib3>=1.25.2
