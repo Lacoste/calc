@@ -85,7 +85,9 @@
     "jest/jest-cli/jest-haste-map/sane/exec-sh/merge": "^1.2.1",
     "jest/**/handlebars" :"^4.1.2",
     "jest/**/js-yaml" :"^3.13.1",
-    "eslint/js-yaml" :"^3.13.1"
+    "eslint/js-yaml" :"^3.13.1",
+    "gulp-sass/**/fstream" :"^1.0.12",
+    "bourbon-neat/**/fstream" :"^1.0.12"
   },
   "scripts": {
     "gulp": "gulp",
