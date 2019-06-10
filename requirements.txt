@@ -3,13 +3,14 @@ dj-database-url==0.4.2
 dj-email-url==0.1.0
 django-click==1.2.0
 Django==1.11.20
+django-session-timeout==0.0.4
 django-cors-headers==2.0.2
 django-debug-toolbar==1.6
 django-modeladmin-reorder==0.3.1
 djangorestframework>=3.9.1
 gunicorn==19.6.0
 psycopg2==2.7.3.2
-six==1.10.0
+six==1.12.0
 whitenoise==3.3.0
 requests>=2.20
 python-dotenv==0.6.3
