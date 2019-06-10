@@ -375,7 +375,7 @@ LOGIN_REDIRECT_URL = '/'
 # any dynamic content we give them, to ensure that stale content never
 # gets served to end-users.
 CACHE_MIDDLEWARE_SECONDS = 0
-SESSION_EXPIRE_SECONDS = 60 * 15  # 60*15=900 seconds = 15 minutes
+SESSION_EXPIRE_SECONDS = 60 * 2  # 60*15=900 seconds = 15 minutes
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 
 if not UAA_CLIENT_SECRET:
