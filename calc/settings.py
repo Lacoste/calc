@@ -132,7 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'debug_toolbar',
     'django_rq',
-
+    'session_security',
     'data_explorer',
     'contracts.apps.DefaultContractsApp',
     'data_capture.apps.{}'.format(DATA_CAPTURE_APP_CONFIG),
@@ -164,7 +164,6 @@ MIDDLEWARE_CLASSES = (
     'calc.middleware.ComplianceMiddleware',
     WHITENOISE_MIDDLEWARE,
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -180,6 +179,7 @@ MIDDLEWARE_CLASSES = (
     'calc.middleware.DebugOnlyDebugToolbarMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
     'admin_reorder.middleware.ModelAdminReorder',
+    'session_security.middleware.SessionSecurityMiddleware'
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -376,7 +376,11 @@ LOGIN_REDIRECT_URL = '/'
 # any dynamic content we give them, to ensure that stale content never
 # gets served to end-users.
 CACHE_MIDDLEWARE_SECONDS = 0
-SESSION_EXPIRE_SECONDS = 60 * 2  # 60*15=900 seconds = 15 minutes
+# seconds
+SESSION_SECURITY_WARN_AFTER = 60
+# seconds
+SESSION_SECURITY_EXPIRE_AFTER = 90
+
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 
 if not UAA_CLIENT_SECRET:
@@ -399,6 +403,10 @@ DEBUG_TOOLBAR_CONFIG = {
     ]),
     'SHOW_TOOLBAR_CALLBACK': 'calc.middleware.show_toolbar',
 }
+
+TEMPLATE_CONTEXT_PROCESSORS = [
+    'django.core.context_processors.request',
+]
 
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
