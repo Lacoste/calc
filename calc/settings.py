@@ -375,8 +375,10 @@ LOGIN_REDIRECT_URL = '/'
 # any dynamic content we give them, to ensure that stale content never
 # gets served to end-users.
 CACHE_MIDDLEWARE_SECONDS = 0
-SESSION_SECURITY_WARN_AFTER = 60  #  seconds
-SESSION_SECURITY_EXPIRE_AFTER = 90 #  seconds
+# seconds
+SESSION_SECURITY_WARN_AFTER = 60
+# seconds
+SESSION_SECURITY_EXPIRE_AFTER = 90
 
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 
