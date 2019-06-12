@@ -3,7 +3,6 @@ dj-database-url==0.4.2
 dj-email-url==0.1.0
 django-click==1.2.0
 Django==1.11.20
-django-session-timeout==0.0.4
 django-cors-headers==2.0.2
 django-debug-toolbar==1.6
 django-modeladmin-reorder==0.3.1
@@ -27,7 +26,7 @@ semantic_version==2.6.0
 coreapi==2.3.3
 django-uswds-forms==1.0.0
 bleach>=2.1.4
-
+django-session-security==2.6.5
 # Needed for price list analysis
 nltk==3.3
 xlsxwriter==0.9.6
