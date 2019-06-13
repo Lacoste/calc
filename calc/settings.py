@@ -170,9 +170,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'session_security.middleware.SessionSecurityMiddleware',
     'uaa_client.middleware.UaaRefreshMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'session_security.middleware.SessionSecurityMiddleware',
     # DjDT needs to be at the end of the middleware stack or else it can
     # cause issues with other middlewares' process_view methods
     # when the ProfilingPanel is enabled
