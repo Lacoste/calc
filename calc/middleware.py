@@ -7,8 +7,8 @@ from django.contrib.auth.signals import user_logged_out
 
 def iam_logged_out_actions(sender, user, request, **kwargs):
     print("Logging out: user = %s" % user)
-    request.session.flush()
-    return redirect_to_login(next=request.path)
+    request.session.clear()
+    request.session.set_expiry(-1)
 
 
 user_logged_out.connect(iam_logged_out_actions)
