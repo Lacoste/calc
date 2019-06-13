@@ -163,14 +163,15 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.cache.UpdateCacheMiddleware',
     'calc.middleware.ComplianceMiddleware',
     WHITENOISE_MIDDLEWARE,
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'uaa_client.middleware.UaaRefreshMiddleware',
     # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'session_security.middleware.SessionSecurityMiddleware',
+    'uaa_client.middleware.UaaRefreshMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # DjDT needs to be at the end of the middleware stack or else it can
     # cause issues with other middlewares' process_view methods
@@ -179,7 +180,6 @@ MIDDLEWARE_CLASSES = (
     'calc.middleware.DebugOnlyDebugToolbarMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
     'admin_reorder.middleware.ModelAdminReorder',
-    'session_security.middleware.SessionSecurityMiddleware'
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -377,9 +377,10 @@ LOGIN_REDIRECT_URL = '/'
 # gets served to end-users.
 CACHE_MIDDLEWARE_SECONDS = 0
 # seconds
-SESSION_SECURITY_WARN_AFTER = 60
+SESSION_SECURITY_WARN_AFTER = 20
 # seconds
-SESSION_SECURITY_EXPIRE_AFTER = 90
+SESSION_SECURITY_EXPIRE_AFTER = 30
+SESSION_SECURITY_PASSIVE_URL_NAMES = ['ignore']
 
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 
@@ -406,6 +407,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
 ]
 
 DEBUG_TOOLBAR_PANELS = [
