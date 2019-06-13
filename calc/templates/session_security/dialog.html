@@ -2,10 +2,16 @@
 
 <div id="session_security_warning" class="session_security" style="display:none" aria-hidden="true" role="dialog">
     <div class="session_security_overlay"></div>
-    <div class="session_security_modal" role="document" tabindex="-1">
-        <h2>{% trans 'Your session is about to expire!' %}</h2>
-        <p>{% trans 'Due to inactivity, you are going to be logged out soon' %}</p>
-        <p>{% trans 'Click or type to extend your session.' %}</p>
+    <div class="session_security_modal" role="document" style="margin-bottom: 25%" tabindex="-1">
+                <h3>{% trans 'Your session is about to expire!' %}</h3>
+                        <span>
+                                {% trans 'Due to inactivity, you are going to be logged out soon' %}
+                        </span>
+                        <br/>
+                        <span>
+                                {% trans 'Click or type to extend your session.' %}
+                        </span>
+        </div>
     </div>
 </div>
 
