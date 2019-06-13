@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import MiddlewareNotUsed
 from debug_toolbar.middleware import DebugToolbarMiddleware
 from django.contrib.auth.signals import user_logged_out
@@ -6,7 +7,9 @@ from django.contrib.auth.signals import user_logged_out
 
 def iam_logged_out_actions(sender, user, request, **kwargs):
     print("Logging out: user = %s" % user)
-    request.session.flush()
+    request.session.clear()
+    request.session.set_expiry(-1)
+    return redirect_to_login(next=request.path)
 
 
 user_logged_out.connect(iam_logged_out_actions)
