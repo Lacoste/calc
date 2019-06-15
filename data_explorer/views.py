@@ -23,6 +23,7 @@ def about(request):
 def index(request, template_vars=None):
     return render(request, 'index.html', template_vars or {})
 
+
 def uaa_logout(request):
     redirect_uri = request.build_absolute_uri(reverse('app_logout'))
     url = settings.UAA_LOGOUT_URL + '?' + urlencode({
@@ -32,9 +33,11 @@ def uaa_logout(request):
     print(url)
     return HttpResponseRedirect(url)
 
+
 def app_logout(request):
     django.contrib.auth.logout(request)
     return render(request, 'logged_out.html')
+
 
 def logout(request):
     django.contrib.auth.logout(request)
