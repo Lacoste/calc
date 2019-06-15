@@ -1,25 +1,12 @@
-try:
-    from django.core.urlresolvers import reverse  # NOQA  pragma: no cover
-except ImportError:  # pragma: no cover
-    # Django 2.0+
-    from django.urls import reverse  # NOQA  pragma: no cover
+
 from django.conf import settings
 from django.core.exceptions import MiddlewareNotUsed
 from debug_toolbar.middleware import DebugToolbarMiddleware
 from django.contrib.auth.signals import user_logged_out
-from urllib.parse import urlencode
-from django.http import HttpResponseRedirect
 
 
 def iam_logged_out_actions(sender, user, request, **kwargs):
-    request.session.flush()
-    redirect_uri = request.build_absolute_uri(reverse('/logged_out.html'))
-    url = settings.UAA_LOGOUT_URL + '?' + urlencode({
-        'client_id': settings.UAA_CLIENT_ID,
-        'redirect': redirect_uri,
-    })
-    return HttpResponseRedirect(url)
-
+    print("logging out: " + str(user))
 
 user_logged_out.connect(iam_logged_out_actions)
 
