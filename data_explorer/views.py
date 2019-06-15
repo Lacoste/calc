@@ -1,9 +1,16 @@
+try:
+    from django.core.urlresolvers import reverse  # NOQA  pragma: no cover
+except ImportError:  # pragma: no cover
+    # Django 2.0+
+    from django.urls import reverse  # NOQA  pragma: no cover
 import django.contrib.auth
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 from django.utils.crypto import get_random_string
-
+from django.conf import settings
+from urllib.parse import urlencode
 from contracts.models import ScheduleMetadata
+from django.http import HttpResponseRedirect
 
 
 def about(request):
@@ -17,9 +24,24 @@ def index(request, template_vars=None):
     return render(request, 'index.html', template_vars or {})
 
 
-def logout(request):
+def uaa_logout(request):
+    redirect_uri = request.build_absolute_uri(reverse('app_logout'))
+    url = settings.UAA_LOGOUT_URL + '?' + urlencode({
+        'client_id': settings.UAA_CLIENT_ID,
+        'redirect': redirect_uri,
+    })
+    print(url)
+    return HttpResponseRedirect(url)
+
+
+def app_logout(request):
     django.contrib.auth.logout(request)
     return render(request, 'logged_out.html')
+
+
+def logout(request):
+    django.contrib.auth.logout(request)
+    return uaa_logout(request)
 
 
 # TODO: Re-enable this eventually. Right now we can't use it because
