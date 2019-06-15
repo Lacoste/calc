@@ -14,7 +14,7 @@ import dj_database_url
 import dj_email_url
 from dotenv import load_dotenv
 from typing import Tuple, Any, Dict  # NOQA
-
+from urllib.parse import urlencode
 from .settings_utils import (load_cups_from_vcap_services,
                              load_redis_url_from_vcap_services,
                              is_running_tests)
