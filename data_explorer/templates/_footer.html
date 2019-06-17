@@ -13,7 +13,7 @@
             <p>You are logged in to CALC as {{ user.email }}, and can now <a href="{% url 'data_capture:step_1' %}">add price lists</a>.</p>
             <div class="footer__bottom-links">
               <p class="small"><a href="{% url 'user_account:index' %}">View activity</a>
-              <p class="small"><a href="{% url 'logout' %}">Log out</a></p>
+              <p class="small"><a href="{% url 'uaa_logout' %}">Log out</a></p>
             </div><p>
             {% endif %}
           </div>

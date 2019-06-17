@@ -25,7 +25,7 @@ def index(request, template_vars=None):
 
 
 def uaa_logout(request):
-    redirect_uri = request.build_absolute_uri(reverse('app_logout'))
+    redirect_uri = request.build_absolute_uri(reverse('logout'))
     url = settings.UAA_LOGOUT_URL + '?' + urlencode({
         'client_id': settings.UAA_CLIENT_ID,
         'redirect': redirect_uri,
@@ -34,14 +34,9 @@ def uaa_logout(request):
     return HttpResponseRedirect(url)
 
 
-def app_logout(request):
-    django.contrib.auth.logout(request)
-    return render(request, 'logged_out.html')
-
-
 def logout(request):
     django.contrib.auth.logout(request)
-    return uaa_logout(request)
+    return render(request, 'logged_out.html')
 
 
 # TODO: Re-enable this eventually. Right now we can't use it because
