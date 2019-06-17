@@ -21,7 +21,6 @@
     <![endif]-->
     {# load jquery and other shared scripts. Should consider moving to bottom. #}
     <script src="{% static 'frontend/built/js/common.js' %}"></script>
-    
     {% include 'analytics/ga.html' %}
     {% include 'frontend/safe_mode/script_tag.html' %}
 
@@ -44,12 +43,13 @@
 
     <main id="main" class="{% block main_class %}{% endblock %}">
       <div class="container">
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% endblock %}
       </div>
     </main>
 
-    {% block modals %}{% endblock modals %}
-
+    {% block modals %}  
+    {% endblock modals %}
     {% block footer %}
       {% include "_footer.html" %}
     {% endblock %}

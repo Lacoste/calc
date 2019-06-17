@@ -19,7 +19,6 @@
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
 </head>
 {% load i18n %}
-{% include 'session_security/all.html' %}
 <body class="{% if is_popup %}popup {% endif %}card--wide{% block bodyclass %}{% endblock %}">
 
   {% include "_banner.html" %}
