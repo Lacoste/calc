@@ -21,7 +21,6 @@ urlpatterns = [
     url(r'^about/$', data_explorer.views.about, name='about'),
     url(r'^logout/$', data_explorer.views.logout, name='logout'),
     url(r'^uaa_logout/$', data_explorer.views.uaa_logout, name='uaa_logout'),
-    url(r'^app_logout/$', data_explorer.views.app_logout, name='app_logout'),
     url(r'^safe-mode/', include('frontend.safe_mode', namespace='safe_mode')),
     url(r'^healthcheck/', healthcheck),
     url(r'^api/', include('api.urls')),
