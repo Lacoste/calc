@@ -391,6 +391,7 @@ if not UAA_CLIENT_SECRET:
         UAA_CLIENT_SECRET = 'fake-uaa-provider-client-secret'
         if not is_running_tests():
             UAA_AUTH_URL = UAA_TOKEN_URL = 'fake:'
+            UAA_LOGOUT_URL = '/logout'
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
