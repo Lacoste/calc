@@ -53,7 +53,9 @@
 
     {% block footer %}
       {% include "_footer.html" %}
+      {% if not HIDE_DEBUG_UI %}
       {% include 'session_security/all.html' %} 
+      {% endif %}
     {% endblock %}
 
     {% if not is_safe_mode_enabled %}
