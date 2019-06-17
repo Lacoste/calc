@@ -21,6 +21,7 @@
     <![endif]-->
     {# load jquery and other shared scripts. Should consider moving to bottom. #}
     <script src="{% static 'frontend/built/js/common.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     
     {% include 'analytics/ga.html' %}
     {% include 'frontend/safe_mode/script_tag.html' %}
@@ -52,6 +53,7 @@
 
     {% block footer %}
       {% include "_footer.html" %}
+      {% include 'session_security/all.html' %} 
     {% endblock %}
 
     {% if not is_safe_mode_enabled %}
