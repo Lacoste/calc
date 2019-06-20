@@ -1,6 +1,14 @@
 from django.conf import settings
 from django.core.exceptions import MiddlewareNotUsed
 from debug_toolbar.middleware import DebugToolbarMiddleware
+from django.contrib.auth.signals import user_logged_out
+
+
+def iam_logged_out_actions(sender, user, request, **kwargs):
+    print("logging out: " + str(user))
+
+
+user_logged_out.connect(iam_logged_out_actions)
 
 
 class ComplianceMiddleware:

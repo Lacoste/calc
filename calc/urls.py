@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^$', data_explorer.views.index, name='index'),
     url(r'^about/$', data_explorer.views.about, name='about'),
     url(r'^logout/$', data_explorer.views.logout, name='logout'),
+    url(r'^uaa_logout/$', data_explorer.views.uaa_logout, name='uaa_logout'),
     url(r'^safe-mode/', include('frontend.safe_mode', namespace='safe_mode')),
     url(r'^healthcheck/', healthcheck),
     url(r'^api/', include('api.urls')),
@@ -34,6 +35,7 @@ urlpatterns = [
     url(r'^robots.txt$', robots_txt),
     url(r'^updates/$', view_changelog, name='updates'),
     url(r'^auth/', include('uaa_client.urls', namespace='uaa_client')),
+    url(r'session_security/', include('session_security.urls')),
     url(r'^account/', include('user_account.urls', namespace='user_account')),
 ]
 

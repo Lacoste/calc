@@ -14,7 +14,6 @@ import dj_database_url
 import dj_email_url
 from dotenv import load_dotenv
 from typing import Tuple, Any, Dict  # NOQA
-
 from .settings_utils import (load_cups_from_vcap_services,
                              load_redis_url_from_vcap_services,
                              is_running_tests)
@@ -132,7 +131,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'debug_toolbar',
     'django_rq',
-
+    'session_security',
     'data_explorer',
     'contracts.apps.DefaultContractsApp',
     'data_capture.apps.{}'.format(DATA_CAPTURE_APP_CONFIG),
@@ -163,15 +162,16 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.cache.UpdateCacheMiddleware',
     'calc.middleware.ComplianceMiddleware',
     WHITENOISE_MIDDLEWARE,
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'uaa_client.middleware.UaaRefreshMiddleware',
     # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'uaa_client.middleware.UaaRefreshMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'session_security.middleware.SessionSecurityMiddleware',
     # DjDT needs to be at the end of the middleware stack or else it can
     # cause issues with other middlewares' process_view methods
     # when the ProfilingPanel is enabled
@@ -360,6 +360,8 @@ UAA_TOKEN_URL = 'https://uaa.fr.cloud.gov/oauth/token'
 
 UAA_CLIENT_ID = os.environ.get('UAA_CLIENT_ID', 'calc-dev')
 
+UAA_LOGOUT_URL = 'https://login.fr.cloud.gov/logout.do'
+
 UAA_CLIENT_SECRET = os.environ.get('UAA_CLIENT_SECRET')
 
 LOGIN_URL = 'uaa_client:login'
@@ -374,6 +376,13 @@ LOGIN_REDIRECT_URL = '/'
 # any dynamic content we give them, to ensure that stale content never
 # gets served to end-users.
 CACHE_MIDDLEWARE_SECONDS = 0
+# seconds
+SESSION_SECURITY_WARN_AFTER = 1500
+# seconds
+SESSION_SECURITY_EXPIRE_AFTER = 1800
+SESSION_SECURITY_PASSIVE_URL_NAMES = ['ignore']
+
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 
 if not UAA_CLIENT_SECRET:
     if DEBUG:
@@ -381,6 +390,7 @@ if not UAA_CLIENT_SECRET:
         UAA_CLIENT_SECRET = 'fake-uaa-provider-client-secret'
         if not is_running_tests():
             UAA_AUTH_URL = UAA_TOKEN_URL = 'fake:'
+            UAA_LOGOUT_URL = '/logout'
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
@@ -395,6 +405,11 @@ DEBUG_TOOLBAR_CONFIG = {
     ]),
     'SHOW_TOOLBAR_CALLBACK': 'calc.middleware.show_toolbar',
 }
+
+TEMPLATE_CONTEXT_PROCESSORS = [
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+]
 
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',

@@ -19,7 +19,7 @@ from datetime import datetime
 from . import axe
 from .utils import build_static_assets
 
-
+HIDE_DEBUG_UI = True
 WD_CHROME_ARGS = filter(None, os.environ.get('WD_CHROME_ARGS', '').split())
 
 _driver = None
