@@ -63,7 +63,8 @@
     "webpack": "^4.4.1",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-stream": "^4.0.3",
-    "xhr": "^2.4.0"
+    "xhr": "^2.4.0",
+    "snyk": "^1.192.4"
   },
   "resolutions": {
     "babel-core/**/lodash": "^4.17.11",
@@ -83,13 +84,13 @@
     "jest/jest-cli/yargs/os-locale/mem": "^4.0.0",
     "webpack/uglifyjs-webpack-plugin/cacache/chownr": "^1.1.0",
     "jest/jest-cli/jest-haste-map/sane/exec-sh/merge": "^1.2.1",
-    "jest/**/handlebars" :"^4.1.2",
-    "jest/**/js-yaml" :"^3.13.1",
-    "mixin-deep" :"^2.0.1",
-    "set-value" :"^3.0.1",
-    "eslint/js-yaml" :"^3.13.1",
-    "gulp-sass/**/fstream" :"^1.0.12",
-    "bourbon-neat/**/fstream" :"^1.0.12"
+    "jest/**/handlebars": "^4.1.2",
+    "jest/**/js-yaml": "^3.13.1",
+    "mixin-deep": "^2.0.1",
+    "set-value": "^3.0.1",
+    "eslint/js-yaml": "^3.13.1",
+    "gulp-sass/**/fstream": "^1.0.12",
+    "bourbon-neat/**/fstream": "^1.0.12"
   },
   "scripts": {
     "gulp": "gulp",
@@ -97,7 +98,9 @@
     "typescript": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
-    "analyze-webpack": "webpack-bundle-analyzer -h 0.0.0.0 ./frontend/static/frontend/built/js/stats.json"
+    "analyze-webpack": "webpack-bundle-analyzer -h 0.0.0.0 ./frontend/static/frontend/built/js/stats.json",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -125,5 +128,6 @@
     ],
     "coverageDirectory": "./coverage/jest/",
     "setupTestFrameworkScriptFile": "./frontend/source/js/data-explorer/tests/setup.js"
-  }
+  },
+  "snyk": true
 } 
