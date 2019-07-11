@@ -292,7 +292,9 @@ def get_contracts_queryset(request_params, wage_field):
             clean_field = bleach.clean(stripped, tags=[], strip=True)
             raise serializers.ValidationError(f'"{clean_field}" is not a valid field to sort on')
         if field not in SORTABLE_CONTRACT_FIELDS:
-            raise serializers.ValidationError(f'Unable to sort on the field "{field}"')
+            stripped = strip_tags(field)
+            clean_field = bleach.clean(stripped, tags=[], strip=True)
+            raise serializers.ValidationError(f'Unable to sort on the field "{clean_field}"')
 
     return contracts.order_by(*sort)
 
