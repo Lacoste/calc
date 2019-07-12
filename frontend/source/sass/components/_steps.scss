@@ -33,6 +33,10 @@
   }
 }
 
+select option:first-child{
+  font-weight: normal;
+}
+
 ol.steps {
   counter-reset: li;
   font-weight: 300;
