@@ -147,17 +147,18 @@ class App extends React.Component {
                   <Histogram ref={(el) => { this.histogram = el; }} />
                 </div>
               </div>
-              
-              
 
               <div className="highlights-container">
                 <Highlights />
                 <ProposedPrice />
               </div>
 
-              <div>
-                <p className="info-text"><b>Note: </b>68% of the prices fall between the +1 and -1 Standard Deviation.</p>
-              </div>
+              <div >
+                <p className="info-text">
+                  <b>Note: </b>
+                  68% of the prices fall between the +1 and -1 Standard Deviation.
+                </p>
+              </div>  
 
               <div className="">
                 <a
