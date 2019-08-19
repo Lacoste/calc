@@ -153,7 +153,7 @@ class App extends React.Component {
                 <ProposedPrice />
               </div>
 
-              <div >
+              <div>
                 <p className="info-text">
                   <b>Note: </b>
                   68% of the prices fall between the +1 and -1 Standard Deviation.
