@@ -8,6 +8,9 @@ to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][unreleased]
 
 ## 2019-08-20
+
+### Changed
+
 - Update Description on CALC pages. (#2317)
     - How can CALC help me?
     - Explanation of +/-1 standard deviation
@@ -15,7 +18,7 @@ to [Semantic Versioning](http://semver.org/).
 
 ## 2019-07-12
 
-### Changed
+### Added
 - As a 71IIK CO, I would like to be able to upload price lists to be able to view the data in CALC. (#2310)
 
 ## 2019-07-03
@@ -30,7 +33,7 @@ to [Semantic Versioning](http://semver.org/).
 
 ## 2019-06-20
 
-### Changed
+### Added
 - Implement Session Timeout For Admin Users. (#2298)
 
 ## 2019-05-23
