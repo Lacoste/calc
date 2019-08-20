@@ -166,6 +166,12 @@ h5.filter-title {
   font-size: $medium-font-size;
 }
 
+#search .info-text {
+  margin-top: 1rem;
+  margin-bottom: 1.6rem;
+  font-size: $medium-font-size;
+}
+
 @media (min-width: 550px) {
   .filter-container {
     float: right;
@@ -280,7 +286,7 @@ input[type="checkbox"]:checked ~ label {
 }
 
 .highlights-container {
-  margin-bottom: 2em;
+  margin-bottom: .5em;
   margin-top: 2em;
   text-align: center;
   position: relative;
