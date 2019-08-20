@@ -28,7 +28,7 @@ to [Semantic Versioning](http://semver.org/).
 ## 2019-06-25
 
 ### Changed
-- 2 high severity issue fixed (Reported by Synk tool). (#2300)
+- 2 high severity issues fixed (Reported by Synk tool). (#2300)
 
 ## 2019-06-20
 
@@ -78,7 +78,7 @@ to [Semantic Versioning](http://semver.org/).
 ## 2019-02-08
 
 ### Changed
-- 6 severity issues fixed (Reported by Synk tool). (#2262)
+- 6 security issues fixed (Reported by Synk tool). (#2262)
 
 ## [3.2.2][] - 2018-09-28
 
