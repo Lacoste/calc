@@ -6,7 +6,7 @@ import markdown
 
 from django.test import TestCase as DjangoTestCase
 from django.conf import settings
-#from semantic_version import Version
+# from semantic_version import Version
 from bs4 import BeautifulSoup
 
 from ..version import __version__
