@@ -23,12 +23,12 @@ to [Semantic Versioning](http://semver.org/).
 ## 2019-07-03
 
 ### Changed
-- 1 high severity issue Fix (Reported by Synk tool. Upgraded Django version to 1.11.21). (#2303)
+- 1 high severity issue fixed (Reported by Synk tool. Upgraded Django version to 1.11.21). (#2303)
 
 ## 2019-06-25
 
 ### Changed
-- 2 high severity issue fix (Reported by Synk tool). (#2300)
+- 2 high severity issue fixed (Reported by Synk tool). (#2300)
 
 ## 2019-06-20
 
@@ -38,7 +38,7 @@ to [Semantic Versioning](http://semver.org/).
 ## 2019-05-23
 
 ### Changed
-- 1 high severity issue fix (Reported by Synk tool). (#2284)
+- 1 high severity issue fixed (Reported by Synk tool). (#2284)
 
 ## 2019-05-16
 
@@ -48,12 +48,12 @@ to [Semantic Versioning](http://semver.org/).
 ## 2019-04-30
 
 ### Changed
-- 1 high severity issue fix (Reported by Synk tool). (#2277)
+- 1 high severity issue fixed (Reported by Synk tool). (#2277)
 
 ## 2019-04-19
 
 ### Changed
-- 3 high severity and 2 medium severity issue fix (Reported by Synk tool). (#2275)
+- 3 high severity and 2 medium severity issues fixed (Reported by Synk tool). (#2275)
 
 ## 2019-04-04
 
@@ -68,7 +68,7 @@ to [Semantic Versioning](http://semver.org/).
 ## 2019-03-07
 
 ### Changed
-- 1 high severity issue fix (Reported by Synk tool). (#2262)
+- 1 high severity issue fixed (Reported by Synk tool). (#2262)
 
 ## 2019-02-22
 
@@ -78,7 +78,7 @@ to [Semantic Versioning](http://semver.org/).
 ## 2019-02-08
 
 ### Changed
-- 6 severity issues fix (Reported by Synk tool). (#2262)
+- 6 severity issues fixed (Reported by Synk tool). (#2262)
 
 ## [3.2.2][] - 2018-09-28
 
