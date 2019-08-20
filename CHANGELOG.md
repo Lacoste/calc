@@ -7,9 +7,7 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
-## 2019-08-20
-
-### [4.0.0] Changed
+### [4.0.0] 2019-08-20 Changed
 - Update Description on CALC pages. (#2317)
     - How can CALC help me?
     - Explanation of +/-1 standard deviation
