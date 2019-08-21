@@ -8,75 +8,21 @@ to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][unreleased]
 
 ## 2019-08-20
-- Update Description on CALC pages. (#2317)
-    - How can CALC help me?
-    - Explanation of +/-1 standard deviation
-    - About CALC page
+
+### Changed
+
+- Updated Description on about CALC page. (#2317)
+- Explanation of +/-1 standard deviation.
 
 ## 2019-07-12
 
-### Changed
-- As a 71IIK CO, I would like to be able to upload price lists to be able to view the data in CALC. (#2310)
-
-## 2019-07-03
-
-### Changed
-- 1 high severity issue fixed (Reported by Synk tool. Upgraded Django version to 1.11.21). (#2303)
-
-## 2019-06-25
-
-### Changed
-- 2 high severity issues fixed (Reported by Synk tool). (#2300)
+### Added
+- Added New Price List Capture for Schedule 71IIK (Region 3) (#2310)
 
 ## 2019-06-20
 
-### Changed
-- Implement Session Timeout For Admin Users. (#2298)
-
-## 2019-05-23
-
-### Changed
-- 1 high severity issue fixed (Reported by Synk tool). (#2284)
-
-## 2019-05-16
-
-### Changed
-- Update Linux instances to cflinuxfs3 from cflinuxfs2. (#2281)
-
-## 2019-04-30
-
-### Changed
-- 1 high severity issue fixed (Reported by Synk tool). (#2277)
-
-## 2019-04-19
-
-### Changed
-- 3 high severity and 2 medium severity issues fixed (Reported by Synk tool). (#2275)
-
-## 2019-04-04
-
-### Changed
-- Removed New Relic from Calc App. (#2267)
-
-## 2019-03-29
-
-### Changed
-- Removed Beta Tag from master. (#2264)
-
-## 2019-03-07
-
-### Changed
-- 1 high severity issue fixed (Reported by Synk tool). (#2262)
-
-## 2019-02-22
-
-### Changed
-- RQ Scheduler Version Upgrade. (#2260)
-
-## 2019-02-08
-
-### Changed
-- 6 security issues fixed (Reported by Synk tool). (#2262)
+### Added
+- Added Session Timeout For Admin Users. (#2298)
 
 ## [3.2.2][] - 2018-09-28
 
