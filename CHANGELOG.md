@@ -11,15 +11,16 @@ to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Update Description on CALC pages. (#2317)
-    - How can CALC help me?
-    - Explanation of +/-1 standard deviation
-    - About CALC page
+- Update content on “about CALC” page. (#2317)
+- What does CALC do?
+- How can CALC help me?
+- Where do the prices in this tool come from?
+- Explanation of +/-1 standard deviation under CALC’s visualization
 
 ## 2019-07-12
 
 ### Added
-- As a 71IIK CO, I would like to be able to upload price lists to be able to view the data in CALC. (#2310)
+- Price list upload feature for Schedule 71IIK. (#2310)
 
 ## 2019-07-03
 
