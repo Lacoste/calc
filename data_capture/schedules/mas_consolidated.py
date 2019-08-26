@@ -20,7 +20,8 @@ EXAMPLE_SHEET_ROWS = [
         r'SIN/SIN Proposed*',
         r'Service Proposed  (eg Job Title/Task)*',
         r'Description*(250 words)',
-        r'Key Words*(separated by commas, limit to five keywords. include these words in the description)',
+        r'Key Words*(separated by commas, limit to five keywords.\
+            include these words in the description)',
         r'Minimum Education',
         r'Minimum Years of Experience (cannot be a range)',
         r'Identify Required Licenses or Certifications (State "None" if not required)',
