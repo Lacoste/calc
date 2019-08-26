@@ -349,6 +349,7 @@ DATA_CAPTURE_SCHEDULES = (
     'data_capture.schedules.s03fac.Schedule03FACPriceList',
     'data_capture.schedules.s736.Schedule736PriceList',
     'data_capture.schedules.region_3.Region3PriceList',
+    'data_capture.schedules.mas_consolidated.MASConsolidatedPriceList'
 )  # type: Tuple[str, ...]
 
 if DEBUG and not HIDE_DEBUG_UI:
