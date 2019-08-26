@@ -78,6 +78,12 @@ footer {
   // The first header on a card has too much space.
 }
 
+.card .content {
+  li {
+    margin-left:19px;
+  }
+}
+
 .card .content:first-child h2:first-child {
   // The first header on a card has too much space.
   margin-top: 0;
