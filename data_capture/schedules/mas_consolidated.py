@@ -43,13 +43,16 @@ EXAMPLE_SHEET_ROWS = [
         r'XYZ,INC',
         r'874-1',
         r'Principal Consultant',
-        r'',
-        r'data management, small teams',
+        r'Recognized as a subject matter expert\
+            with extensive experience as organizational leaders \
+                and senior Project Managers and \
+                    can manage multiple programs and projects.',
+        r'Process improvement, finance, senior project manager',
         r'Bachelors',
         r'10',
         r'PMP',
         r'No',
-        r'both',
+        r'Both',
         r'Domestic',
         r'Market',
         r'Hour',
