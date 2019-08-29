@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 
 from .base import (BasePriceList, hourly_rates_only_validator,
                    min_price_validator)
-from .spreadsheet_utils import generate_column_index_map, safe_cell_str_value, generate_column_index_map_mas
+from .spreadsheet_utils import safe_cell_str_value, generate_column_index_map_mas
 from .coercers import (strip_non_numeric, extract_min_education,
                        extract_hour_unit_of_issue)
 from contracts.models import EDUCATION_CHOICES
