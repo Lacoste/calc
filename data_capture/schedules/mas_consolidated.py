@@ -7,46 +7,45 @@ from django.template.loader import render_to_string
 
 from .base import (BasePriceList, hourly_rates_only_validator,
                    min_price_validator)
-from .spreadsheet_utils import generate_column_index_map, safe_cell_str_value
+from .spreadsheet_utils import safe_cell_str_value, generate_column_index_map_mas
 from .coercers import (strip_non_numeric, extract_min_education,
                        extract_hour_unit_of_issue)
 from contracts.models import EDUCATION_CHOICES
 
 DEFAULT_SHEET_NAME = 'Services Pricing'
 
+Keywords = 'Key Words(separated by commas, limit to five keywords.\
+            include these words in the description)'
+Desc = 'Recognized as a subject matter expert with extensive experience... '
 EXAMPLE_SHEET_ROWS = [
     [
-        r'Vendor Name*',
+        r'Vendor Name',
         r'SIN/SIN Proposed*',
         r'Service Proposed  (eg Job Title/Task)*',
-        r'Description*(250 words)',
-        r'Key Words*(separated by commas, limit to five keywords.\
-            include these words in the description)',
-        r'Minimum Education',
-        r'Minimum Years of Experience (cannot be a range)',
+        r'Description(250 words)',
+        Keywords,
+        r'Minimum Education*',
+        r'Minimum Years of Experience (cannot be a range)*',
         r'Identify Required Licenses or Certifications (State "None" if not required)',
         r'Security Clearance Required',
-        r'Contractor or Customer Facility or Both*',
-        r'Domestic or Overseas*',
-        r'Commercial Price List (CPL) OR Market Prices*',
+        r'Contractor or Customer Facility or Both',
+        r'Domestic or Overseas',
+        r'Commercial Price List (CPL) OR Market Prices',
         r'Unit of Issue (e.g. Hour, Task, Sq Ft)*',
-        r'Most Favored Commercial Customer (MFC)*',
-        r'Discount Offered to Commercial MFC (%)*',
-        r'Commercial MFC Price*',
-        r'Discount Offered to GSA (off CPL or Market Prices) (%)*',
-        r'Price Offered to GSA (Excluding IFF)*',
-        r'Price Offered to GSA (including IFF)',
-        r'Discount Offered to GSA (off MFC Prices) (%)*',
-        r'Supporting Invoice or Document Number(Initial submittal)*',
+        r'Most Favored Commercial Customer (MFC)',
+        r'Discount Offered to Commercial MFC (%)',
+        r'Commercial MFC Price',
+        r'Discount Offered to GSA (off CPL or Market Prices) (%)',
+        r'Price Offered to GSA (Excluding IFF)',
+        r'Price Offered to GSA (including IFF)*',
+        r'Discount Offered to GSA (off MFC Prices) (%)',
+        r'Supporting Invoice or Document Number(Initial submittal)',
     ],
     [
         r'XYZ,INC',
         r'874-1',
         r'Principal Consultant',
-        r'Recognized as a subject matter expert\
-            with extensive experience as organizational leaders \
-                and senior Project Managers and \
-                    can manage multiple programs and projects.',
+        Desc,
         r'Process improvement, finance, senior project manager',
         r'Bachelors',
         r'10',
@@ -71,10 +70,10 @@ EXAMPLE_SHEET_ROWS = [
 DEFAULT_FIELD_TITLE_MAP = {
     'sin': 'SIN/SIN Proposed*',
     'labor_category': 'Service Proposed (eg Job Title/Task)*',  # noqa
-    'education_level': 'Minimum Education',
-    'min_years_experience': 'Minimum Years of Experience (cannot be a range)',
+    'education_level': 'Minimum Education*',
+    'min_years_experience': 'Minimum Years of Experience*(cannot be a range)',
     'unit_of_issue': 'Unit of Issue (e.g. Hour, Task, Sq Ft)*',
-    'price_including_iff': 'Price Offered to GSA (including IFF)',
+    'price_including_iff': 'Price Offered to GSA*(including IFF)',
 }
 
 
@@ -98,8 +97,8 @@ def glean_labor_categories_from_book(book, sheet_name=DEFAULT_SHEET_NAME):
 
     heading_row = sheet.row(0)
 
-    col_idx_map = generate_column_index_map(heading_row,
-                                            DEFAULT_FIELD_TITLE_MAP)
+    col_idx_map = generate_column_index_map_mas(heading_row,
+                                                DEFAULT_FIELD_TITLE_MAP)
 
     coercion_map = {
         'price_including_iff': strip_non_numeric,
