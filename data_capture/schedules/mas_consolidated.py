@@ -14,7 +14,8 @@ from contracts.models import EDUCATION_CHOICES
 
 DEFAULT_SHEET_NAME = 'Services Pricing'
 
-Keywords = 'Key Words(separated by commas, limit to five keywords.include these words in the description)'
+Keywords = 'Key Words(separated by commas, limit to five keywords.\
+            include these words in the description)'
 Desc = 'Recognized as a subject matter expert with extensive experience... '
 EXAMPLE_SHEET_ROWS = [
     [
@@ -97,7 +98,7 @@ def glean_labor_categories_from_book(book, sheet_name=DEFAULT_SHEET_NAME):
     heading_row = sheet.row(0)
 
     col_idx_map = generate_column_index_map_mas(heading_row,
-                                            DEFAULT_FIELD_TITLE_MAP)
+                                                DEFAULT_FIELD_TITLE_MAP)
 
     coercion_map = {
         'price_including_iff': strip_non_numeric,
