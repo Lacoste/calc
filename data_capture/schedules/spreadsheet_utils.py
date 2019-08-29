@@ -63,6 +63,7 @@ def generate_column_index_map(heading_row, field_title_map):
 
     return col_idx_map
 
+
 def generate_column_index_map_mas(heading_row, field_title_map):
     def find_col_mas(col_title):
         for idx, cell in enumerate(heading_row):
