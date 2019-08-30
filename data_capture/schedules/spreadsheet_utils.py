@@ -69,7 +69,7 @@ def generate_column_index_map_mas(heading_row, field_title_map):
         for idx, cell in enumerate(heading_row):
             Is_Include = True
             if str(col_title).lower() == 'price offered' and idx == 18:
-                if not "including" in (cell.value).lower():
+                if "including" not in (cell.value).lower():
                     Is_Include = False
             if str(col_title).lower() in (cell.value).lower() and Is_Include and not idx == 17:
                 return idx
