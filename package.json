@@ -78,7 +78,9 @@
     "mixin-deep" :"^2.0.1",
     "set-value" :"^3.0.1",
     "fstream" :"^1.0.12",
-    "lodash.mergewith":"^4.6.2"
+    "lodash.mergewith":"^4.6.2",
+    "lodash.template":"4.5.0",
+    "lodash-es":"4.17.14"
   },
   "scripts": {
     "gulp": "gulp",
