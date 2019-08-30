@@ -67,7 +67,11 @@ def generate_column_index_map(heading_row, field_title_map):
 def generate_column_index_map_mas(heading_row, field_title_map):
     def find_col_mas(col_title):
         for idx, cell in enumerate(heading_row):
-            if (cell.value).lower() in str(col_title).lower():
+            Is_Include = True
+            if str(col_title).lower() == 'price offered' and idx == 18:
+                if not "including" in (cell.value).lower():
+                    Is_Include = False
+            if str(col_title).lower() in (cell.value).lower() and Is_Include and not idx == 17:
                 return idx
         raise ValidationError('Column heading "{}" was not found.'.format(
             col_title))
