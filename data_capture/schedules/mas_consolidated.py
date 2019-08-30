@@ -67,13 +67,13 @@ EXAMPLE_SHEET_ROWS = [
 ]
 
 
-DEFAULT_FIELD_TITLE_MAP = {
-    'sin': 'SIN/SIN Proposed*',
-    'labor_category': 'Service Proposed (eg Job Title/Task)*',  # noqa
-    'education_level': 'Minimum Education*',
-    'min_years_experience': 'Minimum Years of Experience*(cannot be a range)',
-    'unit_of_issue': 'Unit of Issue (e.g. Hour, Task, Sq Ft)*',
-    'price_including_iff': 'Price Offered to GSA*(including IFF)',
+DEFAULT_FIELD_TITLE_MAP_MAS = {
+    'sin': 'SIN/SIN Proposed',
+    'labor_category': 'Service Proposed',  # noqa
+    'education_level': 'Minimum Education',
+    'min_years_experience': 'Minimum Years of Experience',
+    'unit_of_issue': 'Unit of Issue',
+    'price_including_iff': 'Price Offered',
 }
 
 
@@ -98,7 +98,7 @@ def glean_labor_categories_from_book(book, sheet_name=DEFAULT_SHEET_NAME):
     heading_row = sheet.row(0)
 
     col_idx_map = generate_column_index_map_mas(heading_row,
-                                                DEFAULT_FIELD_TITLE_MAP)
+                                                DEFAULT_FIELD_TITLE_MAP_MAS)
 
     coercion_map = {
         'price_including_iff': strip_non_numeric,
