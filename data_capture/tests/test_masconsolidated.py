@@ -109,8 +109,7 @@ class MASConsolidatedPriceListTests(ModelTestCase):
         p = mas.MASConsolidatedPriceList(rows=[{'unit_of_issue': ''}])
         if 'unit_of_issue' in p.invalid_rows[0].errors.keys():
             self.assertEqual(p.invalid_rows[0].errors['unit_of_issue'],
-                             ['This field is required.'])
-                
+                             ['This field is required.'])         
         p = mas.MASConsolidatedPriceList(rows=[{'unit_of_issue': 'Day'}])
         self.assertEqual(p.invalid_rows[0].errors['unit_of_issue'],
                          ['Value must be "Hour" or "Hourly"'])
