@@ -74,8 +74,8 @@ class MASConsolidatedPriceListTests(ModelTestCase):
         try:
             self.assertEqual(len(p.invalid_rows), 1)
         except Exception:
-            print ("invalid row found")
-        self.assertEqual(p.valid_rows[0].cleaned_data,{
+            print("invalid row found")
+        self.assertEqual(p.valid_rows[0].cleaned_data, {
             'education_level': 'Bachelors',
             'labor_category': 'Principal Consultant',
             'min_years_experience': 2,
@@ -110,7 +110,7 @@ class MASConsolidatedPriceListTests(ModelTestCase):
         if 'unit_of_issue' in p.invalid_rows[0].errors.keys():
             self.assertEqual(p.invalid_rows[0].errors['unit_of_issue'],
                              ['This field is required.'])
-                             
+                
         p = mas.MASConsolidatedPriceList(rows=[{'unit_of_issue': 'Day'}])
         self.assertEqual(p.invalid_rows[0].errors['unit_of_issue'],
                          ['Value must be "Hour" or "Hourly"'])
