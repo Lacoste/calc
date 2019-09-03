@@ -8,9 +8,8 @@ from ..schedules import mas_consolidated as mas, registry
 from django.test import TestCase, override_settings
 from django.core.exceptions import ValidationError
 MAS = '{}.MASConsolidatedPriceList'.format(mas.__name__)
-
-MAS_XLSX_PATH = path('static', 'data_capture', 
-                        'Price_Proposal_Template_SERVICES_AND_TRAINING_FINAL.xlsx')
+file_name = 'Price_Proposal_Template_SERVICES_AND_TRAINING_FINAL.xlsx'
+MAS_XLSX_PATH = path('static', 'data_capture', file_name)
 
 # TODO: These tests should be DRY'd out since they nearly identical to test_s70
 # Or really the shared methods should be generalized and those should be
@@ -76,7 +75,7 @@ class MASConsolidatedPriceListTests(ModelTestCase):
             self.assertEqual(len(p.invalid_rows), 1)
         except Exception:
             print ("invalid row found")
-        self.assertEqual(p.valid_rows[0].cleaned_data, {
+        self.assertEqual(p.valid_rows[0].cleaned_data,{
             'education_level': 'Bachelors',
             'labor_category': 'Principal Consultant',
             'min_years_experience': 2,
@@ -110,8 +109,8 @@ class MASConsolidatedPriceListTests(ModelTestCase):
         p = mas.MASConsolidatedPriceList(rows=[{'unit_of_issue': ''}])
         if 'unit_of_issue' in p.invalid_rows[0].errors.keys():
             self.assertEqual(p.invalid_rows[0].errors['unit_of_issue'],
-                                                        ['This field is required.'])
-
+                             ['This field is required.'])
+                             
         p = mas.MASConsolidatedPriceList(rows=[{'unit_of_issue': 'Day'}])
         self.assertEqual(p.invalid_rows[0].errors['unit_of_issue'],
                          ['Value must be "Hour" or "Hourly"'])
