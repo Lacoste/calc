@@ -28,7 +28,7 @@ class GleaningTests(TestCase):
             'sin': '874-1',
             'labor_category': 'Principal Consultant',
             'education_level': 'Bachelors',
-            'min_years_experience': '2',
+            'min_years_experience': '10',
             'unit_of_issue': 'Hour',
             'price_including_iff': '200.0'
         }])
@@ -78,7 +78,7 @@ class MASConsolidatedPriceListTests(ModelTestCase):
         self.assertEqual(p.valid_rows[0].cleaned_data, {
             'education_level': 'Bachelors',
             'labor_category': 'Principal Consultant',
-            'min_years_experience': 2,
+            'min_years_experience': 10,
             'price_including_iff': Decimal('200.00'),
             'sin': '874-1',
             'unit_of_issue': 'Hour'
@@ -134,7 +134,7 @@ class MASConsolidatedPriceListTests(ModelTestCase):
         row = p.rows.all()[0]
         self.assertEqual(row.labor_category, 'Principal Consultant')
         self.assertEqual(row.education_level, 'BA')
-        self.assertEqual(row.min_years_experience, 2)
+        self.assertEqual(row.min_years_experience, 10)
         self.assertEqual(row.base_year_rate, Decimal('200.00'))
         self.assertEqual(row.sin, '874-1')
 
