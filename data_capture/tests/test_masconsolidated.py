@@ -9,7 +9,8 @@ from django.test import TestCase, override_settings
 from django.core.exceptions import ValidationError
 MAS = '{}.MASConsolidatedPriceList'.format(mas.__name__)
 
-MAS_XLSX_PATH = path('static', 'data_capture', 'Price_Proposal_Template_SERVICES_AND_TRAINING_FINAL.xlsx')
+MAS_XLSX_PATH = path('static', 'data_capture', 
+                        'Price_Proposal_Template_SERVICES_AND_TRAINING_FINAL.xlsx')
 
 # TODO: These tests should be DRY'd out since they nearly identical to test_s70
 # Or really the shared methods should be generalized and those should be
@@ -24,12 +25,14 @@ class GleaningTests(TestCase):
     def test_rows_are_returned(self):
         rows = mas.glean_labor_categories_from_file(
             uploaded_xlsx_file(MAS_XLSX_PATH))
-        self.assertEqual(rows, [{'sin': '874-1',
-        'labor_category': 'Principal Consultant',
-        'education_level': 'Bachelors',
-        'min_years_experience': '2',
-        'unit_of_issue': 'Hour',
-        'price_including_iff': '200.0'}])
+        self.assertEqual(rows, [{
+            'sin': '874-1',
+            'labor_category': 'Principal Consultant',
+            'education_level': 'Bachelors',
+            'min_years_experience': '2',
+            'unit_of_issue': 'Hour',
+            'price_including_iff': '200.0'
+        }])
 
     def test_text_formatted_prices_are_gleaned(self):
         book = self.create_fake_book()
@@ -71,7 +74,7 @@ class MASConsolidatedPriceListTests(ModelTestCase):
         self.assertEqual(len(p.valid_rows), 1)
         try:
             self.assertEqual(len(p.invalid_rows), 1)
-        except:
+        except Exception:
             print ("invalid row found")
         self.assertEqual(p.valid_rows[0].cleaned_data, {
             'education_level': 'Bachelors',
@@ -107,7 +110,7 @@ class MASConsolidatedPriceListTests(ModelTestCase):
         p = mas.MASConsolidatedPriceList(rows=[{'unit_of_issue': ''}])
         if 'unit_of_issue' in p.invalid_rows[0].errors.keys():
             self.assertEqual(p.invalid_rows[0].errors['unit_of_issue'],
-                         ['This field is required.'])
+                                                        ['This field is required.'])
 
         p = mas.MASConsolidatedPriceList(rows=[{'unit_of_issue': 'Day'}])
         self.assertEqual(p.invalid_rows[0].errors['unit_of_issue'],
