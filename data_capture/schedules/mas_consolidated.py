@@ -146,7 +146,7 @@ class MASConsolidatedPriceListRow(forms.Form):
     )
     unit_of_issue = forms.CharField(
         label="Unit of issue",
-        required=False,
+        required=True,
         validators=[hourly_rates_only_validator]
     )
     price_including_iff = forms.DecimalField(
