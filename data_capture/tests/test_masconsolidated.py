@@ -30,7 +30,9 @@ class GleaningTests(TestCase):
             'education_level': 'Bachelors',
             'min_years_experience': '10',
             'unit_of_issue': 'Hour',
-            'price_including_iff': '200.0'
+            'price_including_iff': '200.0',
+            'keywords': 'Process improvement, finance, senior project manager',
+            'certifications': 'PMP'
         }])
 
     def test_text_formatted_prices_are_gleaned(self):
@@ -81,7 +83,9 @@ class MASConsolidatedPriceListTests(ModelTestCase):
             'min_years_experience': 10,
             'price_including_iff': Decimal('200.00'),
             'sin': '874-1',
-            'unit_of_issue': 'Hour'
+            'unit_of_issue': 'Hour',
+            'keywords': 'Process improvement, finance, senior project manager',
+            'certifications': 'PMP'
         })
 
     def test_education_level_is_validated(self):
@@ -137,6 +141,8 @@ class MASConsolidatedPriceListTests(ModelTestCase):
         self.assertEqual(row.min_years_experience, 10)
         self.assertEqual(row.base_year_rate, Decimal('200.00'))
         self.assertEqual(row.sin, '874-1')
+        self.assertEqual(row.keywords, 'Process improvement, finance, senior project manager')
+        self.assertEqual(row.certifications, 'PMP')
 
         row.full_clean()
 
