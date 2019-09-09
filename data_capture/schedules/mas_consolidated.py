@@ -74,7 +74,7 @@ DEFAULT_FIELD_TITLE_MAP_MAS = {
     'min_years_experience': 'Minimum Years of Experience',
     'unit_of_issue': 'Unit of Issue',
     'price_including_iff': 'Price Offered',
-    'keywords':'Key words',
+    'keywords': 'Key words',
     'certifications': 'Identify Required Licenses or Certifications'
 }
 
