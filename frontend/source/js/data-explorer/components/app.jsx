@@ -39,9 +39,9 @@ class App extends React.Component {
     ]);
     this.state = {
       keywordDisabled: true,
-      searchkeyword:"",
-      resetFilter : false
-    }
+      searchkeyword: "",
+      resetFilter: false
+    };
   }
 
   getContainerClassNames() {
@@ -70,15 +70,12 @@ class App extends React.Component {
     };
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.invalidateRates();
-  }
+
 
   handleResetClick(e) {
     e.preventDefault();
     this.props.resetState();
-    this.setState({resetFilter:true,searchkeyword:""})
+    this.setState({ resetFilter: true, searchkeyword: "" });
   }
 
   handleDownloadClick(e) {
@@ -89,11 +86,17 @@ class App extends React.Component {
     );
     trackEvent('download-graph', 'click');
   }
+
   setKeywordDisabled(childData){
     this.setState({keywordDisabled: childData,resetFilter:false});
   }
-  setEnteredKeyword(childData){
-    this.setState({searchkeyword: childData,resetFilter:false});
+  setEnteredKeyword(childData) {
+    this.setState({ searchkeyword: childData, resetFilter:false });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.invalidateRates();
   }
 
   render() {
@@ -124,7 +127,8 @@ class App extends React.Component {
                     <br />
                     <div className="row">
                       <div className="five columns reduce_right_margin">
-                        <LaborCategory parentCallback = {this.setKeywordDisabled.bind(this)} api={this.props.api}>
+                        <LaborCategory parentCallback = {this.setKeywordDisabled.bind(this)} 
+                                                          api={this.props.api}>
 
                         </LaborCategory>
                       </div>
