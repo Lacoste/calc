@@ -72,6 +72,19 @@ class App extends React.Component {
 
 
 
+
+  setKeywordDisabled(childData) {
+    this.setState({ keywordDisabled: childData, resetFilter:false });
+  }
+  setEnteredKeyword(childData) {
+    this.setState({ searchkeyword: childData, resetFilter:false });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.invalidateRates();
+  }
+
   handleResetClick(e) {
     e.preventDefault();
     this.props.resetState();
@@ -85,18 +98,6 @@ class App extends React.Component {
       this.canvasEl,
     );
     trackEvent('download-graph', 'click');
-  }
-
-  setKeywordDisabled(childData){
-    this.setState({keywordDisabled: childData,resetFilter:false});
-  }
-  setEnteredKeyword(childData) {
-    this.setState({ searchkeyword: childData, resetFilter:false });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.invalidateRates();
   }
 
   render() {
@@ -127,8 +128,7 @@ class App extends React.Component {
                     <br />
                     <div className="row">
                       <div className="five columns reduce_right_margin">
-                        <LaborCategory parentCallback = {this.setKeywordDisabled.bind(this)} 
-                                                          api={this.props.api}>
+                        <LaborCategory parentCallback = {this.setKeywordDisabled.bind(this)}api={this.props.api}>
 
                         </LaborCategory>
                       </div>
@@ -140,13 +140,11 @@ class App extends React.Component {
                       <div className="two columns button_holder">
                       
                           <button
-                            style={{margin: '5px 2px'}}
+                            style={ {margin: '5px 2px'} }
                             className="submit usa-button-primary icon-search submit_button"
                             aria-label="Search CALC"
-                           ></button>
-                          {' '}
-                          <input
-                            onClick={this.handleResetClick}
+                           ></button>{' '}
+                          <input onClick={this.handleResetClick}
                             className="reset usa-button usa-button-secondary reset_button"
                             type="reset"
                             value="Reset"
@@ -233,7 +231,7 @@ Optional filters
           <div className="container">
             <div className="row">
               <div className="table-container">
-                <ResultsTable search_keywords = {this.state.searchkeyword}/>
+                <ResultsTable search_keywords={this.state.searchkeyword} />
               </div>
             </div>
           </div>

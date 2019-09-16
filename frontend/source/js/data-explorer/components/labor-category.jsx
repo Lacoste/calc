@@ -25,15 +25,17 @@ export class LaborCategory extends React.Component {
     };
     autobind(this, ['handleChange', 'handleEnter']);
   }
+
   sendDataBack(keyword) {
-      this.props.parentCallback(keyword);
+    this.props.parentCallback(keyword);
   }
+  
   componentDidMount() {
     autocomplete.initialize(this.inputEl, {
       api: this.props.api,
       getQueryType: () => this.props.queryType,
       setFieldValue: (value) => {
-        if(value != ""){
+        if (value !== " "){
           this.sendDataBack(false);
         }
         this.props.setQuery(value);
@@ -53,12 +55,11 @@ export class LaborCategory extends React.Component {
 
   handleChange(e) {
     this.setState({ value: e.target.value });
-    if( e.target.value.length > 0){
-      this.sendDataBack(false)
-    }else{
-      this.sendDataBack(true)
-    }
-    
+    if (e.target.value.length > 0) {
+      this.sendDataBack(false);
+    } else {
+      this.sendDataBack(true);
+    }  
   }
 
   handleEnter() {

@@ -9,12 +9,11 @@ const column = createSortableColumn({
 });
 
 
-
 export const { HeaderCell } = column;
 
 export const DataCell = column.connectDataCell(
   ({ className, value }) => (
-    <td className={className +'  hidden_notnow'}>
+    <td className={ className + 'hidden_notnow'}>
       {value || 'N/A'}
     </td>
   ),

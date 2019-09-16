@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as autocomplete from '../keyword_autocomplete';
+//import * as autocomplete from '../keyword_autocomplete';
 import { setQuery } from '../actions';
 
 import {
   QUERY_BY_SCHEDULE,
-  QUERY_BY_CONTRACT,
-  QUERY_BY_VENDOR,
+  //QUERY_BY_CONTRACT,
+  //QUERY_BY_VENDOR,
   MAX_QUERY_LENGTH
 } from '../constants';
 
@@ -22,10 +22,10 @@ export class KeywordFilter extends React.Component {
     super(props);
     this.state = { 
       value: this.props.query,
-      keywordDisabled:true,
-      keywordValue:"",
-      resetFilter : false
-     };
+      keywordDisabled: true,
+      keywordValue: "",
+      resetFilter: false
+    };
     autobind(this, ['handleChange', 'handleEnter']);
   }
 
@@ -33,24 +33,25 @@ export class KeywordFilter extends React.Component {
     this.setState({ 
       keywordDisabled: nextProps.keywordDisabled,
       resetFilter: nextProps.resetFilter,
-     });
-     if (this.state.resetFilter){
-      this.setState({keywordValue: "" });
-     }
+    });
+    if (this.state.resetFilter) {
+      this.setState({ keywordValue: "" });
+    }
   }
 
   sendDataBack(searchkeyword) {
-      this.props.parentCallback(searchkeyword);
+    this.props.parentCallback(searchkeyword);
   }
 
 
   handleChange(e) {
-    this.setState({ value: e.target.value, keywordValue: e.target.value});
+    this.setState({ value: e.target.value, keywordValue: e.target.value });
     this.sendDataBack(e.target.value);
   }
-  handleFocus(e) {
-    //this.sendDataBack('false');
-  }
+  
+  // handleFocus(e) {
+  //   this.sendDataBack('false');
+  // }
 
   handleEnter() {
     if (this.state.value !== this.props.query) {
@@ -70,15 +71,15 @@ export class KeywordFilter extends React.Component {
         <input
           id={id}
           name="keyword"
-          value = {this.state.keywordValue}
+          value={this.state.keywordValue}
           disabled={this.state.keywordDisabled}
           placeholder={placeholder}
           type="text"
           className="form__inline form__block_control"
-          ref={(el) => { this.inputEl = el; }}
-          style={{borderEndWidth:1,borderEndColor:"#f00"}}
+          ref={ (el) => { this.inputEl = el; }}
+          style={{ borderEndWidth:1, borderEndColor:"#f00" }}
           onChange={this.handleChange}
-          onFocus = {this.handleFocus}
+          onFocus={this.handleFocus}
           onKeyDown={handleEnter(this.handleEnter)}
           maxLength={MAX_QUERY_LENGTH}
           
