@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as autocomplete from '../autocomplete';
+import * as autocomplete from '../keyword_autocomplete';
 import { setQuery } from '../actions';
 
 import {
@@ -17,48 +17,39 @@ import {
   handleEnter,
 } from '../util';
 
-export class LaborCategory extends React.Component {
+export class KeywordFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      value: this.props.query
-    };
+      value: this.props.query,
+      keywordDisabled:true,
+      keywordValue:"",
+      resetFilter : false
+     };
     autobind(this, ['handleChange', 'handleEnter']);
-  }
-  sendDataBack(keyword) {
-      this.props.parentCallback(keyword);
-  }
-  componentDidMount() {
-    autocomplete.initialize(this.inputEl, {
-      api: this.props.api,
-      getQueryType: () => this.props.queryType,
-      setFieldValue: (value) => {
-        if(value != ""){
-          this.sendDataBack(false);
-        }
-        this.props.setQuery(value);
-      },
-    });
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.query !== this.props.query) {
-      this.setState({ value: nextProps.query });
-    }
+    this.setState({ 
+      keywordDisabled: nextProps.keywordDisabled,
+      resetFilter: nextProps.resetFilter,
+     });
+     if (this.state.resetFilter){
+      this.setState({keywordValue: "" });
+     }
   }
 
-  componentWillUnmount() {
-    autocomplete.destroy(this.inputEl);
+  sendDataBack(searchkeyword) {
+      this.props.parentCallback(searchkeyword);
   }
+
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
-    if( e.target.value.length > 0){
-      this.sendDataBack(false)
-    }else{
-      this.sendDataBack(true)
-    }
-    
+    this.setState({ value: e.target.value, keywordValue: e.target.value});
+    this.sendDataBack(e.target.value);
+  }
+  handleFocus(e) {
+    //this.sendDataBack('false');
   }
 
   handleEnter() {
@@ -68,14 +59,8 @@ export class LaborCategory extends React.Component {
   }
 
   render() {
-    const id = `${this.props.idPrefix}labor_category`;
-    let placeholder = "Type a labor category*";
-
-    if (this.props.queryBy === QUERY_BY_CONTRACT) {
-      placeholder = "Type a contract number";
-    } else if (this.props.queryBy === QUERY_BY_VENDOR) {
-      placeholder = "Type a vendor name";
-    }
+    const id = `${this.props.idPrefix}keywords`;
+    let placeholder = "Type keywords or Certifications";
 
     return (
       <div className="search-group">
@@ -84,15 +69,19 @@ export class LaborCategory extends React.Component {
         </label>
         <input
           id={id}
-          name="q"
+          name="keyword"
+          value = {this.state.keywordValue}
+          disabled={this.state.keywordDisabled}
           placeholder={placeholder}
           type="text"
           className="form__inline form__block_control"
           ref={(el) => { this.inputEl = el; }}
-          value={this.state.value}
+          style={{borderEndWidth:1,borderEndColor:"#f00"}}
           onChange={this.handleChange}
+          onFocus = {this.handleFocus}
           onKeyDown={handleEnter(this.handleEnter)}
           maxLength={MAX_QUERY_LENGTH}
+          
         />
         {this.props.children}
       </div>
@@ -100,7 +89,7 @@ export class LaborCategory extends React.Component {
   }
 }
 
-LaborCategory.propTypes = {
+KeywordFilter.propTypes = {
   idPrefix: PropTypes.string,
   query: PropTypes.string.isRequired,
   queryType: PropTypes.string.isRequired,
@@ -110,7 +99,7 @@ LaborCategory.propTypes = {
   children: PropTypes.any,
 };
 
-LaborCategory.defaultProps = {
+KeywordFilter.defaultProps = {
   idPrefix: '',
   children: null,
   queryBy: QUERY_BY_SCHEDULE,
@@ -123,4 +112,4 @@ export default connect(
     queryBy: state.query_by,
   }),
   { setQuery },
-)(LaborCategory);
+)(KeywordFilter);

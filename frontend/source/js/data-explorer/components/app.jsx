@@ -22,6 +22,7 @@ import ProposedPrice from './proposed-price';
 import QueryType from './query-type';
 import LoadableOptionalFilters from './optional-filters/loadable-optional-filters';
 import LaborCategory from './labor-category';
+import KeywordFilter from './keyword-filter';
 import LoadingIndicator from './loading-indicator';
 import SearchCategory from './search-category';
 import TitleTagSynchronizer from './title-tag-synchronizer';
@@ -36,6 +37,11 @@ class App extends React.Component {
       'handleResetClick',
       'handleDownloadClick',
     ]);
+    this.state = {
+      keywordDisabled: true,
+      searchkeyword:"",
+      resetFilter : false
+    }
   }
 
   getContainerClassNames() {
@@ -72,6 +78,7 @@ class App extends React.Component {
   handleResetClick(e) {
     e.preventDefault();
     this.props.resetState();
+    this.setState({resetFilter:true,searchkeyword:""})
   }
 
   handleDownloadClick(e) {
@@ -81,6 +88,12 @@ class App extends React.Component {
       this.canvasEl,
     );
     trackEvent('download-graph', 'click');
+  }
+  setKeywordDisabled(childData){
+    this.setState({keywordDisabled: childData,resetFilter:false});
+  }
+  setEnteredKeyword(childData){
+    this.setState({searchkeyword: childData,resetFilter:false});
   }
 
   render() {
@@ -102,22 +115,42 @@ class App extends React.Component {
               <div className="container clearfix">
                 <div className="row">
                   <div className="twelve columns">
-                    <SearchCategory />
-                    <LaborCategory api={this.props.api}>
-                      <button
-                        className="submit usa-button-primary icon-search"
-                        aria-label="Search CALC"
-                      />
-                      {' '}
-                      <input
-                        onClick={this.handleResetClick}
-                        className="reset usa-button usa-button-secondary"
-                        type="reset"
-                        value="Reset"
-                      />
-                    </LaborCategory>
+                    <div className="row">
+                      <div className="twelve columns">
+                        <SearchCategory />
+                      </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div className="row">
+                      <div className="five columns reduce_right_margin">
+                        <LaborCategory parentCallback = {this.setKeywordDisabled.bind(this)} api={this.props.api}>
+
+                        </LaborCategory>
+                      </div>
+                      <div className="five columns reduce_right_margin keyword_filter">
+                          <KeywordFilter parentCallback = {this.setEnteredKeyword.bind(this)} keywordDisabled = {this.state.keywordDisabled} resetFilter = {this.state.resetFilter}>
+                          
+                          </KeywordFilter>
+                      </div>
+                      <div className="two columns button_holder">
+                      
+                          <button
+                            style={{margin: '5px 2px'}}
+                            className="submit usa-button-primary icon-search submit_button"
+                            aria-label="Search CALC"
+                           ></button>
+                          {' '}
+                          <input
+                            onClick={this.handleResetClick}
+                            className="reset usa-button usa-button-secondary reset_button"
+                            type="reset"
+                            value="Reset"
+                          />
+                      </div>
+                    </div>
                   </div>
-                  <div className="twelve columns">
+                  <div className="four columns">
                     <QueryType />
                   </div>
                 </div>
@@ -196,7 +229,7 @@ Optional filters
           <div className="container">
             <div className="row">
               <div className="table-container">
-                <ResultsTable />
+                <ResultsTable search_keywords = {this.state.searchkeyword}/>
               </div>
             </div>
           </div>
