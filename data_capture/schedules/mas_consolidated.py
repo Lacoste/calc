@@ -7,54 +7,75 @@ from django.template.loader import render_to_string
 
 from .base import (BasePriceList, hourly_rates_only_validator,
                    min_price_validator)
-from .spreadsheet_utils import generate_column_index_map, safe_cell_str_value
+from .spreadsheet_utils import safe_cell_str_value, generate_column_index_map_mas
 from .coercers import (strip_non_numeric, extract_min_education,
                        extract_hour_unit_of_issue)
 from contracts.models import EDUCATION_CHOICES
 
-DEFAULT_SHEET_NAME = 'Labor Category'
+DEFAULT_SHEET_NAME = 'Services Pricing'
 
+Keywords = 'Key Words(separated by commas, limit to five keywords.\
+            include these words in the description)'
+Desc = 'Recognized as a subject matter expert with extensive experience... '
 EXAMPLE_SHEET_ROWS = [
     [
-        r'SIN(s) PROPOSED',
-        r'SERVICE PROPOSED (e.g. Job Title/Task)',
-        r'MINIMUM EDUCATION/ CERTIFICATION LEVEL',
-        r'MINIMUM YEARS OF EXPERIENCE',
-        r'COMMERCIAL LIST PRICE (CPL)   OR MARKET  PRICES',
-        r'UNIT OF ISSUE (e.g. Hour, Task, Sq ft)',
-        r'MOST FAVORED CUSTOMER (MFC)',
-        r'DISCOUNT OFFERED TO MFC (%)',
-        r'MFC PRICE',
-        r'GSA(%) DISCOUNT (exclusive of the .75% IFF)',
-        r'PRICE OFFERED TO GSA (excluding IFF)',
-        r'PRICE OFFERED TO GSA (including IFF)',
-        r'QUANTITY/VOLUME DISCOUNT',
+        r'Vendor Name',
+        r'SIN/SIN Proposed*',
+        r'Service Proposed  (eg Job Title/Task)*',
+        r'Description(250 words)',
+        Keywords,
+        r'Minimum Education*',
+        r'Minimum Years of Experience (cannot be a range)*',
+        r'Identify Required Licenses or Certifications (State "None" if not required)',
+        r'Security Clearance Required',
+        r'Contractor or Customer Facility or Both',
+        r'Domestic or Overseas',
+        r'Commercial Price List (CPL) OR Market Prices',
+        r'Unit of Issue (e.g. Hour, Task, Sq Ft)*',
+        r'Most Favored Commercial Customer (MFC)',
+        r'Discount Offered to Commercial MFC (%)',
+        r'Commercial MFC Price',
+        r'Discount Offered to GSA (off CPL or Market Prices) (%)',
+        r'Price Offered to GSA (Excluding IFF)',
+        r'Price Offered to GSA (including IFF)*',
+        r'Discount Offered to GSA (off MFC Prices) (%)',
+        r'Supporting Invoice or Document Number(Initial submittal)',
     ],
     [
-        r'712-3',
-        r'Project Manager',
-        r'High School',
-        r'3',
+        r'XYZ,INC',
+        r'874-1',
+        r'Principal Consultant',
+        Desc,
+        r'Process improvement, finance, senior project manager',
+        r'Bachelors',
+        r'10',
+        r'PMP',
+        r'No',
+        r'Both',
+        r'Domestic',
+        r'Market',
+        r'Hour',
         r'',
         r'',
         r'',
         r'',
         r'',
+        r'200.00',
         r'',
-        r'',
-        r'95.00',
         r'',
     ],
 ]
 
 
-DEFAULT_FIELD_TITLE_MAP = {
-    'sin': 'SIN(s) Proposed',
-    'labor_category': 'Service Proposed (e.g. Job Title/Task)',  # noqa
-    'education_level': 'Minimum Education / Certification Level',
+DEFAULT_FIELD_TITLE_MAP_MAS = {
+    'sin': 'SIN/SIN Proposed',
+    'labor_category': 'Service Proposed',  # noqa
+    'education_level': 'Minimum Education',
     'min_years_experience': 'Minimum Years of Experience',
-    'unit_of_issue': 'Unit of Issue (e.g. Hour, Task, Sq Ft)',
-    'price_including_iff': 'Price Offered to GSA (including IFF)',
+    'unit_of_issue': 'Unit of Issue',
+    'price_including_iff': 'Price Offered',
+    'keywords': 'Key words',
+    'certifications': 'Identify Required Licenses or Certifications'
 }
 
 
@@ -78,8 +99,8 @@ def glean_labor_categories_from_book(book, sheet_name=DEFAULT_SHEET_NAME):
 
     heading_row = sheet.row(0)
 
-    col_idx_map = generate_column_index_map(heading_row,
-                                            DEFAULT_FIELD_TITLE_MAP)
+    col_idx_map = generate_column_index_map_mas(heading_row,
+                                                DEFAULT_FIELD_TITLE_MAP_MAS)
 
     coercion_map = {
         'price_including_iff': strip_non_numeric,
@@ -114,16 +135,24 @@ def glean_labor_categories_from_book(book, sheet_name=DEFAULT_SHEET_NAME):
     return cats
 
 
-class Region3PriceListRow(forms.Form):
-    sin = forms.CharField(label='SIN(s) Proposed')
+class MASConsolidatedPriceListRow(forms.Form):
+    sin = forms.CharField(label='SIN/SIN Proposed')
     labor_category = forms.CharField(
-        label="SERVICE PROPOSED (e.g. Job Title/Task)"
+        label="SERVICE PROPOSED (eg Job Title/Task)"
+    )
+    keywords = forms.CharField(
+        label='Key Words',
+        required=False
     )
     education_level = forms.CharField(
-        label="Minimum Education / Certification Level"
+        label="Minimum Education"
     )
     min_years_experience = forms.IntegerField(
-        label="Minimum Years of Experience"
+        label="Minimum Years of Experience (cannot be a range)"
+    )
+    certifications = forms.CharField(
+        label='Identify Required Licenses or Certifications',
+        required=False
     )
     unit_of_issue = forms.CharField(
         label="Unit of issue",
@@ -158,14 +187,14 @@ class Region3PriceListRow(forms.Form):
         return self.cleaned_data['price_including_iff']
 
 
-class Region3PriceList(BasePriceList):
+class MASConsolidatedPriceList(BasePriceList):
 
-    title = '71_IIK'
+    title = 'MAS Consolidated'
 
-    table_template = 'data_capture/price_list/tables/region_3.html'
+    table_template = 'data_capture/price_list/tables/MAS_Consolidated.html'
 
     upload_example_template = ('data_capture/price_list/upload_examples/'
-                               'region_3.html')
+                               'MAS_Consolidated.html')
 
     upload_widget_extra_instructions = 'XLS or XLSX format, please.'
 
@@ -173,7 +202,7 @@ class Region3PriceList(BasePriceList):
         super().__init__()
         self.rows = rows
         for row in self.rows:
-            form = Region3PriceListRow(row)
+            form = MASConsolidatedPriceListRow(row)
             if form.is_valid():
                 self.valid_rows.append(form)
             else:
@@ -186,7 +215,9 @@ class Region3PriceList(BasePriceList):
                 education_level=row.contract_model_education_level(),
                 min_years_experience=row.cleaned_data['min_years_experience'],
                 base_year_rate=row.contract_model_base_year_rate(),
-                sin=row.cleaned_data['sin']
+                sin=row.cleaned_data['sin'],
+                keywords=row.cleaned_data['keywords'],
+                certifications=row.cleaned_data['certifications']
             )
 
     def serialize(self):
@@ -215,7 +246,7 @@ class Region3PriceList(BasePriceList):
     def load_from_upload(cls, f):
         try:
             rows = glean_labor_categories_from_file(f)
-            return Region3PriceList(rows)
+            return MASConsolidatedPriceList(rows)
         except ValidationError:
             raise
         except Exception as e:

@@ -248,6 +248,8 @@ class SubmittedPriceList(models.Model):
                 schedule=self.get_schedule_title(),
                 business_size=self.get_business_size_string(),
                 sin=row.sin,
+                keywords=row.keywords,
+                certifications=row.certifications
             )
 
             contract.adjust_contract_year()
@@ -322,7 +324,8 @@ class SubmittedPriceListRow(models.Model):
     min_years_experience = models.IntegerField()
     base_year_rate = CashField(max_digits=10, decimal_places=2)
     sin = models.TextField(null=True, blank=True)
-
+    keywords = models.TextField(null=True, blank=True)
+    certifications = models.TextField(null=True, blank=True)
     is_muted = models.BooleanField(
         help_text=(
             "Whether to include this row in CALC data once its "

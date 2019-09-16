@@ -333,7 +333,30 @@ input[type="checkbox"]:checked ~ label {
   margin-left: 1em;
   margin-right: 3em;
 }
-
+.form__block_control{
+  border-right: 1px solid gray !important;
+}
+//  .column-keywords,.column-certifications{
+//    display:none;
+//  }
+.reduce_right_margin{
+  margin-right: 2px !important;
+}
+.button_holder{
+  height:40px;
+  padding: 3px 0px;
+}
+.submit_button{
+  margin: -5px 0px !important;
+  padding:25px 15px 15px;
+  padding: left 10px;
+  padding: right 10px;
+  width: 40px;
+}
+.reset_button{
+  padding: 10px !important;
+  margin: 5px 0px !important;
+}
 .proposed-price {
   input[type].form__inline,
   button[type].button-primary {
