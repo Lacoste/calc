@@ -4,7 +4,7 @@ exports[`<QueryType> matches snapshot 1`] = `
 <ul
   aria-label="Labor category query type"
   role="group"
-  class="ExactMatch"
+  className="ExactMatch"
 >
   <li>
     <input
