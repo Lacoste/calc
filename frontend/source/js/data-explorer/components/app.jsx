@@ -32,6 +32,8 @@ import { autobind } from '../util';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.setKeywordDisabled = this.setKeywordDisabled.bind(this);
+    this.setEnteredKeyword = this.setEnteredKeyword.bind(this);
     autobind(this, [
       'handleSubmit',
       'handleResetClick',
@@ -71,13 +73,12 @@ class App extends React.Component {
   }
 
 
-
-
   setKeywordDisabled(childData) {
-    this.setState({ keywordDisabled: childData, resetFilter:false });
+    this.setState({ keywordDisabled: childData, resetFilter: false });
   }
+
   setEnteredKeyword(childData) {
-    this.setState({ searchkeyword: childData, resetFilter:false });
+    this.setState({ searchkeyword: childData, resetFilter: false });
   }
 
   handleSubmit(e) {
@@ -126,29 +127,33 @@ class App extends React.Component {
                     </div>
                     <br />
                     <br />
-                    <div className="row">
+                    <div className="search_block">
                       <div className="five columns reduce_right_margin">
-                        <LaborCategory parentCallback = {this.setKeywordDisabled.bind(this)}api={this.props.api}>
+                        <LaborCategory 
+                          parentCallback={this.setKeywordDisabled} 
+                          api={this.props.api} 
+                        />
 
-                        </LaborCategory>
                       </div>
                       <div className="five columns reduce_right_margin keyword_filter">
-                          <KeywordFilter parentCallback = {this.setEnteredKeyword.bind(this)} keywordDisabled = {this.state.keywordDisabled} resetFilter = {this.state.resetFilter}>
-                          
-                          </KeywordFilter>
+                        <KeywordFilter 
+                          parentCallback={this.setEnteredKeyword} 
+                          keywordDisabled={this.state.keywordDisabled} 
+                          resetFilter={this.state.resetFilter} 
+                        />
                       </div>
                       <div className="two columns button_holder">
-                      
-                          <button
-                            style={ {margin: '5px 2px'} }
-                            className="submit usa-button-primary icon-search submit_button"
-                            aria-label="Search CALC"
-                           ></button>{' '}
-                          <input onClick={this.handleResetClick}
-                            className="reset usa-button usa-button-secondary reset_button"
-                            type="reset"
-                            value="Reset"
-                          />
+                        <button 
+                          className="submit usa-button-primary icon-search submit_button"
+                          aria-label="Search CALC" 
+                        /> 
+                        {' '}
+                        <input 
+                          onClick={this.handleResetClick}
+                          className="reset usa-button usa-button-secondary reset_button"
+                          type="reset"
+                          value="Reset"
+                        />
                       </div>
                     </div>
                   </div>

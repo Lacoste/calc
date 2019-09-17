@@ -37,7 +37,7 @@ export function QueryType({ queryType, setQueryType, idPrefix }) {
   };
 
   return (
-    <ul role="group" aria-label="Labor category query type">
+    <ul className = "ExactMatch" role="group" aria-label="Labor category query type">
       {input(QUERY_TYPE_MATCH_EXACT)}
     </ul>
   );

@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-//import * as autocomplete from '../keyword_autocomplete';
+// import * as autocomplete from '../keyword_autocomplete';
 import { setQuery } from '../actions';
 
 import {
   QUERY_BY_SCHEDULE,
-  //QUERY_BY_CONTRACT,
-  //QUERY_BY_VENDOR,
+  // QUERY_BY_CONTRACT,
+  // QUERY_BY_VENDOR,
   MAX_QUERY_LENGTH
 } from '../constants';
 
@@ -76,8 +76,8 @@ export class KeywordFilter extends React.Component {
           placeholder={placeholder}
           type="text"
           className="form__inline form__block_control"
-          ref={ (el) => { this.inputEl = el; }}
-          style={{ borderEndWidth:1, borderEndColor:"#f00" }}
+          ref={(el) => { this.inputEl = el; }}
+          style={{ borderEndWidth: 1, borderEndColor: "#f00" }}
           onChange={this.handleChange}
           onFocus={this.handleFocus}
           onKeyDown={handleEnter(this.handleEnter)}

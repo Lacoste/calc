@@ -48,11 +48,11 @@ export class ResultsTable extends React.Component {
     }
   }
 
-  checkKeywordOrCertificationExist(searchStr, data) {
+  checkKeyOrCertiExist(searchStr, data) {
     let search_arr = searchStr.split(',');
     let noMatchFound = true;
-    let i = 0
-    for (i = 0; i<search_arr.length; i++) {
+    let i = 0;
+    for (i = 0; i < search_arr.length; i++) {
       if ((data.toLowerCase()).indexOf(search_arr[i].toLowerCase()) !== -1) {
         noMatchFound = false;
       }
@@ -70,17 +70,21 @@ export class ResultsTable extends React.Component {
           className={
           (
             (
-              (!(result.keywords) || this.checkKeywordOrCertificationExist(this.state.search_keywords, result.keywords))
-                 &&	
-              (!(result.certifications) || this.checkKeywordOrCertificationExist(this.state.search_keywords, result.certifications))
-            ) && this.state.search_filter_need ? 'hidden' : ''
-          )
-        }>{COLUMNS.map((col) => {
-            const cellKey = `${result.id}-${col.DataCell.cellKey}`;
-            return (
-              <col.DataCell key={cellKey} sort={this.props.sort} result={result} />
-            );
-          })}
+              (!(result.keywords) || this.checkKeyOrCertiExist(this.state.search_keywords, 
+                result.keywords))
+                && (!(result.certifications) 
+                  || this.checkKeyOrCertiExist(this.state.search_keywords, 
+                    result.certifications))
+            ) && this.state.search_filter_need ? 'hidden' : '')
+        }
+        >
+        {COLUMNS.map((col) => {
+          const cellKey = `${result.id}-${col.DataCell.cellKey}`;
+          return (
+            <col.DataCell key={cellKey} sort={this.props.sort} result={result} />
+          );
+        })
+      }
         </tr>
       ));
   }

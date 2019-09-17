@@ -62,7 +62,7 @@ export function initialize(el, {
 }) {
   let autoCompReq;
   let searchTerms = '';
-  //alert("initialize");
+  // alert("initialize");
   $(el).autoComplete({
     minChars: 2,
     // delay: 5,
