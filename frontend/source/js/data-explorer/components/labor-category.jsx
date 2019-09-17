@@ -23,7 +23,7 @@ export class LaborCategory extends React.Component {
     this.state = { 
       value: this.props.query
     };
-    this.parentCallback = this.parentCallback.bind(this);
+
     autobind(this, ['handleChange', 'handleEnter']);
   }
 
@@ -110,7 +110,7 @@ LaborCategory.propTypes = {
   setQuery: PropTypes.func.isRequired,
   api: PropTypes.object.isRequired,
   children: PropTypes.any,
-  parentCallback: PropTypes.func.isRequired
+  parentCallback: PropTypes.any.isRequired
 };
 
 LaborCategory.defaultProps = {
