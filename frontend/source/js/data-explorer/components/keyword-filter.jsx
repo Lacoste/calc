@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { setQuery } from '../actions';
 
 import {
-  QUERY_BY_SCHEDULE,
+  // QUERY_BY_SCHEDULE,
   // QUERY_BY_CONTRACT,
   // QUERY_BY_VENDOR,
   MAX_QUERY_LENGTH
@@ -61,7 +61,7 @@ export class KeywordFilter extends React.Component {
 
   render() {
     const id = `${this.props.idPrefix}keywords`;
-    let placeholder = "Type keywords or Certifications";
+    const placeholder = "Type keywords or Certifications";
 
     return (
       <div className="search-group">
@@ -92,18 +92,21 @@ export class KeywordFilter extends React.Component {
 
 KeywordFilter.propTypes = {
   idPrefix: PropTypes.string,
+  keywordDisabled: PropTypes.any.isRequired,
+  resetFilter: PropTypes.any.isRequired,
+  parentCallback: PropTypes.any.isRequired,
   query: PropTypes.string.isRequired,
-  queryType: PropTypes.string.isRequired,
-  queryBy: PropTypes.string,
+  // queryType: PropTypes.string.isRequired,
+  // queryBy: PropTypes.string,
   setQuery: PropTypes.func.isRequired,
-  api: PropTypes.object.isRequired,
+  // api: PropTypes.object.isRequired,
   children: PropTypes.any,
 };
 
 KeywordFilter.defaultProps = {
   idPrefix: '',
   children: null,
-  queryBy: QUERY_BY_SCHEDULE,
+  // queryBy: QUERY_BY_SCHEDULE,
 };
 
 export default connect(

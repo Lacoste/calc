@@ -33,6 +33,7 @@ const { priceForContractYear } = PriceColumn;
 export class ResultsTable extends React.Component {
   constructor(props) {
     super(props);
+    this.checkKeyOrCertiExist = this.checkKeyOrCertiExist.bind(this);
     this.state = { 
       search_keywords: "",
       search_filter_need: false
@@ -41,19 +42,21 @@ export class ResultsTable extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ search_keywords: nextProps.search_keywords });
-    if (nextProps.search_keywords.length > 2) {
+    const searchLength = (this.state.search_keywords).length;
+    if (searchLength > 2) {
       this.setState({ search_filter_need: true });
     } else {
       this.setState({ search_filter_need: false });
     }
   }
 
-  checkKeyOrCertiExist(searchStr, data) {
-    let search_arr = searchStr.split(',');
+  checkKeyOrCertiExist(data) {
+    const searchStr = this.state.search_keywords;
+    const searchArr = searchStr.split(',');
     let noMatchFound = true;
     let i = 0;
-    for (i = 0; i < search_arr.length; i++) {
-      if ((data.toLowerCase()).indexOf(search_arr[i].toLowerCase()) !== -1) {
+    for (i = 0; i < searchArr.length; i++) {
+      if ((data.toLowerCase()).indexOf(searchArr[i].toLowerCase()) !== -1) {
         noMatchFound = false;
       }
     }
@@ -70,20 +73,18 @@ export class ResultsTable extends React.Component {
           className={
           (
             (
-              (!(result.keywords) || this.checkKeyOrCertiExist(this.state.search_keywords, 
-                result.keywords))
+              (!(result.keywords) || this.checkKeyOrCertiExist(result.keywords))
                 && (!(result.certifications) 
-                  || this.checkKeyOrCertiExist(this.state.search_keywords, 
-                    result.certifications))
+                  || this.checkKeyOrCertiExist(result.certifications))
             ) && this.state.search_filter_need ? 'hidden' : '')
         }
         >
-        {COLUMNS.map((col) => {
-          const cellKey = `${result.id}-${col.DataCell.cellKey}`;
-          return (
-            <col.DataCell key={cellKey} sort={this.props.sort} result={result} />
-          );
-        })
+          {COLUMNS.map((col) => {
+            const cellKey = `${result.id}-${col.DataCell.cellKey}`;
+            return (
+              <col.DataCell key={cellKey} sort={this.props.sort} result={result} />
+            );
+          })
       }
         </tr>
       ));
@@ -129,6 +130,8 @@ ResultsTable.propTypes = {
   results: PropTypes.array.isRequired,
   contractYear: PropTypes.string.isRequired,
   idPrefix: PropTypes.string,
+  search_keywords: PropTypes.string.isRequired,
+  // search_keywords.length: PropTypes.any.isRequired
 };
 
 ResultsTable.defaultProps = {
