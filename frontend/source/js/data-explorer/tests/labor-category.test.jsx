@@ -26,7 +26,7 @@ describe('<LaborCategory>', () => {
 
   it('matches snapshot', () => {
     const { wrapper } = setup();
-    expect(toJson(wrapper + "*")).toMatchSnapshot();
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it('calls setQuery on enter', () => {
