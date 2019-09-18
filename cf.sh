@@ -14,4 +14,4 @@ if [ $CF_INSTANCE_INDEX = "0" ]; then
 
 fi
 echo "------ Starting APP ------"
-gunicorn calc.wsgi:application
+gunicorn calc.wsgi:application --timeout 180
