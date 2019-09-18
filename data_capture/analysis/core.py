@@ -223,7 +223,6 @@ def analyze_gleaned_data(gleaned_data):
             price_list.save()
             gleaned_data.add_to_price_list(price_list)
             cached_rows: Dict[str, Dict] = {}
-            #cached_rows = {}
             for row in price_list.rows.all():
                 key = row.labor_category + row.education_level + str(row.min_years_experience)
                 if key in cached_rows:
