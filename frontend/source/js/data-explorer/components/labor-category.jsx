@@ -25,6 +25,7 @@ export class LaborCategory extends React.Component {
     };
 
     autobind(this, ['handleChange', 'handleEnter']);
+    this.sendDataBack = this.sendDataBack.bind(this);
   }
 
   componentDidMount() {
@@ -50,7 +51,7 @@ export class LaborCategory extends React.Component {
     autocomplete.destroy(this.inputEl);
   }
 
-  sendDataBack(keyword) {
+  sendDataBack (keyword) {
     this.props.parentCallback(keyword);
   }
 
