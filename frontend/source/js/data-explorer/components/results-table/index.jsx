@@ -41,13 +41,14 @@ export class ResultsTable extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ search_keywords: nextProps.search_keywords });
-    const searchLength = (this.state.search_keywords).length;
-    if (searchLength > 2) {
-      this.setState({ search_filter_need: true });
-    } else {
-      this.setState({ search_filter_need: false });
-    }
+    this.setState({ search_keywords: nextProps.search_keywords }, () => {
+      const searchLength = (this.state.search_keywords).length;
+      if (searchLength > 2) {
+        this.setState({ search_filter_need: true });
+      } else {
+        this.setState({ search_filter_need: false });
+      }
+    });
   }
 
   checkKeyOrCertiExist(data) {

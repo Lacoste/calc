@@ -51,7 +51,7 @@ export class LaborCategory extends React.Component {
     autocomplete.destroy(this.inputEl);
   }
 
-  sendDataBack (keyword) {
+  sendDataBack(keyword) {
     this.props.parentCallback(keyword);
   }
 
