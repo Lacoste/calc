@@ -233,5 +233,4 @@ def analyze_gleaned_data(gleaned_data):
                     valid_rows.append(processed_raw)
             transaction.savepoint_rollback(sid)
 
-
     return valid_rows
