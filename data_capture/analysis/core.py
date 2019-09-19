@@ -222,8 +222,16 @@ def analyze_gleaned_data(gleaned_data):
             )
             price_list.save()
             gleaned_data.add_to_price_list(price_list)
+            cached_rows: Dict[str, Dict] = {}
             for row in price_list.rows.all():
-                valid_rows.append(analyze_price_list_row(cursor, vocab, row))
+                key = row.labor_category + row.education_level + str(row.min_years_experience)
+                if key in cached_rows:
+                    valid_rows.append(cached_rows[key])
+                else:
+                    processed_raw = analyze_price_list_row(cursor, vocab, row)
+                    cached_rows[key] = processed_raw
+                    valid_rows.append(processed_raw)
             transaction.savepoint_rollback(sid)
+
 
     return valid_rows
