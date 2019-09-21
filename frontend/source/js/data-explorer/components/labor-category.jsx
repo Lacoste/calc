@@ -20,7 +20,10 @@ import {
 export class LaborCategory extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: this.props.query };
+    this.state = { 
+      value: this.props.query
+    };
+
     autobind(this, ['handleChange', 'handleEnter']);
   }
 
@@ -29,6 +32,9 @@ export class LaborCategory extends React.Component {
       api: this.props.api,
       getQueryType: () => this.props.queryType,
       setFieldValue: (value) => {
+        if (value !== " ") {
+          this.sendDataBack(false);
+        }
         this.props.setQuery(value);
       },
     });
@@ -44,8 +50,17 @@ export class LaborCategory extends React.Component {
     autocomplete.destroy(this.inputEl);
   }
 
+  sendDataBack(keyword) {
+    this.props.parentCallback(keyword);
+  }
+
   handleChange(e) {
     this.setState({ value: e.target.value });
+    if (e.target.value.length > 0) {
+      this.sendDataBack(false);
+    } else {
+      this.sendDataBack(true);
+    }  
   }
 
   handleEnter() {
@@ -56,7 +71,7 @@ export class LaborCategory extends React.Component {
 
   render() {
     const id = `${this.props.idPrefix}labor_category`;
-    let placeholder = "Type a labor category";
+    let placeholder = "Type a labor category*";
 
     if (this.props.queryBy === QUERY_BY_CONTRACT) {
       placeholder = "Type a contract number";
@@ -74,7 +89,7 @@ export class LaborCategory extends React.Component {
           name="q"
           placeholder={placeholder}
           type="text"
-          className="form__inline"
+          className="form__inline form__block_control"
           ref={(el) => { this.inputEl = el; }}
           value={this.state.value}
           onChange={this.handleChange}
@@ -95,6 +110,7 @@ LaborCategory.propTypes = {
   setQuery: PropTypes.func.isRequired,
   api: PropTypes.object.isRequired,
   children: PropTypes.any,
+  parentCallback: PropTypes.any.isRequired
 };
 
 LaborCategory.defaultProps = {

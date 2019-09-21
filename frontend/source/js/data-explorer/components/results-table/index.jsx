@@ -7,6 +7,8 @@ import createSortableColumn from './sortable-column';
 import * as ExcludedColumn from './excluded-column';
 import * as LaborCategoryColumn from './labor-category-column';
 import * as EducationColumn from './education-column';
+import * as KeywordsColumn from './keywords-column';
+import * as CertificationsColumn from './certifications-columns';
 import * as ExperienceColumn from './experience-column';
 import * as PriceColumn from './price-column';
 import * as VendorColumn from './vendor';
@@ -18,6 +20,8 @@ const COLUMNS = [
   EducationColumn,
   ExperienceColumn,
   VendorColumn,
+  KeywordsColumn,
+  CertificationsColumn,
   createSortableColumn({
     key: 'schedule',
     title: 'Contract vehicle',
@@ -27,17 +31,61 @@ const COLUMNS = [
 const { priceForContractYear } = PriceColumn;
 
 export class ResultsTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.checkKeyOrCertiExist = this.checkKeyOrCertiExist.bind(this);
+    this.state = { 
+      search_keywords: "",
+      search_filter_need: false
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ search_keywords: nextProps.search_keywords });
+    const searchLength = (this.state.search_keywords).length;
+    if (searchLength > 2) {
+      this.setState({ search_filter_need: true });
+    } else {
+      this.setState({ search_filter_need: false });
+    }
+  }
+
+  checkKeyOrCertiExist(data) {
+    const searchStr = this.state.search_keywords;
+    const searchArr = searchStr.split(',');
+    let noMatchFound = true;
+    let i = 0;
+    for (i = 0; i < searchArr.length; i++) {
+      if ((data.toLowerCase()).indexOf(searchArr[i].toLowerCase()) !== -1) {
+        noMatchFound = false;
+      }
+    }
+    
+    return noMatchFound;
+  }
+
   renderBodyRows() {
     return this.props.results
       .filter(r => !!priceForContractYear(this.props.contractYear, r))
       .map(result => (
-        <tr key={result.id}>
+        <tr 
+          key={result.id} 
+          className={
+          (
+            (
+              (!(result.keywords) || this.checkKeyOrCertiExist(result.keywords))
+                && (!(result.certifications) 
+                  || this.checkKeyOrCertiExist(result.certifications))
+            ) && this.state.search_filter_need ? 'hidden' : '')
+        }
+        >
           {COLUMNS.map((col) => {
             const cellKey = `${result.id}-${col.DataCell.cellKey}`;
             return (
               <col.DataCell key={cellKey} sort={this.props.sort} result={result} />
             );
-          })}
+          })
+      }
         </tr>
       ));
   }
@@ -82,6 +130,8 @@ ResultsTable.propTypes = {
   results: PropTypes.array.isRequired,
   contractYear: PropTypes.string.isRequired,
   idPrefix: PropTypes.string,
+  search_keywords: PropTypes.string.isRequired,
+  // search_keywords.length: PropTypes.any.isRequired
 };
 
 ResultsTable.defaultProps = {
