@@ -43,6 +43,7 @@ FoundContracts = namedtuple(
 
 logger = logging.getLogger('calc')
 
+
 def find_comparable_contracts(cursor, vocab, labor_category,
                               min_years_experience, education_level,
                               min_count=DEFAULT_MIN_COMPARABLES,
