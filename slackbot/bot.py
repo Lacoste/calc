@@ -39,19 +39,19 @@ def sendmsg(text: str) -> bool:
     Returns True if the message was successfully sent, False otherwise.
     '''
 
-    payload = {
-        'text': text,
-        'username': Site.objects.get_current().name,
-        'icon_url': absolutify_url(staticfiles_storage.url(
-            'frontend/images/price-callout/mule.png')),
-    }
-    if settings.SLACKBOT_WEBHOOK_URL:
-        try:
-            post_to_webhook(payload)
-            return True
-        except Exception:
-            logger.exception('Error occurred when sending Slack message.')
-    else:
-        logger.debug('SLACKBOT_WEBHOOK_URL is empty; not sending message.')
+    # payload = {
+    #     'text': text,
+    #     'username': Site.objects.get_current().name,
+    #     'icon_url': absolutify_url(staticfiles_storage.url(
+    #         'frontend/images/price-callout/mule.png')),
+    # }
+    # if settings.SLACKBOT_WEBHOOK_URL:
+    #     try:
+    #         post_to_webhook(payload)
+    #         return True
+    #     except Exception:
+    #         logger.exception('Error occurred when sending Slack message.')
+    # else:
+    #     logger.debug('SLACKBOT_WEBHOOK_URL is empty; not sending message.')
 
     return False
