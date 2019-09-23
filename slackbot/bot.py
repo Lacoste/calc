@@ -19,11 +19,11 @@ logger = logging.getLogger('slackbot')
 
 
 def post_to_webhook(payload: Dict[str, str]):
-    res = requests.post(
-        settings.SLACKBOT_WEBHOOK_URL,
-        data={'payload': json.dumps(payload)},
-        timeout=TIMEOUT)
-    res.raise_for_status()
+    # res = requests.post(
+    #     settings.SLACKBOT_WEBHOOK_URL,
+    #     data={'payload': json.dumps(payload)},
+    #     timeout=TIMEOUT)
+    # res.raise_for_status()
 
 
 def sendmsg(text: str) -> bool:
