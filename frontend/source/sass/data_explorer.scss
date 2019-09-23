@@ -359,16 +359,17 @@ input[type="checkbox"]:checked ~ label {
  position:relative;
 }
 .submit_button{
-  width: 40px;
+  width: 60px;
   height:42px;
   margin:6px 0px;
 }
 .reset_button{
   position:absolute;
   top:0px;
-  right:20px;
-  padding: 1.5rem 1.3rem !important;
+  right:0px;
+  padding-left: 8%;
   height:42px;
+  width: 60px;
   margin:6px 0px;
 }
 .ExactMatch{

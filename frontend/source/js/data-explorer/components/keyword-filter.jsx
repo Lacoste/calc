@@ -33,16 +33,17 @@ export class KeywordFilter extends React.Component {
     this.setState({ 
       keywordDisabled: nextProps.keywordDisabled,
       resetFilter: nextProps.resetFilter,
+    },
+    () => {
+      if (this.state.resetFilter) {
+        this.setState({ keywordValue: "" });
+      }
     });
-    if (this.state.resetFilter) {
-      this.setState({ keywordValue: "" });
-    }
   }
 
   sendDataBack(searchkeyword) {
     this.props.parentCallback(searchkeyword);
   }
-
 
   handleChange(e) {
     this.setState({ value: e.target.value, keywordValue: e.target.value });
@@ -61,7 +62,7 @@ export class KeywordFilter extends React.Component {
 
   render() {
     const id = `${this.props.idPrefix}keywords`;
-    const placeholder = "Type keywords or Certifications";
+    const placeholder = "Type keywords or certifications";
 
     return (
       <div className="search-group">

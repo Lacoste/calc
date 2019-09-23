@@ -25,6 +25,7 @@ export class LaborCategory extends React.Component {
     };
 
     autobind(this, ['handleChange', 'handleEnter']);
+    this.sendDataBack = this.sendDataBack.bind(this);
   }
 
   componentDidMount() {

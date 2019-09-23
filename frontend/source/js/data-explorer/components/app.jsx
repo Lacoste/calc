@@ -34,9 +34,9 @@ class App extends React.Component {
     super(props);
     this.setKeywordDisabled = this.setKeywordDisabled.bind(this);
     this.setEnteredKeyword = this.setEnteredKeyword.bind(this);
+    this.handleResetClick = this.handleResetClick.bind(this);
     autobind(this, [
       'handleSubmit',
-      'handleResetClick',
       'handleDownloadClick',
     ]);
     this.state = {
@@ -89,7 +89,7 @@ class App extends React.Component {
   handleResetClick(e) {
     e.preventDefault();
     this.props.resetState();
-    this.setState({ resetFilter: true, searchkeyword: "" });
+    this.setState({ resetFilter: "check", searchkeyword: "", keywordDisabled: true });
   }
 
   handleDownloadClick(e) {
