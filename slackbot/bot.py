@@ -25,6 +25,7 @@ def post_to_webhook(payload: Dict[str, str]):
         timeout=TIMEOUT)
     res.raise_for_status()
 
+
 def sendmsg(text: str) -> bool:
     '''
     Sends a message to Slack with the given text, formatted in the
@@ -46,7 +47,7 @@ def sendmsg(text: str) -> bool:
     }
     if settings.SLACKBOT_WEBHOOK_URL:
         try:
-            # post_to_webhook(payload)
+            post_to_webhook(payload)
             return True
         except Exception:
             logger.exception('Error occurred when sending Slack message.')

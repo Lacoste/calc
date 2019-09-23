@@ -15,4 +15,4 @@ def on_submittedpricelist_save(sender, created=False, instance=None,
             'admin:data_capture_unreviewedpricelist_change',
             args=(instance.id,)
         )
-        sendmsg(f'A new <{url}|price list> has been submitted!')
+        # sendmsg(f'A new <{url}|price list> has been submitted!')
