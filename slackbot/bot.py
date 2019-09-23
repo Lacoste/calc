@@ -19,12 +19,11 @@ logger = logging.getLogger('slackbot')
 
 
 def post_to_webhook(payload: Dict[str, str]):
-    # res = requests.post(
-    #     settings.SLACKBOT_WEBHOOK_URL,
-    #     data={'payload': json.dumps(payload)},
-    #     timeout=TIMEOUT)
-    # res.raise_for_status()
-
+    res = requests.post(
+        settings.SLACKBOT_WEBHOOK_URL,
+        data={'payload': json.dumps(payload)},
+        timeout=TIMEOUT)
+    res.raise_for_status()
 
 def sendmsg(text: str) -> bool:
     '''
@@ -47,7 +46,7 @@ def sendmsg(text: str) -> bool:
     }
     if settings.SLACKBOT_WEBHOOK_URL:
         try:
-            post_to_webhook(payload)
+            # post_to_webhook(payload)
             return True
         except Exception:
             logger.exception('Error occurred when sending Slack message.')
