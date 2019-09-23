@@ -3,10 +3,10 @@ import requests
 import logging
 from typing import Dict
 from django.conf import settings
-#from django.contrib.sites.models import Site
-#from django.contrib.staticfiles.storage import staticfiles_storage
+# from django.contrib.sites.models import Site
+# from django.contrib.staticfiles.storage import staticfiles_storage
 
-#from calc.site_utils import absolutify_url
+# from calc.site_utils import absolutify_url
 
 
 # Timeout, in seconds, after we give up on Slack. Since Slack isn't
