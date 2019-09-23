@@ -9,7 +9,7 @@ from .management.commands import sendtestslack
 from data_capture.models import SubmittedPriceList
 
 
-class BotTests(TestCase):
+# class BotTests(TestCase):
     # @override_settings(SLACKBOT_WEBHOOK_URL='')
     # @patch.object(bot.logger, 'debug')
     # def test_sendmsg_returns_false_when_settings_are_not_defined(self, m):
