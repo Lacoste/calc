@@ -33,9 +33,6 @@ export class LaborCategory extends React.Component {
       api: this.props.api,
       getQueryType: () => this.props.queryType,
       setFieldValue: (value) => {
-        if (value !== " ") {
-          this.sendDataBack(false);
-        }
         this.props.setQuery(value);
       },
     });
