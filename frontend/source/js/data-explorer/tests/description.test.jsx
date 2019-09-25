@@ -13,6 +13,7 @@ const defaultProps = {
   businessSize: 's',
   schedule: 'IT Schedule 70',
   laborCategory: 'Systems Analyst',
+  searchResultCount: 5000,
 };
 
 const setup = makeSetup(Description, defaultProps);
