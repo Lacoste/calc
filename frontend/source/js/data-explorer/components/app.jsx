@@ -35,6 +35,7 @@ class App extends React.Component {
     this.setKeywordDisabled = this.setKeywordDisabled.bind(this);
     this.setEnteredKeyword = this.setEnteredKeyword.bind(this);
     this.handleResetClick = this.handleResetClick.bind(this);
+    this.setResultCount = this.setResultCount.bind(this);
     autobind(this, [
       'handleSubmit',
       'handleDownloadClick',
@@ -42,7 +43,8 @@ class App extends React.Component {
     this.state = {
       keywordDisabled: true,
       searchkeyword: "",
-      resetFilter: false
+      resetFilter: false,
+      searchResultCount: 0
     };
   }
 
@@ -79,6 +81,10 @@ class App extends React.Component {
 
   setEnteredKeyword(childData) {
     this.setState({ searchkeyword: childData, resetFilter: false });
+  }
+
+  setResultCount(childData) {
+    this.setState({ searchResultCount: childData });
   }
 
   handleSubmit(e) {
@@ -143,17 +149,20 @@ class App extends React.Component {
                         />
                       </div>
                       <div className="two columns button_holder">
-                        <button 
-                          className="submit usa-button-primary icon-search submit_button"
-                          aria-label="Search CALC" 
-                        /> 
-                        {' '}
-                        <input 
-                          onClick={this.handleResetClick}
-                          className="reset usa-button usa-button-secondary reset_button"
-                          type="reset"
-                          value="Reset"
-                        />
+                        <span>
+                          <button 
+                            className="submit usa-button-primary icon-search submit_button"
+                            aria-label="Search CALC" 
+                          />
+                        </span> 
+                        <span>
+                          <input 
+                            onClick={this.handleResetClick}
+                            className="reset usa-button usa-button-secondary reset_button"
+                            type="reset"
+                            value="Reset"
+                          />
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -178,8 +187,7 @@ class App extends React.Component {
                 height="280"
               />
 
-              <Description />
-
+              <Description searchResultCount={this.state.searchResultCount} />
               <LoadingIndicator />
 
               <div className="graph">
@@ -236,7 +244,10 @@ Optional filters
           <div className="container">
             <div className="row">
               <div className="table-container">
-                <ResultsTable search_keywords={this.state.searchkeyword} />
+                <ResultsTable 
+                  countBackToParent={this.setResultCount} 
+                  search_keywords={this.state.searchkeyword} 
+                />
               </div>
             </div>
           </div>
