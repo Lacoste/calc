@@ -115,6 +115,7 @@ LaborCategory.defaultProps = {
   idPrefix: '',
   children: null,
   queryBy: QUERY_BY_SCHEDULE,
+  parentCallback: '',
 };
 
 export default connect(
