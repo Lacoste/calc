@@ -108,7 +108,7 @@ LaborCategory.propTypes = {
   setQuery: PropTypes.func.isRequired,
   api: PropTypes.object.isRequired,
   children: PropTypes.any,
-  parentCallback: PropTypes.any.isRequired
+  parentCallback: PropTypes.func
 };
 
 LaborCategory.defaultProps = {

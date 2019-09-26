@@ -134,7 +134,7 @@ Description.propTypes = {
   businessSize: PropTypes.string.isRequired,
   schedule: PropTypes.string.isRequired,
   laborCategory: PropTypes.string.isRequired,
-  searchResultCount: PropTypes.string.isRequired,
+  searchResultCount: PropTypes.number.isRequired,
 };
 
 function mapStateToProps(state) {
