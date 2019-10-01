@@ -17,8 +17,8 @@ export const API_PATH_SEARCH = '/search';
  */
 
 export default class API {
-  constructor(basePath = API_BASE) {
-    this.basePath = basePath;
+  constructor() {
+    this.basePath = 'https://api.data.gov/dev/gsa/calc';
   }
 
   get({ uri, data }, callback) {
