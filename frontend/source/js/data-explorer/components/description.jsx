@@ -26,7 +26,6 @@ export function Description({
   businessSize,
   schedule,
   laborCategory,
-  searchResultCount
 }) {
   let results = ' results ';
   const laborCategories = [];
@@ -97,7 +96,6 @@ years
     filtersClasses.push('hidden');
   }
 
-
   return (
     <div id="description">
       <h4>
@@ -110,9 +108,7 @@ years
       <p>
         { shownResults === totalResults ? '' : `Showing ${formatCommas(shownResults)} of ` }
         <span className="total">
-          {/* {formatCommas(totalResults)} */}
-          { searchResultCount === 0
-            ? formatCommas(totalResults) : formatCommas(searchResultCount)}
+          {formatCommas(totalResults)}
         </span>
         {results}
 
@@ -134,7 +130,6 @@ Description.propTypes = {
   businessSize: PropTypes.string.isRequired,
   schedule: PropTypes.string.isRequired,
   laborCategory: PropTypes.string.isRequired,
-  searchResultCount: PropTypes.number.isRequired,
 };
 
 function mapStateToProps(state) {
