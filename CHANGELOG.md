@@ -7,6 +7,14 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## 2019-10-08
+
+### Changed
+
+- Added Option to Upload the MAS Consolidation Pricing Template
+- 1 high severity issues fixed (Reported by Synk tool).
+
+
 ## 2019-08-20
 
 ### Changed
