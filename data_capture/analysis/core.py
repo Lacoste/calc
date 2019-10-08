@@ -234,21 +234,13 @@ def analyze_gleaned_data(gleaned_data):
                     valid_rows.append(cached_rows[key])
                     cachingCount = cachingCount + 1
                     totalCount = totalCount + 1
-<<<<<<< HEAD
-                    logger.info('Caching {} total {}'.format(cachingCount, totalCount))
-=======
                     logger.info('Key {} Caching {} total {}'.format(key, cachingCount, totalCount))
->>>>>>> 96ee88d7d59cac8b2fe6d3588587696194639176
                 else:
                     processed_raw = analyze_price_list_row(cursor, vocab, row)
                     cached_rows[key] = processed_raw
                     valid_rows.append(processed_raw)
                     totalCount = totalCount + 1
-<<<<<<< HEAD
-                    logger.info('Caching {} count {}'.format(cachingCount, totalCount))
-=======
                     logger.info('key {} Caching {} count {}'.format(key, cachingCount, totalCount))
->>>>>>> 96ee88d7d59cac8b2fe6d3588587696194639176
             transaction.savepoint_rollback(sid)
 
     return valid_rows
