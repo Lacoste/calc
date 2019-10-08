@@ -3,10 +3,10 @@ import requests
 import logging
 from typing import Dict
 from django.conf import settings
-from django.contrib.sites.models import Site
-from django.contrib.staticfiles.storage import staticfiles_storage
+# from django.contrib.sites.models import Site
+# from django.contrib.staticfiles.storage import staticfiles_storage
 
-from calc.site_utils import absolutify_url
+# from calc.site_utils import absolutify_url
 
 
 # Timeout, in seconds, after we give up on Slack. Since Slack isn't
@@ -39,19 +39,19 @@ def sendmsg(text: str) -> bool:
     Returns True if the message was successfully sent, False otherwise.
     '''
 
-    payload = {
-        'text': text,
-        'username': Site.objects.get_current().name,
-        'icon_url': absolutify_url(staticfiles_storage.url(
-            'frontend/images/price-callout/mule.png')),
-    }
-    if settings.SLACKBOT_WEBHOOK_URL:
-        try:
-            post_to_webhook(payload)
-            return True
-        except Exception:
-            logger.exception('Error occurred when sending Slack message.')
-    else:
-        logger.debug('SLACKBOT_WEBHOOK_URL is empty; not sending message.')
+    # payload = {
+    #     'text': text,
+    #     'username': Site.objects.get_current().name,
+    #     'icon_url': absolutify_url(staticfiles_storage.url(
+    #         'frontend/images/price-callout/mule.png')),
+    # }
+    # if settings.SLACKBOT_WEBHOOK_URL:
+    #     try:
+    #         post_to_webhook(payload)
+    #         return True
+    #     except Exception:
+    #         logger.exception('Error occurred when sending Slack message.')
+    # else:
+    #     logger.debug('SLACKBOT_WEBHOOK_URL is empty; not sending message.')
 
     return False
