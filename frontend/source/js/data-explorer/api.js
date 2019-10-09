@@ -3,7 +3,7 @@
 import xhr from 'xhr';
 import * as qs from 'querystring';
 
-export const API_BASE = '/api';
+export const API_BASE = 'https://api.data.gov/dev/gsa/calc';
 export const API_RATES_SCHEDULES = '/schedules';
 export const API_PATH_RATES_CSV = '/rates/csv';
 export const API_PATH_RATES = '/rates';
