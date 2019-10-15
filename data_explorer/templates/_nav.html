@@ -8,6 +8,9 @@
       {% if perms.data_capture.add_submittedpricelist %}
       <li{% if current_selected_tab == 'upload_price_data'%} class="selected"{% endif %}><a href="{% url 'data_capture:step_1' %}">Add price data</a></li>
       {% endif %}
+      {% if perms.data_capture.add_submittedpricelist %}
+      <li{% if current_selected_tab == 'capability_statement'%} class="selected"{% endif %}><a href="{% url 'step_cap' %}">Add capability statement</a></li>
+      {% endif %}
       <li{% if current_selected_tab == 'about'%} class="selected"{% endif %}><a href="{% url 'about' %}">About CALC</a></li>
     </ul>
   </nav>
