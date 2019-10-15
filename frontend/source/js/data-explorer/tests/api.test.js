@@ -11,7 +11,7 @@ import API, {
 
 describe('API constants', () => {
   it('equal expected values', () => {
-    expect(API_BASE).toEqual('/api');
+    expect(API_BASE).toEqual('https://api.data.gov/dev/gsa/calc');
     expect(API_PATH_RATES_CSV).toEqual('/rates/csv');
     expect(API_PATH_RATES).toEqual('/rates');
     expect(API_PATH_SEARCH).toEqual('/search');

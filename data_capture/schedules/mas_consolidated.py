@@ -74,6 +74,8 @@ DEFAULT_FIELD_TITLE_MAP_MAS = {
     'min_years_experience': 'Minimum Years of Experience',
     'unit_of_issue': 'Unit of Issue',
     'price_including_iff': 'Price Offered',
+    'keywords': 'Key words',
+    'certifications': 'Identify Required Licenses or Certifications'
 }
 
 
@@ -138,15 +140,23 @@ class MASConsolidatedPriceListRow(forms.Form):
     labor_category = forms.CharField(
         label="SERVICE PROPOSED (eg Job Title/Task)"
     )
+    keywords = forms.CharField(
+        label='Key Words',
+        required=False
+    )
     education_level = forms.CharField(
         label="Minimum Education"
     )
     min_years_experience = forms.IntegerField(
         label="Minimum Years of Experience (cannot be a range)"
     )
+    certifications = forms.CharField(
+        label='Identify Required Licenses or Certifications',
+        required=False
+    )
     unit_of_issue = forms.CharField(
         label="Unit of issue",
-        required=False,
+        required=True,
         validators=[hourly_rates_only_validator]
     )
     price_including_iff = forms.DecimalField(
@@ -205,7 +215,9 @@ class MASConsolidatedPriceList(BasePriceList):
                 education_level=row.contract_model_education_level(),
                 min_years_experience=row.cleaned_data['min_years_experience'],
                 base_year_rate=row.contract_model_base_year_rate(),
-                sin=row.cleaned_data['sin']
+                sin=row.cleaned_data['sin'],
+                keywords=row.cleaned_data['keywords'],
+                certifications=row.cleaned_data['certifications']
             )
 
     def serialize(self):

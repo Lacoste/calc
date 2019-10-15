@@ -66,21 +66,21 @@
     "xhr": "^2.4.0"
   },
   "resolutions": {
-    "lodash":"^4.17.12",
+    "lodash": "^4.17.12",
     "tar": "^4.4.2",
     "braces": "2.3.1",
     "cached-path-relative": "1.0.2",
     "mem": "^4.0.0",
     "chownr": "^1.1.0",
     "merge": "^1.2.1",
-    "handlebars" :"^4.1.2",
-    "js-yaml" :"^3.13.1",
-    "mixin-deep" :"^2.0.1",
-    "set-value" :"^3.0.1",
-    "fstream" :"^1.0.12",
-    "lodash.mergewith":"^4.6.2",
-    "lodash.template":"4.5.0",
-    "lodash-es":"4.17.14"
+    "handlebars": "^4.3.0",
+    "js-yaml": "^3.13.1",
+    "mixin-deep": "^2.0.1",
+    "set-value": "^3.0.1",
+    "fstream": "^1.0.12",
+    "lodash.mergewith": "^4.6.2",
+    "lodash.template": "4.5.0",
+    "lodash-es": "4.17.14"
   },
   "scripts": {
     "gulp": "gulp",
@@ -117,4 +117,4 @@
     "coverageDirectory": "./coverage/jest/",
     "setupTestFrameworkScriptFile": "./frontend/source/js/data-explorer/tests/setup.js"
   }
-} 
+}
