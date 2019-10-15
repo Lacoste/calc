@@ -19,6 +19,7 @@ admin.site.login = staff_login_required(admin.site.login)
 urlpatterns = [
     url(r'^$', data_explorer.views.index, name='index'),
     url(r'^about/$', data_explorer.views.about, name='about'),
+    url(r'^step_cap/$', data_explorer.views.step_cap, name='step_cap'),
     url(r'^logout/$', data_explorer.views.logout, name='logout'),
     url(r'^uaa_logout/$', data_explorer.views.uaa_logout, name='uaa_logout'),
     url(r'^safe-mode/', include('frontend.safe_mode', namespace='safe_mode')),

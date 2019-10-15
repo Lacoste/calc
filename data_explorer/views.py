@@ -19,6 +19,11 @@ def about(request):
         'schedules': ScheduleMetadata.objects.all().order_by('sin'),
     })
 
+def step_cap(request):
+    return render(request, 'step_cap.html', {
+        'current_selected_tab': 'capability_statement'
+    })
+
 
 def index(request, template_vars=None):
     return render(request, 'index.html', template_vars or {})

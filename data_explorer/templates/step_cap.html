@@ -1,0 +1,59 @@
+{% extends 'data_capture/step.html' %}
+
+{% load staticfiles data_explorer_tags %}
+
+{% block head_meta %}
+  {% head_meta title="About CALC" description="About CALC, the Contract-Awarded Labor Category tool" %}
+{% endblock %}
+
+{% block body_class %}content--skinny{% endblock %}
+
+{% block body %}
+<div class="container">
+  {% block content %}
+    <form  method="post" action="/data-capture/capability_statement/" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="card">
+        <div class="content">
+          <fieldset>
+            <label for="id_contract_number">Contract number:</label>
+            <input type="text" name="contract_number" maxlength="128" required id="id_contract_number" />
+            <p class="helptext">This should be the full contract number, e.g. GS-XXX-XXXX.</p>
+          </fieldset>
+        </div>
+        <div class="content">
+          <h4>Upload capability statement:</h4>
+          <upload-widget>
+            <input type="file" name="capability_file" required id="id_file" is="upload-input" accept=".pdf,.docx" />
+            <br>
+            <div class="upload-chooser">
+              <label for="id_file">Choose file</label>
+              <span>PDF or DOCX format, please.</span>
+            </div>
+          </upload-widget>
+          <div class="form-button-row clearfix">
+            <div class="submit-group">
+              <span class="submit-label"></span>
+              <input type="hidden" id="alert" name="alert" value="{{uploaded_file_status}}" readonly>
+              <button class="usa-button usa-button-primary" type="submit">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    {% if uploaded_file_status and form_submitted != 0 %}
+      <script>
+        $( document ).ready(function() {
+          if ($('#alert').val() != ""){
+            alert($('#alert').val());
+            $('form').trigger('reset');
+            location.href="/step_cap/"
+          }
+        });
+      </script>
+    {% endif %}
+
+  {% endblock %}
+</div>
+{% endblock %}
