@@ -2,6 +2,8 @@ from django.conf.urls import url
 from django.views.generic.base import RedirectView
 from rest_framework.documentation import include_docs_urls
 
+from .capability_statement import get_capability_statement
+
 from api import views
 
 urlpatterns = [
@@ -14,4 +16,6 @@ urlpatterns = [
         description=views.DOCS_DESCRIPTION,
     )),
     url(r'^$', RedirectView.as_view(pattern_name='api-docs:docs-index')),
+    url(r'^capability_statement/contract_number=(?P<contractnumber>\w+)/$',
+        get_capability_statement.get_capability_statment),
 ]
