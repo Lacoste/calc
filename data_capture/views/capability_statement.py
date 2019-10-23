@@ -44,7 +44,7 @@ def add_capability_statment(request):
             key = file_to_upload
             s3_client = boto3.client('s3', AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID,
                                      aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-            s3_client.upload_file(local_path, AWS_BUCKET, key, 
+            s3_client.upload_file(local_path, AWS_BUCKET, key,
                                   ExtraArgs={'ContentType': file_extension, 'ACL': 'public-read'})
             uploaded_file_status = "File Uploaded Successfully"
             form_submitted = 1
