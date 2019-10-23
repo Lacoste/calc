@@ -1,14 +1,12 @@
-import os, boto3
+import os
+import boto3
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
 
-
 from ..management.commands.initgroups import ANALYZE_PRICES_PERMISSION
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-
-# from boto3.s3.transfer import S3Transfer
 
 
 @login_required
@@ -46,27 +44,11 @@ def add_capability_statment(request):
             key = file_to_upload
             s3_client = boto3.client('s3', AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID,
                                      aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-            s3_client.upload_file(local_path, AWS_BUCKET, key, ExtraArgs=
-                                  {'ContentType': file_extension, 'ACL': 'public-read'})
+            s3_client.upload_file(local_path, AWS_BUCKET, key, 
+                                  ExtraArgs={'ContentType': file_extension, 'ACL': 'public-read'})
             uploaded_file_status = "File Uploaded Successfully"
             form_submitted = 1
 
-            # transfer = S3Transfer(boto3.client('s3', AWS_REGION, 
-            #                                    aws_access_key_id=AWS_ACCESS_KEY_ID,
-            #                                     aws_secret_access_key=AWS_SECRET_ACCESS_KEY))
-            # s3 = boto3.client('s3')
-            # file_to_upload = str(request.POST['contract_number'] + "." + file_extension)
-            # local_path = os.path.join(local_directory, file_to_upload)
-            # relative_path = os.path.relpath(local_path, local_directory)
-            # s3_path = os.path.join('',relative_path)
-            # if file_to_upload:
-            #     a = transfer.upload_file(local_path, AWS_BUCKET,
-            #                              s3_path,extra_args = {'ACL': 'public-read'})
-            #     uploaded_file_status = "File Uploaded Successfully"
-            #     form_submitted = 1
-            # else:
-            #     uploaded_file_status = "Error While File Uploading12"
-            #     form_submitted = 2
         except Exception:
             uploaded_file_status = "Error While File Uploading"
             form_submitted = 2

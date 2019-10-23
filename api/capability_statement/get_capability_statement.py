@@ -1,14 +1,10 @@
 import boto3
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
-# from django.shortcuts import render
 from django.conf import settings
-# from django.core.files.storage import FileSystemStorage
 from django.http import FileResponse
 from botocore.exceptions import ClientError
-from boto3.s3.transfer import S3Transfer
 from django.http import JsonResponse
-# from rest_framework.response import Response
 
 
 def check(s3, bucket, key):
@@ -32,7 +28,7 @@ def get_capability_statment(request, contractnumber):
     s3 = boto3.client('s3', AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID,
                       aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     try:
-        s3bucket = s3.list_objects_v2(Bucket = AWS_BUCKET)
+        s3bucket = s3.list_objects_v2(Bucket=AWS_BUCKET)
     except ClientError as e:
         response = JsonResponse({'Error': '1', 'ErrorMessage': 'Invalid AWS Credentials'})
         return response
@@ -46,7 +42,7 @@ def get_capability_statment(request, contractnumber):
 
     objectsNeed = []
     date_arr = []
-    for obj in  all_objects:
+    for obj in all_objects:
         obj_name = str(obj["Key"]).split('.')
         if required_data == obj_name[0]:
             objectsNeed.append({obj['LastModified']: obj['Key']})
