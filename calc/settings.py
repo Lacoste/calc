@@ -1,9 +1,7 @@
 """
 Django settings for calc project.
-
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
-
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
@@ -146,6 +144,7 @@ INSTALLED_APPS = (
     'slackbot.apps.SlackbotConfig',
     'uswds_forms',
     'admin_reorder',
+    'storages'
 )  # type: Tuple[str, ...]
 
 SITE_ID = 1
@@ -480,3 +479,14 @@ ADMIN_REORDER = (
         {'model': 'sites.Site', 'label': 'Site URLs'},
     )},
 )
+
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = 'AKIAR7FXZINYORDIPBVD'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'cg-db8307d5-ae86-42ac-a205-7356d692d7d0'
+AWS_REGION = 'us-gov-west-1'
+AWS_S3_FILE_OVERWRITE = True
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.s3Boto3Storage'
