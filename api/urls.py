@@ -17,7 +17,7 @@ urlpatterns = [
     )),
     url(r'^$', RedirectView.as_view(pattern_name='api-docs:docs-index')),
     url(r'^capability_statement/contract_number=(?P<contractnumber>[\w-]+)/$',
-        get_capability_statement.get_capability_statment),  # after login 
+        get_capability_statement.get_capability_statment),  # after login
     url(r'^capability_statement/contract_number_list=(?P<contractnumberlist>[\w,-]+)/$',
         get_capability_statement.get_bulk_capability_statment),
 ]
