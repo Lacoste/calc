@@ -21,8 +21,12 @@ def about(request):
 
 
 def step_cap(request):
+    from django import forms
+    CHOICES = [('1', 'First'), ('2', 'Second')]
     return render(request, 'step_cap.html', {
-        'current_selected_tab': 'capability_statement'
+        'current_selected_tab': 'capability_statement',
+        'django_form': forms,
+        'django_radio_choices': CHOICES,
     })
 
 

@@ -357,3 +357,8 @@ class SubmittedPriceListRow(models.Model):
         # 'SubmittedPriceListRow object' in Django admin.
 
         return 'Submitted price list row'
+
+
+class capability_statement(models.Model):
+    contract_number = models.CharField(max_length=50, null=False, blank=False)
+    url = models.URLField(max_length=2500, null=False, blank=False)
