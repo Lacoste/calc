@@ -144,7 +144,8 @@ INSTALLED_APPS = (
     'slackbot.apps.SlackbotConfig',
     'uswds_forms',
     'admin_reorder',
-    'storages'
+    'storages',
+    'drf_yasg'
 )  # type: Tuple[str, ...]
 
 SITE_ID = 1
