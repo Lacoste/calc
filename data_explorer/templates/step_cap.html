@@ -9,7 +9,7 @@
 {% block body_class %}content--skinny{% endblock %}
 
 {% block body %}
-<style>
+ <style>
   #file_upload{
     margin: 2.4rem 0;
     display: flex;
@@ -26,24 +26,49 @@
     font-size: 2rem;
 }
 #file_upload input[type="file"]{
-    /* width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    opacity: 0.01;
     position: absolute;
-    z-index: -1;  */
-    /* visibility: hidden; */
 }
 .upload-chooser{
   font-size: 1.3em;
 }
-.upload-chooser label{
+.upload-chooser.inactive label{
+  font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
   display: inline-block !important;
+  font-size: 1.1em;
+}
+.upload-chooser.active label{
+  font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
+  display: inline-block !important;
+  font-size: 1.25rem;
+}
+.upload-chooser.inactive span{
+  font-size: 1em;
+}
+.upload-chooser.active span{
+  font-size: 1.25rem;
+}
+.upload-chooser.inactive .redo{
+  display: none;
+}
+.upload-chooser.active .redo{
+  display: inline-block;
 }
 upload-widget{
   margin: 0 !important;
 } 
-</style>
+.file_name_holder{
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #547d8c;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+</style> 
 <script>
   function radioButtonChanged(selected_value){
     var file_upload = document.getElementById("file_upload");
@@ -63,12 +88,59 @@ upload-widget{
 
   }
 
+
+  function filechanged(el){   
+    var filename = el.files[0].name;
+    if(filename != ""){
+      $('.file_name_holder').text(filename);
+      $('.upload-chooser').removeClass('inactive').addClass('active');
+      $('.upload-chooser label').text('choose a different file');
+    }else{
+      $('.file_name_holder').text("");
+      $('.upload-chooser').removeClass('active').addClass('inactive');
+      $('.upload-chooser label').text('choose file');
+    }
+    
+  }
+
+  function dropHandler(ev) {
+    ev.preventDefault();
+    if (ev.dataTransfer.items) {
+      if (ev.dataTransfer.items[0].kind === 'file') {
+        var file = ev.dataTransfer.items[0].getAsFile();
+        console.log('... file[' + 0 + '].name ==== ' + file.name);
+        //document.getElementById('id_file').value = file.name;
+        //$('#id_file').val(file);
+      }
+    }else{
+      console.log('... file[' + 0 + '].name = ' + ev.dataTransfer.files[0].name);
+    }
+  
+}
+
+function dragOverHandler(ev) {
+  console.log('File(s) in drop zone'); 
+  ev.preventDefault();
+  ev.stopPropagation();
+}
+
 </script>
 <div class="container">
   {% block content %}
   <!-- is="ajax-form" -->
     <form  method="post" action="/data-capture/capability_statement/"  enctype="multipart/form-data">
       {% csrf_token %}
+      {% if request.is_ajax %}
+      {% include 'data_capture/messages.html' %}
+      {% endif %}
+
+{{ form.non_field_errors }}
+
+{{ form.file.errors }}
+
+{{ form.file }}
+
+{{ form.contract_number}}
   
       <div class="card">
         <div class="content">
@@ -95,13 +167,19 @@ upload-widget{
         </div>
         <div class="content">
           <div id="file_upload">
-            <upload-widget>
-                <input type="file" name="capability_file" id="id_file" required is="upload-input" accept=".pdf,.docx" />
+            <upload-widget 
+              ondragenter="dragOverHandler(event)"
+              ondrop="dragOverHandler(event)"
+              ondragover="dragOverHandler(event)"
+              ondragleave="dragOverHandler(event)"
+               >
+                <input onchange="filechanged(this)" type="file" name="capability_file" id="id_file" required is="upload-input" accept=".pdf,.docx" />
                 <span class="file_name_holder"></span>
                 <br>
-                <div class="upload-chooser">
-                  <!-- <label for="id_file">Choose file</label> -->
-                  <span>PDF or DOCX format, please.</span>
+                <div class="upload-chooser inactive">
+                  <span class="redo">Not right?</span>
+                  <label for="id_file">Choose file</label>
+                  <span>or Drag and Drop here. PDF or DOCX format, please.</span>
                 </div>
             </upload-widget>
           </div>

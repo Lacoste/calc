@@ -92,10 +92,10 @@ def add_capability_statment(request):
             })
         else:
             return render(request, '../../data_explorer/templates/step_cap.html', {
-                'uploaded_file_url': "Error While File Uploadingp",
+                'uploaded_file_url': "Error While File Uploading",
                 'form_submitted': form_submitted
             })
 
     return render(request, '../../data_explorer/templates/step_cap.html', {
-        'uploaded_file_url': "Error While File Uploadingt",
+        'uploaded_file_url': "Error While File Uploading",
         'form_submitted': form_submitted})
