@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^schedules/$', views.ScheduleMetadataList.as_view()),
     url(r'^docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^$', RedirectView.as_view(pattern_name='api-docs:docs-index')),
-    url(r'^swagger(?P<format>\.json|\.yaml)$', 
+    url(r'^swagger(?P<format>\.json|\.yaml)$',
         schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^contract/capability_statement/(?P<contractnumber>[\w-]+)/$',
         capability_statement.get_capability_statment),  # after login
