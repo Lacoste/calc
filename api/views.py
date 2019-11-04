@@ -562,3 +562,89 @@ class GetAutocomplete(APIView):
             return Response(data)
         else:
             return Response([])
+
+
+class GetCapabilityStatement(APIView):
+    """
+    Returns a CSV of matched records and selected search and filter options.
+
+    Note that the first two rows actually contain metadata about the requested
+    search and filter options. The subsequent rows contain the
+    matched records.
+    """
+
+    schema = AutoSchema(
+        manual_fields=[
+            queryarg(
+                "contract_number",
+                str,
+                """
+                Return price for the given contract year (1 or 2).
+                Defaults to the current year pricing.
+                """
+            ),
+            queryarg(
+                "url",
+                str,
+                """
+                Number of bins to divide a wage histogram into.
+                If not provided, no histogram data will be returned.
+                """
+            ),
+        ]
+    )
+
+    def get(self, request, format=None):
+        wage_field = 'current_price'
+        contracts_all = get_contracts_queryset(request.GET, wage_field)
+
+        q = request.query_params.get('q', 'None')
+
+        # If the query starts with special chars that could be interpreted
+        # as parts of a formula by Excel, then prefix the query with
+        # an apostrophe so that Excel instead treats it as plain text.
+        # See https://issues.apache.org/jira/browse/CSV-199
+        # for more information.
+        if q.startswith(('@', '-', '+', '=', '|', '%')):
+            q = "'" + q
+
+        min_education = request.query_params.get(
+            'min_education', 'None Specified')
+        min_experience = request.query_params.get(
+            'min_experience', 'None Specified')
+        site = request.query_params.get('site', 'None Specified')
+        business_size = request.query_params.get(
+            'business_size', 'None Specified')
+        business_size_map = {
+            'o': 'other than small',
+            's': 'small business'
+        }
+        business_size_set = business_size_map.get(business_size)
+        if business_size_set:
+            business_size = business_size_set
+
+        response = HttpResponse(content_type="text/csv")
+        response['Content-Disposition'] = ('attachment; '
+                                           'filename="pricing_results.csv"')
+        writer = csv.writer(response)
+        writer.writerow(("Search Query", "Minimum Education Level",
+                         "Minimum Years Experience", "Worksite",
+                         "Business Size", "", "", "", "", "", "", "", "", ""))
+        writer.writerow((q, min_education, min_experience, site,
+                         business_size, "", "", "", "", "", "", "", "", ""))
+        writer.writerow(("Contract #", "Business Size", "Schedule", "Site",
+                         "Begin Date", "End Date", "SIN", "Vendor Name",
+                         "Labor Category", "education Level",
+                         "Minimum Years Experience",
+                         "Current Year Labor Price", "Next Year Labor Price",
+                         "Second Year Labor Price"))
+
+        for c in contracts_all:
+            writer.writerow((c.idv_piid, c.get_readable_business_size(),
+                             c.schedule, c.contractor_site, c.contract_start,
+                             c.contract_end, c.sin, c.vendor_name,
+                             c.labor_category, c.get_education_level_display(),
+                             c.min_years_experience, c.current_price,
+                             c.next_year_price, c.second_year_price))
+
+        return response
