@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework.documentation import include_docs_urls
 
 from .capability_statement import capability_statement
 
@@ -23,9 +24,13 @@ urlpatterns = [
     url(r'^rates/csv/$', views.GetRatesCSV.as_view()),
     url(r'^search/$', views.GetAutocomplete.as_view()),
     url(r'^schedules/$', views.ScheduleMetadataList.as_view()),
-    url(r'^', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    url(r'^swagger(?P<format>\.json|\.yaml)$',
-        schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^docs/', include_docs_urls(
+        title='CALC API',
+        description=views.DOCS_DESCRIPTION,
+    )),
+    # url(r'^docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # url(r'^swagger(?P<format>\.json|\.yaml)$',
+    #     schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^contract/capability_statement/(?P<contractnumber>[\w-]+)/$',
         capability_statement.get_capability_statment),  # after login
     url(r'^contract/capability_statement/url/(?P<contractnumberlist>[\w,-]+)/$',
