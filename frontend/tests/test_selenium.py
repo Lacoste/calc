@@ -6,8 +6,8 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from contracts.mommy_recipes import get_contract_recipe
-from model_mommy.recipe import seq
+#from contracts.mommy_recipes import get_contract_recipe
+#from model_mommy.recipe import seq
 # from itertools import cycle
 
 import re
