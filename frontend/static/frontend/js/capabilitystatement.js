@@ -24,7 +24,7 @@ function formHTTPValidaion() {
     url = $('#id_url').val();
     if (url.indexOf('http') !== -1) {
       return true;
-    } else{
+    } else {
       urlHttp = "http://"+url;
       $('#id_url').val(urlHttp);
       return true;
