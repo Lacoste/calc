@@ -28,9 +28,8 @@ urlpatterns = [
         title='CALC API',
         description=views.DOCS_DESCRIPTION,
     )),
-    # url(r'^docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    # url(r'^swagger(?P<format>\.json|\.yaml)$',
-    #     schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^contract/capability_statement/(?P<contractnumber>[\w-]+)/$',
         capability_statement.get_capability_statment),  # after login
     url(r'^contract/capability_statement/url/(?P<contractnumberlist>[\w,-]+)/$',
