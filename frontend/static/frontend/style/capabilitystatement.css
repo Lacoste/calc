@@ -1,0 +1,62 @@
+#file_upload{
+    margin: 2.4rem 0;
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding: .8rem 2rem;
+    background-color: #f0f6fa;
+    transition: background-color .5s,border-color .5s;
+    -webkit-transition: background-color .5s,border-color .5s;
+    -moz-transition: background-color .5s,border-color .5s;
+    -o-transition: background-color .5s,border-color .5s;
+    border: 2px dashed #547d8c;
+    color: #547d8c;
+    font-size: 2rem;
+}
+#file_upload input[type="file"]{
+    width: 1px;
+    height: 1px;
+    opacity: 0.01;
+    position: absolute;
+}
+.upload-chooser{
+  font-size: 1.3em;
+}
+.upload-chooser.inactive label{
+  font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
+  display: inline-block !important;
+  font-size: 1.1em;
+}
+.upload-chooser.active label{
+  font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
+  display: inline-block !important;
+  font-size: 1.25rem;
+}
+.upload-chooser.inactive span{
+  font-size: 1em;
+}
+.upload-chooser.active span{
+  font-size: 1.25rem;
+}
+.upload-chooser.inactive .redo{
+  display: none;
+}
+.upload-chooser.active .redo{
+  display: inline-block;
+}
+upload-widget{
+  margin: 0 !important;
+  width: 100%;
+  padding: 10px;
+} 
+.file_name_holder{
+    font-family: monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #547d8c;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}

@@ -1,5 +1,5 @@
 {% extends 'data_capture/step.html' %}
-
+{% load staticfiles %}
 {% load staticfiles data_explorer_tags %}
 
 {% block head_meta %}
@@ -9,126 +9,9 @@
 {% block body_class %}content--skinny{% endblock %}
 
 {% block body %}
- <style>
-  #file_upload{
-    margin: 2.4rem 0;
-    display: flex;
-    position: relative;
-    align-items: center;
-    padding: .8rem 2.4rem;
-    background-color: #f0f6fa;
-    transition: background-color .5s,border-color .5s;
-    -webkit-transition: background-color .5s,border-color .5s;
-    -moz-transition: background-color .5s,border-color .5s;
-    -o-transition: background-color .5s,border-color .5s;
-    border: 2px dashed #547d8c;
-    color: #547d8c;
-    font-size: 2rem;
-}
-#file_upload input[type="file"]{
-    width: 1px;
-    height: 1px;
-    opacity: 0.01;
-    position: absolute;
-}
-.upload-chooser{
-  font-size: 1.3em;
-}
-.upload-chooser.inactive label{
-  font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
-  display: inline-block !important;
-  font-size: 1.1em;
-}
-.upload-chooser.active label{
-  font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
-  display: inline-block !important;
-  font-size: 1.25rem;
-}
-.upload-chooser.inactive span{
-  font-size: 1em;
-}
-.upload-chooser.active span{
-  font-size: 1.25rem;
-}
-.upload-chooser.inactive .redo{
-  display: none;
-}
-.upload-chooser.active .redo{
-  display: inline-block;
-}
-upload-widget{
-  margin: 0 !important;
-} 
-.file_name_holder{
-    font-family: monospace;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #547d8c;
-    font-size: 2rem;
-    letter-spacing: 1px;
-}
-</style> 
-<script>
-  function radioButtonChanged(selected_value){
-    var file_upload = document.getElementById("file_upload");
-    var url_upload = document.getElementById("url_upload");
-    if(selected_value == "url"){
-      file_upload.style.display="none";
-      url_upload.style.display="block";
-      document.getElementById('id_file').required=false;
-      document.getElementById('id_url').required=true;
-    }
-    if(selected_value == "file"){
-      url_upload.style.display="none";
-      file_upload.style.display="block";
-      document.getElementById('id_url').required=false;
-      document.getElementById('id_file').required=true;
-    }
-
-  }
-
-
-  function filechanged(el){   
-    var filename = el.files[0].name;
-    if(filename != ""){
-      $('.file_name_holder').text(filename);
-      $('.upload-chooser').removeClass('inactive').addClass('active');
-      $('.upload-chooser label').text('choose a different file');
-    }else{
-      $('.file_name_holder').text("");
-      $('.upload-chooser').removeClass('active').addClass('inactive');
-      $('.upload-chooser label').text('choose file');
-    }
-    
-  }
-
-  function dropHandler(ev) {
-    ev.preventDefault();
-    if (ev.dataTransfer.items) {
-      if (ev.dataTransfer.items[0].kind === 'file') {
-        var file = ev.dataTransfer.items[0].getAsFile();
-        console.log('... file[' + 0 + '].name ==== ' + file.name);
-        //document.getElementById('id_file').value = file.name;
-        //$('#id_file').val(file);
-      }
-    }else{
-      console.log('... file[' + 0 + '].name = ' + ev.dataTransfer.files[0].name);
-    }
-  
-}
-
-function dragOverHandler(ev) {
-  console.log('File(s) in drop zone'); 
-  ev.preventDefault();
-  ev.stopPropagation();
-}
-
-</script>
 <div class="container">
   {% block content %}
-  <!-- is="ajax-form" -->
-    <form  method="post" action="/data-capture/capability_statement/"  enctype="multipart/form-data">
+    <form  onsubmit="return formHTTPValidaion()"method="post" action="/data-capture/capability_statement/"  enctype="multipart/form-data">
       {% csrf_token %}
       {% if request.is_ajax %}
       {% include 'data_capture/messages.html' %}
@@ -169,7 +52,7 @@ function dragOverHandler(ev) {
           <div id="file_upload">
             <upload-widget 
               ondragenter="dragOverHandler(event)"
-              ondrop="dragOverHandler(event)"
+              ondrop="dragOverHandler(event);addFiles(event)"
               ondragover="dragOverHandler(event)"
               ondragleave="dragOverHandler(event)"
                >
