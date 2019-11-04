@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^rates/csv/$', views.GetRatesCSV.as_view()),
     url(r'^search/$', views.GetAutocomplete.as_view()),
     url(r'^schedules/$', views.ScheduleMetadataList.as_view()),
-    url(r'^', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^swagger(?P<format>\.json|\.yaml)$',
         schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^contract/capability_statement/(?P<contractnumber>[\w-]+)/$',
