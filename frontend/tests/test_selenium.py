@@ -145,14 +145,14 @@ class DataExplorerTests(SeleniumTestCase):
             )
         return has_class(form, 'loaded')
 
-    # def test_titles_are_correct(self):
-    #     get_contract_recipe().make(_quantity=1,
-    #                                labor_category=seq("Architect"))
-    #     driver = self.load_and_wait()
-    #     self.assertTrue(
-    #         driver.title.startswith('CALC'),
-    #         'Title mismatch, {} does not start with CALC'.format(driver.title)
-    #    )
+    def test_titles_are_correct(self):
+        get_contract_recipe().make(_quantity=1,
+                                   labor_category=seq("Architect"))
+        driver = self.load_and_wait()
+        self.assertTrue(
+            driver.title.startswith('CALC'),
+            'Title mismatch, {} does not start with CALC'.format(driver.title)
+        )
 
     # def test_contract_link(self):
     #     get_contract_recipe().make(_quantity=1, idv_piid='GS-23F-0062P')
@@ -165,17 +165,17 @@ class DataExplorerTests(SeleniumTestCase):
     #                     'GS23F0062P/GS23F0062P_online.htm')
     #     self.assertEqual(contract_link.get_attribute('href'), redirect_url)
 
-    # def test_there_is_no_business_size_column(self):
-    #     get_contract_recipe().make(_quantity=5, vendor_name=seq("Large Biz"),
-    #                                business_size='o')
-    #     driver = self.load()
-    #     self.get_form()
+    def test_there_is_no_business_size_column(self):
+        get_contract_recipe().make(_quantity=5, vendor_name=seq("Large Biz"),
+                                   business_size='o')
+        driver = self.load()
+        self.get_form()
 
-    #     col_headers = get_column_headers(driver)
+        col_headers = get_column_headers(driver)
 
-    #     for head in col_headers:
-    #         self.assertFalse(has_matching_class(
-    #             head, 'column-business[_-]size'))
+        for head in col_headers:
+            self.assertFalse(has_matching_class(
+                head, 'column-business[_-]size'))
 
     # def test_index_accessibility(self):
     #     self.load_and_wait()
@@ -189,83 +189,83 @@ class DataExplorerTests(SeleniumTestCase):
         self.load('/styleguide/docs/')
         axe.run_and_validate(self.driver)
 
-    # def test_schedule_column_is_last(self):
-    #     get_contract_recipe().make(_quantity=5)
-    #     driver = self.load_and_wait()
-    #     col_headers = get_column_headers(driver)
-    #     self.assertTrue(has_class(col_headers[-1], 'column-schedule'))
+    def test_schedule_column_is_last(self):
+        get_contract_recipe().make(_quantity=5)
+        driver = self.load_and_wait()
+        col_headers = get_column_headers(driver)
+        self.assertTrue(has_class(col_headers[-1], 'column-schedule'))
 
-    # def test_sortable_columns__non_default(self):
-    #     get_contract_recipe().make(_quantity=5)
-    #     driver = self.load_and_wait()
+    def test_sortable_columns__non_default(self):
+        get_contract_recipe().make(_quantity=5)
+        driver = self.load_and_wait()
 
-    #     for col in ['labor_category', 'education_level',
-    #                 'min_years_experience']:
-    #         self._test_column_is_sortable(driver, col)
+        for col in ['labor_category', 'education_level',
+                    'min_years_experience']:
+            self._test_column_is_sortable(driver, col)
 
-    # def test_price_column_is_sortable_and_is_the_default_sort(self):
-    #     get_contract_recipe().make(_quantity=5)
-    #     driver = self.load_and_wait()
-    #     col_header = find_column_header(driver, 'current_price')
-    #     # current_price should be sorted ascending by default
-    #     self.assertTrue(has_class(col_header, 'sorted'),
-    #                     "current_price is not the default sort")
-    #     self.assertTrue(has_class(col_header, 'sortable'),
-    #                     "current_price column is not sortable")
-    #     self.assertFalse(has_class(col_header, 'descending'),
-    #                      "current_price column is descending by default")
-    #     col_header.click()
-    #     self.assertTrue(has_class(col_header, 'sorted'),
-    #                     "current_price is still sorted after clicking")
+    def test_price_column_is_sortable_and_is_the_default_sort(self):
+        get_contract_recipe().make(_quantity=5)
+        driver = self.load_and_wait()
+        col_header = find_column_header(driver, 'current_price')
+        # current_price should be sorted ascending by default
+        self.assertTrue(has_class(col_header, 'sorted'),
+                        "current_price is not the default sort")
+        self.assertTrue(has_class(col_header, 'sortable'),
+                        "current_price column is not sortable")
+        self.assertFalse(has_class(col_header, 'descending'),
+                         "current_price column is descending by default")
+        col_header.click()
+        self.assertTrue(has_class(col_header, 'sorted'),
+                        "current_price is still sorted after clicking")
 
-    # def test_one_column_is_sortable_at_a_time(self):
-    #     get_contract_recipe().make(_quantity=5)
-    #     driver = self.load_and_wait()
-    #     header1 = find_column_header(driver, 'education_level')
-    #     header2 = find_column_header(driver, 'labor_category')
+    def test_one_column_is_sortable_at_a_time(self):
+        get_contract_recipe().make(_quantity=5)
+        driver = self.load_and_wait()
+        header1 = find_column_header(driver, 'education_level')
+        header2 = find_column_header(driver, 'labor_category')
 
-    #     header1.click()
-    #     self.wait_for(lambda: has_class(header1, 'sorted'))
-    #     self.assertTrue(has_class(header1, 'sorted'), "column 1 is not sorted")
-    #     self.assertFalse(has_class(header2, 'sorted'),
-    #                      "column 2 is still sorted (but should not be)")
+        header1.click()
+        self.wait_for(lambda: has_class(header1, 'sorted'))
+        self.assertTrue(has_class(header1, 'sorted'), "column 1 is not sorted")
+        self.assertFalse(has_class(header2, 'sorted'),
+                         "column 2 is still sorted (but should not be)")
 
-    #     header2.click()
-    #     self.wait_for(lambda: has_class(header2, 'sorted'))
-    #     self.assertTrue(has_class(header2, 'sorted'), "column 2 is not sorted")
-    #     self.assertFalse(has_class(header1, 'sorted'),
-    #                      "column 1 is still sorted (but should not be)")
+        header2.click()
+        self.wait_for(lambda: has_class(header2, 'sorted'))
+        self.assertTrue(has_class(header2, 'sorted'), "column 2 is not sorted")
+        self.assertFalse(has_class(header1, 'sorted'),
+                         "column 1 is still sorted (but should not be)")
 
-    # def test_histogram_is_shown(self):
-    #     get_contract_recipe().make(_quantity=5)
-    #     driver = self.load_and_wait()
-    #     rect_count = len(
-    #         driver.find_elements_by_css_selector('.histogram rect'))
-    #     self.assertTrue(
-    #         rect_count > 0,
-    #         "No histogram rectangles found (selector: '.histogram rect')"
-    #    )
+    def test_histogram_is_shown(self):
+        get_contract_recipe().make(_quantity=5)
+        driver = self.load_and_wait()
+        rect_count = len(
+            driver.find_elements_by_css_selector('.histogram rect'))
+        self.assertTrue(
+            rect_count > 0,
+            "No histogram rectangles found (selector: '.histogram rect')"
+        )
 
-    # def test_histogram_shows_tooltips(self):
-    #     get_contract_recipe().make(_quantity=5)
-    #     driver = self.load_and_wait()
-    #     bars = driver.find_elements_by_css_selector('.histogram .bar')
-    #     # TODO: check for "real" tooltips?
-    #     for i, bar in enumerate(bars):
-    #         title = bar.find_element_by_css_selector('title')
-    #         self.assertIsNotNone(
-    #             title.text, "Histogram bar #%d has no text" % i)
+    def test_histogram_shows_tooltips(self):
+        get_contract_recipe().make(_quantity=5)
+        driver = self.load_and_wait()
+        bars = driver.find_elements_by_css_selector('.histogram .bar')
+        # TODO: check for "real" tooltips?
+        for i, bar in enumerate(bars):
+            title = bar.find_element_by_css_selector('title')
+            self.assertIsNotNone(
+                title.text, "Histogram bar #%d has no text" % i)
 
-    # def test_download_graph_button_shown(self):
-    #     get_contract_recipe().make(_quantity=1)
-    #     driver = self.load_and_wait()
-    #     self.assertTrue(driver.find_element_by_id(
-    #         'download-histogram').is_displayed())
+    def test_download_graph_button_shown(self):
+        get_contract_recipe().make(_quantity=1)
+        driver = self.load_and_wait()
+        self.assertTrue(driver.find_element_by_id(
+            'download-histogram').is_displayed())
 
-    # def test_histogram_download_canvas_hidden(self):
-    #     get_contract_recipe().make(_quantity=1)
-    #     driver = self.load_and_wait()
-    #     self.assertFalse(driver.find_element_by_id('graph').is_displayed())
+    def test_histogram_download_canvas_hidden(self):
+        get_contract_recipe().make(_quantity=1)
+        driver = self.load_and_wait()
+        self.assertFalse(driver.find_element_by_id('graph').is_displayed())
 
     # def test_query_type_matches_words(self):
     #     get_contract_recipe().make(_quantity=3, labor_category=cycle(
