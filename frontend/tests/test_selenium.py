@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 
 from contracts.mommy_recipes import get_contract_recipe
 from model_mommy.recipe import seq
-from itertools import cycle
+# from itertools import cycle
 
 import re
 import time
