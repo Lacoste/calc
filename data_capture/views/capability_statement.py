@@ -8,6 +8,7 @@ from data_capture.models import capability_statement as CapSta
 from ..management.commands.initgroups import ANALYZE_PRICES_PERMISSION
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+# from data_capture.models import capability_statement as conSta
 
 
 @login_required
@@ -44,7 +45,11 @@ def add_capability_statment(request):
         elif request.POST['file_upload_option'] == "file":
             myfile = request.FILES['capability_file']
             fs = FileSystemStorage()
-
+            # checking the given contract number already there in Database
+            capabilityStatementInstance = CapSta.objects.filter(contract_number=str
+                                                                (request.POST['contract_number']))
+            if capabilityStatementInstance:  # if exists,deleting from database
+                capabilityStatementInstance.delete()
             # deleting if the contract number alreay there
             allow_extensions = ['.pdf', '.docx', '.doc']
             for ext in allow_extensions:
