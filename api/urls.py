@@ -30,7 +30,7 @@ urlpatterns = [
         description=views.DOCS_DESCRIPTION,
     )),
     url(r'^capabilitystatement/$', views.GetCapabilityStatement.as_view()),
-    url(r'^capabilitystatementurl/$', views.GetCapabilityStatementUrl.as_view()),
+    url(r'^capabilitystatement/url/$', views.GetCapabilityStatementUrl.as_view()),
     url(r'^$', RedirectView.as_view(pattern_name='api-docs:docs-index')),
     url(r'^swagger(?P<format>\.json|\.yaml)$',
         schema_view.without_ui(cache_timeout=0), name='schema-json'),
