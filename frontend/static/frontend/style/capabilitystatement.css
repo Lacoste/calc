@@ -22,13 +22,13 @@
 input[type="radio"].radio_option{
   transform: translate(0px,4px);
 }
-.upload-chooser{
+.upload-chooser-cap{
   font-size: 1.3em;
 }
 .upload-chooser.inactive label{
   font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
   display: inline-block !important;
-  font-size: 1.1em;
+  font-size: 1.3em;
 }
 .upload-chooser.active label{
   font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
@@ -36,7 +36,7 @@ input[type="radio"].radio_option{
   font-size: 1.25rem;
 }
 .upload-chooser.inactive span{
-  font-size: 1em;
+  font-size: 1.3em;
 }
 .upload-chooser.active span{
   font-size: 1.25rem;
