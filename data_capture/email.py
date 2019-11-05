@@ -87,7 +87,7 @@ def send_mail(subject, to, template, ctx, reply_to=None):
         connection=connection,
         subject=subject,
         body=plaintext_message,
-        to=['liudmyla.shyshko@karsun-llc.com'],
+        to=to,
         reply_to=reply_to)
 
     msg.attach_alternative(html_message, 'text/html')
