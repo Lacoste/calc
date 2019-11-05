@@ -92,7 +92,7 @@ def send_mail(subject, to, template, ctx, reply_to=None):
 
     msg.attach_alternative(html_message, 'text/html')
 
-    return msg.send()
+    # return msg.send()
 
 
 EXAMPLES = []
