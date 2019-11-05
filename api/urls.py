@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from drf_yasg.views import get_schema_view
+from django.views.generic.base import RedirectView
 from drf_yasg import openapi
 from rest_framework.documentation import include_docs_urls
 
@@ -28,6 +29,9 @@ urlpatterns = [
         title='CALC API',
         description=views.DOCS_DESCRIPTION,
     )),
+    url(r'^capabilitystatement/$', views.GetCapabilityStatement.as_view()),
+    url(r'^capabilitystatementurl/$', views.GetCapabilityStatementUrl.as_view()),
+    url(r'^$', RedirectView.as_view(pattern_name='api-docs:docs-index')),
     url(r'^swagger(?P<format>\.json|\.yaml)$',
         schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
