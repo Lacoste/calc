@@ -28,7 +28,7 @@ from django.http import FileResponse
 from botocore.exceptions import ClientError
 from django.http import JsonResponse
 from data_capture.models import capability_statement as conSta
-from django.shortcuts import redirect
+# from django.shortcuts import redirect
 import boto3
 
 
@@ -597,6 +597,7 @@ class GetCapabilityStatement(APIView):
             # ),
         ]
     )
+
     def check(self, s3, bucket, key):
         try:
             s3.head_object(Bucket=bucket, Key=key)
@@ -681,6 +682,7 @@ class GetCapabilityStatementUrl(APIView):
             ),
         ]
     )
+
     def check(self, s3, bucket, key):
         try:
             s3.head_object(Bucket=bucket, Key=key)
@@ -694,7 +696,7 @@ class GetCapabilityStatementUrl(APIView):
         AWS_REGION = settings.AWS_REGION
         AWS_BUCKET = settings.AWS_STORAGE_BUCKET_NAME
         s3 = boto3.client('s3', AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID,
-                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+                          aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
         try:
             s3bucket = s3.list_objects_v2(Bucket=AWS_BUCKET)
         except ClientError as e:
@@ -731,7 +733,7 @@ class GetCapabilityStatementUrl(APIView):
                     latest_update = max(date_arr)
                     index_of_latest_update = date_arr.index(latest_update)
                     latest_file = str(objectsNeed[index_of_latest_update].get(
-                                    date_arr[index_of_latest_update]))
+                                      date_arr[index_of_latest_update]))
 
                     url = s3.generate_presigned_url(
                         ClientMethod='get_object',
