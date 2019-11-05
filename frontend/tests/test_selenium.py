@@ -91,7 +91,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         # self.driver.execute_script('$("body").addClass("selenium")')
         return self.driver
 
-    def wait_for(self, condition, timeout=10):
+    def wait_for(self, condition, timeout=14):
         try:
             wait_for(condition, timeout=timeout)
         except Exception as err:
