@@ -677,7 +677,7 @@ class GetCapabilityStatementUrl(APIView):
                 "contract_number",
                 str,
                 """
-                Return capbaility statement url per contract.
+                Return capbaility statement url for multiple contracts.
                 """
             ),
         ]
