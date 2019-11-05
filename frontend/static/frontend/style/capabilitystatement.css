@@ -28,7 +28,7 @@ input[type="radio"].radio_option{
 .upload-chooser.inactive label{
   font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
   display: inline-block !important;
-  font-size: 1.1em;
+  font-size: 1.3em;
 }
 .upload-chooser.active label{
   font-family: "Libre Franklin",Helvetica,Arial,sans-serif;
