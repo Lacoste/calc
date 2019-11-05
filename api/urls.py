@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from drf_yasg.views import get_schema_view
+from django.views.generic.base import RedirectView
 from drf_yasg import openapi
 from rest_framework.documentation import include_docs_urls
 
@@ -31,6 +32,9 @@ urlpatterns = [
     # url(r'^docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # url(r'^swagger(?P<format>\.json|\.yaml)$',
     #     schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^capabilitystatement/$', views.GetCapabilityStatement.as_view()),
+    url(r'^capabilitystatementurl/$', views.GetCapabilityStatementUrl.as_view()),
+    url(r'^$', RedirectView.as_view(pattern_name='api-docs:docs-index')),
     url(r'^contract/capability_statement/(?P<contractnumber>[\w-]+)/$',
         capability_statement.get_capability_statment),  # after login
     url(r'^contract/capability_statement/url/(?P<contractnumberlist>[\w,-]+)/$',

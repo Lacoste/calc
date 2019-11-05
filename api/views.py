@@ -23,6 +23,15 @@ from contracts.models import Contract, EDUCATION_CHOICES, ScheduleMetadata
 from calc.utils import humanlist, backtickify
 
 
+from django.conf import settings
+from django.http import FileResponse
+from botocore.exceptions import ClientError
+from django.http import JsonResponse
+from data_capture.models import capability_statement as conSta
+from django.shortcuts import redirect
+import boto3
+
+
 DOCS_DESCRIPTION = dedent("""
 CALC's back-end exposes a public API for its labor rates data.
 This API is used by CALC's front-end Data Explorer application,
@@ -566,11 +575,8 @@ class GetAutocomplete(APIView):
 
 class GetCapabilityStatement(APIView):
     """
-    Returns a CSV of matched records and selected search and filter options.
+    Returns PDF or Docx for the selected contract.
 
-    Note that the first two rows actually contain metadata about the requested
-    search and filter options. The subsequent rows contain the
-    matched records.
     """
 
     schema = AutoSchema(
@@ -579,72 +585,161 @@ class GetCapabilityStatement(APIView):
                 "contract_number",
                 str,
                 """
-                Return price for the given contract year (1 or 2).
-                Defaults to the current year pricing.
+                Return capbaility statement per contract.
                 """
             ),
+            # queryarg(
+            #     "url",
+            #     str,
+            #     """
+            #     Return url of the submitted contract.
+            #     """
+            # ),
+        ]
+    )
+    def check(self, s3, bucket, key):
+        try:
+            s3.head_object(Bucket=bucket, Key=key)
+        except ClientError as e:
+            return int(e.response['Error']['Code']) != 404
+        return True
+
+    def get(self, request, format=None):
+        req = request.GET
+        required_data = req['contract_number']
+        conIns = conSta.objects.filter(contract_number=str(required_data))
+        if conIns:
+            url = conIns[0].url  # getting url from db
+            # response = JsonResponse({'Error': '1', 'ErrorMessage': url})
+            # return response
+            print(url)
+            return JsonResponse({'Error': '1', 'ErrorMessage': url})
+        else:
+            AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
+            AWS_REGION = settings.AWS_REGION
+            AWS_BUCKET = settings.AWS_STORAGE_BUCKET_NAME
+            s3 = boto3.client('s3', AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID,
+                              aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+        try:
+            s3bucket = s3.list_objects_v2(Bucket=AWS_BUCKET)
+        except ClientError as e:
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'Invalid AWS Credentials'})
+            return response
+        # Only return the contents if we found some keys
+        if s3bucket['KeyCount'] > 0:
+            all_objects = s3bucket['Contents']
+        else:
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'No Files Found on bucket'})
+            return response
+
+        objectsNeed = []
+        date_arr = []
+        for obj in all_objects:
+            obj_name = str(obj["Key"]).split('.')
+            if required_data == obj_name[0]:
+                objectsNeed.append({obj['LastModified']: obj['Key']})
+                date_arr.append(obj['LastModified'])
+
+        if len(date_arr) == 0:  # If invalid contract number given
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'Invalid Contract Number'})
+            return response
+        else:
+            latest_update = max(date_arr)
+            index_of_latest_update = date_arr.index(latest_update)
+            latest_file = str(objectsNeed[index_of_latest_update].get(
+                              date_arr[index_of_latest_update]))
+
+            if self.check(s3, AWS_BUCKET, latest_file):
+                try:
+                    file = s3.get_object(Bucket=AWS_BUCKET, Key=latest_file)
+                    ext_array = latest_file.split('.')
+                    response = FileResponse(file['Body'], content_type='application/' +
+                                            ext_array[1])
+                    response['Content-Disposition'] = 'attachment; filename="' + latest_file + '"'
+                    return response
+                except FileNotFoundError:
+                    response = JsonResponse({'Error': '1',
+                                            'ErrorMessage': 'Error While Downloading'})
+        return response
+
+
+class GetCapabilityStatementUrl(APIView):
+    """
+    Returns PDF or Docx for the selected contract.
+
+    """
+
+    schema = AutoSchema(
+        manual_fields=[
             queryarg(
-                "url",
+                "contract_number",
                 str,
                 """
-                Number of bins to divide a wage histogram into.
-                If not provided, no histogram data will be returned.
+                Return capbaility statement url per contract.
                 """
             ),
         ]
     )
+    def check(self, s3, bucket, key):
+        try:
+            s3.head_object(Bucket=bucket, Key=key)
+        except ClientError as e:
+            return int(e.response['Error']['Code']) != 404
+        return True
 
     def get(self, request, format=None):
-        wage_field = 'current_price'
-        contracts_all = get_contracts_queryset(request.GET, wage_field)
+        AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
+        AWS_REGION = settings.AWS_REGION
+        AWS_BUCKET = settings.AWS_STORAGE_BUCKET_NAME
+        s3 = boto3.client('s3', AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID,
+                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+        try:
+            s3bucket = s3.list_objects_v2(Bucket=AWS_BUCKET)
+        except ClientError as e:
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'Invalid AWS Credentials'})
+            return response
 
-        q = request.query_params.get('q', 'None')
+        if s3bucket['KeyCount'] > 0:
+            all_objects = s3bucket['Contents']
+        else:
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'No Files Found on bucket'})
+            return response
+        req = request.GET
+        contractnumberlist = req['contract_number']
+        contractnumber_array = contractnumberlist.split(',')
+        # To avoid repeteating in contract number
+        contractnumber_array = list(set(contractnumber_array))
+        data = {}
+        for con in contractnumber_array:
+            conIns = conSta.objects.filter(contract_number=str(con))
+            if conIns:
+                url = conIns[0].url  # getting url from db
+            else:
+                objectsNeed = []
+                date_arr = []
+                for obj in all_objects:
+                    obj_name = str(obj["Key"]).split('.')
+                    if str(con) == obj_name[0]:
+                        objectsNeed.append({obj['LastModified']: obj['Key']})
+                        date_arr.append(obj['LastModified'])
 
-        # If the query starts with special chars that could be interpreted
-        # as parts of a formula by Excel, then prefix the query with
-        # an apostrophe so that Excel instead treats it as plain text.
-        # See https://issues.apache.org/jira/browse/CSV-199
-        # for more information.
-        if q.startswith(('@', '-', '+', '=', '|', '%')):
-            q = "'" + q
+                if len(date_arr) == 0:  # If invalid contract number given
+                    url = "Not Available"
+                else:
+                    latest_update = max(date_arr)
+                    index_of_latest_update = date_arr.index(latest_update)
+                    latest_file = str(objectsNeed[index_of_latest_update].get(
+                                    date_arr[index_of_latest_update]))
 
-        min_education = request.query_params.get(
-            'min_education', 'None Specified')
-        min_experience = request.query_params.get(
-            'min_experience', 'None Specified')
-        site = request.query_params.get('site', 'None Specified')
-        business_size = request.query_params.get(
-            'business_size', 'None Specified')
-        business_size_map = {
-            'o': 'other than small',
-            's': 'small business'
-        }
-        business_size_set = business_size_map.get(business_size)
-        if business_size_set:
-            business_size = business_size_set
-
-        response = HttpResponse(content_type="text/csv")
-        response['Content-Disposition'] = ('attachment; '
-                                           'filename="pricing_results.csv"')
-        writer = csv.writer(response)
-        writer.writerow(("Search Query", "Minimum Education Level",
-                         "Minimum Years Experience", "Worksite",
-                         "Business Size", "", "", "", "", "", "", "", "", ""))
-        writer.writerow((q, min_education, min_experience, site,
-                         business_size, "", "", "", "", "", "", "", "", ""))
-        writer.writerow(("Contract #", "Business Size", "Schedule", "Site",
-                         "Begin Date", "End Date", "SIN", "Vendor Name",
-                         "Labor Category", "education Level",
-                         "Minimum Years Experience",
-                         "Current Year Labor Price", "Next Year Labor Price",
-                         "Second Year Labor Price"))
-
-        for c in contracts_all:
-            writer.writerow((c.idv_piid, c.get_readable_business_size(),
-                             c.schedule, c.contractor_site, c.contract_start,
-                             c.contract_end, c.sin, c.vendor_name,
-                             c.labor_category, c.get_education_level_display(),
-                             c.min_years_experience, c.current_price,
-                             c.next_year_price, c.second_year_price))
-
+                    url = s3.generate_presigned_url(
+                        ClientMethod='get_object',
+                        Params={
+                            'Bucket': AWS_BUCKET,
+                            'Key': latest_file
+                        }
+                    )
+            data[con] = url
+        response = JsonResponse(data)
         return response
