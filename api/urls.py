@@ -1,6 +1,5 @@
 from django.conf.urls import url
 from drf_yasg.views import get_schema_view
-from django.views.generic.base import RedirectView
 from drf_yasg import openapi
 from rest_framework.documentation import include_docs_urls
 

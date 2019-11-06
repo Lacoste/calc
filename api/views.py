@@ -313,11 +313,13 @@ def quantize(num, precision=2):
         return None
     return Decimal(num).quantize(Decimal(10) ** -precision)
 
+
 class CustomOpenAPISchemaGenerator(OpenAPISchemaGenerator):
     def get_schema(self, *args, **kwargs):
         schema = super().get_schema(*args, **kwargs)
-        schema.basePath = '/dev/gsa/calc/' 
+        schema.basePath = '/dev/gsa/calc/'
         return schema
+
 
 class GetRates(APIView):
     """
