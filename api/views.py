@@ -21,7 +21,7 @@ from api.serializers import ContractSerializer, ScheduleMetadataSerializer
 from api.utils import get_histogram
 from contracts.models import Contract, EDUCATION_CHOICES, ScheduleMetadata
 from calc.utils import humanlist, backtickify
-
+from drf_yasg.generators import OpenAPISchemaGenerator
 
 from django.conf import settings
 from django.http import FileResponse
@@ -312,6 +312,13 @@ def quantize(num, precision=2):
     if num is None:
         return None
     return Decimal(num).quantize(Decimal(10) ** -precision)
+
+
+class CustomOpenAPISchemaGenerator(OpenAPISchemaGenerator):
+    def get_schema(self, *args, **kwargs):
+        schema = super().get_schema(*args, **kwargs)
+        schema.basePath = '/dev/gsa/calc/'
+        return schema
 
 
 class GetRates(APIView):
