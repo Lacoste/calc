@@ -585,7 +585,7 @@ class GetCapabilityStatement(APIView):
                 "contract_number",
                 str,
                 """
-                Return capbaility statement per contract.
+                Return capability statement per contract.
                 """
             ),
             # queryarg(
@@ -677,7 +677,7 @@ class GetCapabilityStatementUrl(APIView):
                 "contract_number",
                 str,
                 """
-                Return capbaility statement url for multiple contracts.
+                Return capability statement url for multiple contracts.
                 """
             ),
         ]
