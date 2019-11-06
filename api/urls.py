@@ -17,7 +17,9 @@ schema_view = get_schema_view(
         host="https://api.data.gov/",
         url="https://api.data.gov/acquisition/calc/v2/schedules",
     ),
+    url="https://api.data.gov/acquisition/calc/v2/",
     public=True,
+    generator_class=views.CustomOpenAPISchemaGenerator,
 )
 
 urlpatterns = [
@@ -31,7 +33,6 @@ urlpatterns = [
     )),
     url(r'^capabilitystatement/$', views.GetCapabilityStatement.as_view()),
     url(r'^capabilitystatement/url/$', views.GetCapabilityStatementUrl.as_view()),
-    url(r'^$', RedirectView.as_view(pattern_name='api-docs:docs-index')),
     url(r'^swagger(?P<format>\.json|\.yaml)$',
         schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
