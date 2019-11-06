@@ -13,10 +13,8 @@ schema_view = get_schema_view(
         default_version='v2',
         description="CALC API DOCUMENTATION",
         contact=openapi.Contact(email="calc@gsa.gov"),
-        host="https://api.data.gov/",
-        url="https://api.data.gov/acquisition/calc/v2/schedules",
     ),
-    url="https://api.data.gov/acquisition/calc/v2/",
+    url="https://api.data.gov/",
     public=True,
     generator_class=views.CustomOpenAPISchemaGenerator,
 )
