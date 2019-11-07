@@ -9,6 +9,9 @@
   {% head_meta title="Admin" %}
 {% endblock %}
 <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "frontend/built/style/admin/overrides.min.css" %}{% endblock %}" />
+<script>  
+  var API_HOST = "{{ API_HOST }}";
+</script>
 {% block extrastyle %}{% endblock %}
 
 {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
