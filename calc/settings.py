@@ -87,6 +87,7 @@ TEMPLATES = [{
             'calc.context_processors.help_email',
             'calc.context_processors.non_prod_instance_name',
             'calc.context_processors.sample_users',
+            'calc.context_processors.api_host',
             'frontend.context_processors.is_safe_mode_enabled',
             "django.contrib.auth.context_processors.auth",
             "django.template.context_processors.debug",
