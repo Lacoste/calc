@@ -1,5 +1,5 @@
 import boto3
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from django.http import FileResponse
@@ -17,7 +17,7 @@ def check(s3, bucket, key):
     return True
 
 
-@login_required
+# @login_required
 @require_http_methods(["GET"])
 def get_capability_statment(request, contractnumber):
     required_data = contractnumber
@@ -77,7 +77,7 @@ def get_capability_statment(request, contractnumber):
                     return response
 
 
-@login_required
+# @login_required
 @require_http_methods(["GET"])
 def get_bulk_capability_statment(request, contractnumberlist):
     AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
