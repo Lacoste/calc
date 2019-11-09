@@ -27,6 +27,10 @@
     {% block head %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
+    <script>
+      var API_HOST = "{{ API_HOST }}";
+      alert(API_HOST);
+    </script>
     {% include '_banner.html' %}
     <header>
       <div class="container">
