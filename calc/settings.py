@@ -207,6 +207,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'  # only allow CORS for /api/ routes
 CORS_ALLOW_METHODS = ('GET', 'OPTIONS',)  # only allow read-only methods
 
+API_HOST = os.environ.get('API_HOST', '/api/')
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 STATIC_URL = '/static/'
