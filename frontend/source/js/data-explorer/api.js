@@ -22,7 +22,8 @@ export default class API {
   }
 
   get({ uri, data }, callback) {
-    let path = this.basePath + uri;
+    let path = window.API_HOST + uri;
+    
     if (data) {
       path += `?${qs.stringify(data)}`;
     }
