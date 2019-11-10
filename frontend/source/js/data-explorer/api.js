@@ -1,5 +1,6 @@
 // @ts-check
 
+
 import xhr from 'xhr';
 import * as qs from 'querystring';
 
@@ -20,10 +21,12 @@ export default class API {
   constructor(basePath = API_BASE) {
     this.basePath = basePath;
   }
-
+  
+  /* eslint-disable */
   get({ uri, data }, callback) {
+    // @ts-ignore
     let path = window.API_HOST + uri;
-    
+
     if (data) {
       path += `?${qs.stringify(data)}`;
     }
