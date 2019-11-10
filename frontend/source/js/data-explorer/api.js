@@ -24,9 +24,14 @@ export default class API {
   
   /* eslint-disable */
   get({ uri, data }, callback) {
+    let path;
     // @ts-ignore
-    let path = window.API_HOST + uri;
-
+    if(window.API_HOST) {
+      // @ts-ignore
+      path = window.API_HOST + uri;
+    } {
+      path = this.basePath + uri;
+    }
     if (data) {
       path += `?${qs.stringify(data)}`;
     }
