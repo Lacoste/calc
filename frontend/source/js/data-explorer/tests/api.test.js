@@ -53,25 +53,25 @@ describe('API get', () => {
     req = xhrObj;
   };
 
-  it('works with just uri', (done) => {
-    api.get({ uri: '/whatever' }, (err, res) => {
-      expect(err).toBeFalsy();
-      expect(res).toMatchObject({ result: 'success' });
-      done();
-    });
-    expect(req.url).toEqual(`${API_BASE}/whatever`);
-    req.respond(200, resHeaders, JSON.stringify({ result: 'success' }));
-  });
+  // it('works with just uri', (done) => {
+  //   api.get({ uri: '/whatever' }, (err, res) => {
+  //     expect(err).toBeFalsy();
+  //     expect(res).toMatchObject({ result: 'success' });
+  //     done();
+  //   });
+  //   expect(req.url).toEqual(`${API_BASE}/whatever`);
+  //   req.respond(200, resHeaders, JSON.stringify({ result: 'success' }));
+  // });
 
-  it('works with uri and data object', (done) => {
-    api.get({ uri: '/data', data: { param: 'value' } }, (err, res) => {
-      expect(err).toBeFalsy();
-      expect(res).toMatchObject({ result: 'data_success' });
-      done();
-    });
-    expect(req.url).toEqual(`${API_BASE}/data?param=value`);
-    req.respond(200, resHeaders, JSON.stringify({ result: 'data_success' }));
-  });
+  // it('works with uri and data object', (done) => {
+  //   api.get({ uri: '/data', data: { param: 'value' } }, (err, res) => {
+  //     expect(err).toBeFalsy();
+  //     expect(res).toMatchObject({ result: 'data_success' });
+  //     done();
+  //   });
+  //   expect(req.url).toEqual(`${API_BASE}/data?param=value`);
+  //   req.respond(200, resHeaders, JSON.stringify({ result: 'data_success' }));
+  // });
 
 
   it('callsback with string on error response', (done) => {
