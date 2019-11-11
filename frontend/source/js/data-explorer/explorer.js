@@ -23,7 +23,9 @@ import API from './api';
 
 import { populateScheduleLabels } from './schedule-metadata';
 
+
 const api = new API();
+
 const historySynchronizer = new StoreHistorySynchronizer(window);
 const ratesRequester = new StoreRatesAutoRequester(api);
 const middlewares = [
@@ -50,12 +52,14 @@ $.fn.tooltipster('setDefaults', {
 });
 
 function startApp() {
+  // @ts-ignore
+  api.basePath = window.API_HOST;
   historySynchronizer.initialize(store, () => {
     trackVirtualPageview();
   });
 
   store.dispatch(invalidateRates());
-
+  
   ReactDOM.render(
     React.createElement(
       Provider,
@@ -67,6 +71,8 @@ function startApp() {
 }
 
 $(() => {
+  // @ts-ignore
+  api.basePath = window.API_HOST;
   api.getSchedules((err, schedules) => {
     if (err) {
       trackException(err, true);
