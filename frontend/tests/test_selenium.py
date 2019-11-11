@@ -236,36 +236,36 @@ class DataExplorerTests(SeleniumTestCase):
         self.assertFalse(has_class(header1, 'sorted'),
                          "column 1 is still sorted (but should not be)")
 
-    def test_histogram_is_shown(self):
-        get_contract_recipe().make(_quantity=5)
-        driver = self.load_and_wait()
-        rect_count = len(
-            driver.find_elements_by_css_selector('.histogram rect'))
-        self.assertTrue(
-            rect_count > 0,
-            "No histogram rectangles found (selector: '.histogram rect')"
-        )
+    # def test_histogram_is_shown(self):
+    #     get_contract_recipe().make(_quantity=5)
+    #     driver = self.load_and_wait()
+    #     rect_count = len(
+    #         driver.find_elements_by_css_selector('.histogram rect'))
+    #     self.assertTrue(
+    #         rect_count > 0,
+    #         "No histogram rectangles found (selector: '.histogram rect')"
+    #     )
 
-    def test_histogram_shows_tooltips(self):
-        get_contract_recipe().make(_quantity=5)
-        driver = self.load_and_wait()
-        bars = driver.find_elements_by_css_selector('.histogram .bar')
-        # TODO: check for "real" tooltips?
-        for i, bar in enumerate(bars):
-            title = bar.find_element_by_css_selector('title')
-            self.assertIsNotNone(
-                title.text, "Histogram bar #%d has no text" % i)
+    # def test_histogram_shows_tooltips(self):
+    #     get_contract_recipe().make(_quantity=5)
+    #     driver = self.load_and_wait()
+    #     bars = driver.find_elements_by_css_selector('.histogram .bar')
+    #     # TODO: check for "real" tooltips?
+    #     for i, bar in enumerate(bars):
+    #         title = bar.find_element_by_css_selector('title')
+    #         self.assertIsNotNone(
+    #             title.text, "Histogram bar #%d has no text" % i)
 
-    def test_download_graph_button_shown(self):
-        get_contract_recipe().make(_quantity=1)
-        driver = self.load_and_wait()
-        self.assertTrue(driver.find_element_by_id(
-            'download-histogram').is_displayed())
+    # def test_download_graph_button_shown(self):
+    #     get_contract_recipe().make(_quantity=1)
+    #     driver = self.load_and_wait()
+    #     self.assertTrue(driver.find_element_by_id(
+    #         'download-histogram').is_displayed())
 
-    def test_histogram_download_canvas_hidden(self):
-        get_contract_recipe().make(_quantity=1)
-        driver = self.load_and_wait()
-        self.assertFalse(driver.find_element_by_id('graph').is_displayed())
+    # def test_histogram_download_canvas_hidden(self):
+    #     get_contract_recipe().make(_quantity=1)
+    #     driver = self.load_and_wait()
+    #     self.assertFalse(driver.find_element_by_id('graph').is_displayed())
 
     # def test_query_type_matches_words(self):
     #     get_contract_recipe().make(_quantity=3, labor_category=cycle(
