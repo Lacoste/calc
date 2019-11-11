@@ -17,7 +17,9 @@ describe('<ExportData>', () => {
     const { props, wrapper } = setup();
     const anchor = wrapper.find('a.export-data');
     expect(anchor.exists()).toBeTruthy();
+    /* eslint-disable */
     expect(anchor.prop('href')).toBe(`${window.API_HOST}${API_PATH_RATES_CSV}/${props.querystring}`);
+    /* eslint-enable */
   });
 
   it('matches snapshot', () => {
