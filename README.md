@@ -56,7 +56,7 @@ also available in this repository's [docs](docs/) directory.
 ### API documentation
 
 To get started with the CALC APIs, you can jump straight to the 
-[CALC API documentation](https://calc-dev.app.cloud.gov/api/docs/)
+[CALC API documentation](https://calc-dev.app.cloud.gov/api/)
 
 
 ### Front end documentation
