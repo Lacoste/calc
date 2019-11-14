@@ -1,9 +1,7 @@
 """
 Django settings for calc project.
-
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
-
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
@@ -89,6 +87,7 @@ TEMPLATES = [{
             'calc.context_processors.help_email',
             'calc.context_processors.non_prod_instance_name',
             'calc.context_processors.sample_users',
+            'calc.context_processors.api_host',
             'frontend.context_processors.is_safe_mode_enabled',
             "django.contrib.auth.context_processors.auth",
             "django.template.context_processors.debug",
@@ -146,6 +145,8 @@ INSTALLED_APPS = (
     'slackbot.apps.SlackbotConfig',
     'uswds_forms',
     'admin_reorder',
+    'storages',
+    'drf_yasg'
 )  # type: Tuple[str, ...]
 
 SITE_ID = 1
@@ -206,6 +207,8 @@ USE_TZ = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'  # only allow CORS for /api/ routes
 CORS_ALLOW_METHODS = ('GET', 'OPTIONS',)  # only allow read-only methods
+
+API_HOST = os.environ.get('API_HOST', '/api/')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -480,3 +483,20 @@ ADMIN_REORDER = (
         {'model': 'sites.Site', 'label': 'Site URLs'},
     )},
 )
+
+# NOT NEEDED FOR DEV
+# AWS_ACCESS_KEY_ID = 'AKIAR7FXZINYORDIPBVD'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'cg-db8307d5-ae86-42ac-a205-7356d692d7d0'
+# AWS_REGION = 'us-gov-west-1'
+# AWS_S3_FILE_OVERWRITE = True
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.s3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = os.environ.get('ACCESS_KEY_ID', 'calc-dev')
+AWS_SECRET_ACCESS_KEY = os.environ.get('SECRET_ACCESS_KEY', 'calc-dev')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('BUCKET', 'calc-dev')
+AWS_REGION = os.environ.get('REGION', 'calc-dev')
+AWS_S3_FILE_OVERWRITE = True
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.s3Boto3Storage'

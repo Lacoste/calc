@@ -7,10 +7,13 @@ from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.template.defaultfilters import pluralize
 from django.conf import settings
+import logging
 
 from frontend import email_css
 from calc.site_utils import absolute_reverse
 from .models import SubmittedPriceList
+
+logger = logging.getLogger('calc')
 
 
 class EmailResult():
@@ -92,7 +95,11 @@ def send_mail(subject, to, template, ctx, reply_to=None):
 
     msg.attach_alternative(html_message, 'text/html')
 
-    return msg.send()
+    try:
+        return msg.send()
+    except Exception as e:
+        logger.error(str(e))
+        return False
 
 
 EXAMPLES = []

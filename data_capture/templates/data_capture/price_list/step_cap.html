@@ -1,0 +1,28 @@
+{% extends 'data_capture/step.html' %}
+
+{% load staticfiles data_explorer_tags %}
+
+{% block head_meta %}
+  {% head_meta title="About CALC" description="About CALC, the Contract-Awarded Labor Category tool" %}
+{% endblock %}
+
+{% block body_class %}content--skinny{% endblock %}
+
+{% block body %}
+<div class="container">
+  {% block step_body %}
+    <form method="post" class="form--contract_details">
+      {{ form.non_field_errors }}
+      {%fieldset form.contract_number%}
+      <div class="form-button-row clearfix">
+        <div class="submit-group">
+          <span class="submit-label">
+            Provide some basic details about the contract.
+          </span>
+          <button type="submit" class="usa-button usa-button-primary">Next</button>
+        </div>
+      </div>
+    </form>
+  {% endblock %}
+</div>
+{% endblock %}

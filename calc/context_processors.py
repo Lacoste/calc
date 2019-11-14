@@ -27,3 +27,7 @@ def non_prod_instance_name(request):
 
 def sample_users(request):
     return {'SAMPLE_USERS': SAMPLE_USERS}
+
+
+def api_host(request):
+    return {'API_HOST': settings.API_HOST}

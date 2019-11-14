@@ -1,0 +1,109 @@
+{% extends 'data_capture/step.html' %}
+{% load staticfiles %}
+{% load staticfiles data_explorer_tags %}
+
+{% block head_meta %}
+  {% head_meta title="About CALC" description="About CALC, the Contract-Awarded Labor Category tool" %}
+{% endblock %}
+
+{% block body_class %}content--skinny{% endblock %}
+
+{% block body %}
+<div class="container">
+  {% block content %}
+    <form  onsubmit="return formHTTPValidaion()"method="post" action="/data-capture/capability_statement/"  enctype="multipart/form-data">
+      {% csrf_token %}
+      {% if request.is_ajax %}
+      {% include 'data_capture/messages.html' %}
+      {% endif %}
+
+{{ form.non_field_errors }}
+
+{{ form.file.errors }}
+
+{{ form.file }}
+
+{{ form.contract_number}}
+  
+      <div class="card">
+        <div class="content">
+          <fieldset>
+            <label for="id_contract_number">Contract number:</label>
+            <input type="text" name="contract_number" maxlength="128" required id="id_contract_number" />
+            <p class="helptext">This should be the full contract number, e.g. GSXXXXXXX.</p>
+          </fieldset>
+        </div></br></br>
+
+        <div class="content">
+          <fieldset>
+            <h2>Upload capability statement</h2>
+            <p>Choose the capability statement you'd like to upload.</p>
+            <div style="display: inline-block;width: 140px;">
+                <input class="radio_option" type="radio" onchange="radioButtonChanged(this.value)" name="file_upload_option" value="file" required checked="checked" />
+                <span class="radioLabel">File</span>
+            </div>
+            <div style="display: inline-block;">
+                <input class="radio_option" type="radio" onchange="radioButtonChanged(this.value)" name="file_upload_option" value="url" required />
+                <span class="radioLabel">URL</span>
+            </div>
+          </fieldset>
+        </div>
+        <div class="content">
+          <div id="fileUpload">
+            <upload-widget 
+              ondragenter="dragOverHandler(event)"
+              ondrop="dragOverHandler(event);addFiles(event)"
+              ondragover="dragOverHandler(event)"
+              ondragleave="dragOverHandler(event)"
+               >
+                <input onchange="filechanged(this)" type="file" name="capability_file" id="id_file" required is="upload-input" accept=".pdf,.docx" />
+                <span class="file_name_holder"></span>
+                <br>
+                <div class="upload-chooser inactive">
+                  <span class="redo">Not right?</span>
+                  <label for="id_file">Choose file</label>
+                  <span>or Drag and Drop here. PDF or DOCX format, please.</span>
+                </div>
+            </upload-widget>
+          </div>
+          <div id="urlUpload">
+            <h4>Enter web URL</h4>
+            <input type="text" placeholder="https://www.example.com" name="capability_url" id="id_url" />
+          </div>
+          <div class="form-button-row clearfix">
+            <div class="submit-group">
+              <span class="submit-label"></span>
+              <input type="hidden" id="alert" name="alert" value="{{uploaded_file_status}}" readonly>
+              <button class="usa-button usa-button-primary" type="submit">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    {% if uploaded_file_status and form_submitted != 0 %}
+      <script>
+        $( document ).ready(function() {
+          if ($('#alert').val() != ""){
+            alert($('#alert').val());
+            $('form').trigger('reset');
+            location.href="/step_cap/"
+          }
+        });
+      </script>
+    {% endif %}
+
+  {% endblock %}
+</div>
+<style>
+  .radio_option{
+    position: static;
+    width:20px;
+    height:20px;
+    display: inline-block;
+  }
+  #url_upload{
+    display: none;
+  }
+</style>
+{% endblock %}
