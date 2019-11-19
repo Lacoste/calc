@@ -147,7 +147,7 @@ class SubmittedPriceList(models.Model):
     # This is the equivalent of Contract.idv_piid.
     contract_number = models.CharField(
         max_length=128,
-        help_text='This should be the full contract number, e.g. GS-XXX-XXXX.',
+        help_text='List the full contract number, e.g. GSXXXXXXX or 47XXXXXXXXXXX.',
         validators=[RegexValidator(
             regex=r'^[a-zA-Z0-9-_]+$',
             message='Please use only letters, numbers, and dashes (-).')],
