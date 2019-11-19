@@ -51,9 +51,18 @@ $.fn.tooltipster('setDefaults', {
   speed: 200,
 });
 
-function startApp() {
+function setAPIHostForLocalEnv() {
+  // @ts-ignore
+  if (window.API_HOST === '/api/') {
+    // @ts-ignore
+    window.API_HOST = '/api';
+  }
   // @ts-ignore
   api.basePath = window.API_HOST;
+}
+
+function startApp() {
+  setAPIHostForLocalEnv();
   historySynchronizer.initialize(store, () => {
     trackVirtualPageview();
   });
@@ -71,8 +80,7 @@ function startApp() {
 }
 
 $(() => {
-  // @ts-ignore
-  api.basePath = window.API_HOST;
+  setAPIHostForLocalEnv();
   api.getSchedules((err, schedules) => {
     if (err) {
       trackException(err, true);

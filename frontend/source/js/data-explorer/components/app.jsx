@@ -120,6 +120,21 @@ class App extends React.Component {
                   <div className="twelve columns">
                     <QueryType />
                   </div>
+                  <div className="twelve columns">
+                    <p className="help-text">
+                      Any results from CALC searches cannot be relied upon
+                      {' '}
+                      exclusively to demonstrate prices are fair and reasonable
+                      {' '}
+                      in accordance with FAR 15.4. Federal acquisition professionals 
+                      {' '}
+                      will need additional pricing support and analysis to make
+                      {' '}
+                      such a determination. These rates are most useful in creating
+                      {' '}
+                      budgetary estimates or as secondary pricing support.
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
