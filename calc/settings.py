@@ -87,6 +87,7 @@ TEMPLATES = [{
             'calc.context_processors.help_email',
             'calc.context_processors.non_prod_instance_name',
             'calc.context_processors.sample_users',
+            'calc.context_processors.api_host',
             'frontend.context_processors.is_safe_mode_enabled',
             "django.contrib.auth.context_processors.auth",
             "django.template.context_processors.debug",
@@ -206,6 +207,8 @@ USE_TZ = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'  # only allow CORS for /api/ routes
 CORS_ALLOW_METHODS = ('GET', 'OPTIONS',)  # only allow read-only methods
+
+API_HOST = os.environ.get('API_HOST', '/api/')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

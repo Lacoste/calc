@@ -1,7 +1,7 @@
 import toJson from 'enzyme-to-json';
 
 import { ExportData } from '../components/export-data';
-import { API_BASE, API_PATH_RATES_CSV } from '../api';
+import { API_PATH_RATES_CSV } from '../api';
 
 import makeSetup from './testSetup';
 
@@ -17,7 +17,9 @@ describe('<ExportData>', () => {
     const { props, wrapper } = setup();
     const anchor = wrapper.find('a.export-data');
     expect(anchor.exists()).toBeTruthy();
-    expect(anchor.prop('href')).toBe(`${API_BASE}${API_PATH_RATES_CSV}/${props.querystring}`);
+    /* eslint-disable */
+    expect(anchor.prop('href')).toBe(`${window.API_HOST}${API_PATH_RATES_CSV}/${props.querystring}`);
+    /* eslint-enable */
   });
 
   it('matches snapshot', () => {

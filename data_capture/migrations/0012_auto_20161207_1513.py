@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='submittedpricelist',
             name='contract_number',
-            field=models.CharField(help_text='This should be the full contract number, e.g. GS-XXX-XXXX.', validators=[django.core.validators.RegexValidator(regex='^[a-zA-Z0-9-_]+$', message='Please use only letters, numbers, and dashes (-).')], max_length=128),
+            field=models.CharField(help_text='List the full contract number, e.g. GSXXXXXXX or 47XXXXXXXXXXX.', validators=[django.core.validators.RegexValidator(regex='^[a-zA-Z0-9-_]+$', message='Please use only letters, numbers, and dashes (-).')], max_length=128),
         ),
     ]
