@@ -69,7 +69,7 @@ def get_capability_statment(request, contractnumber):
                     ext_array = latest_file.split('.')
                     response = FileResponse(file['Body'], content_type='application/' +
                                             ext_array[1])
-                    response['Content-Disposition'] = 'attachment; filename="' + latest_file + '"'
+                    response['Content-Disposition'] = 'inline; filename="' + latest_file + '"'
                     return response
                 except FileNotFoundError:
                     response = JsonResponse({'Error': '1',
