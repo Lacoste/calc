@@ -128,11 +128,11 @@ class App extends React.Component {
                       {' '}
                       in accordance with FAR 15.4. Federal acquisition professionals 
                       {' '}
-                      will need additional pricing support and analysis to make
+                      will need additional analysis to make
                       {' '}
-                      such a determination. These rates are most useful in creating
+                      such a determination. These rates are also useful in creating
                       {' '}
-                      budgetary estimates or as secondary pricing support.
+                      budgetary and project cost estimates.
                     </p>
                   </div>
                 </div>
