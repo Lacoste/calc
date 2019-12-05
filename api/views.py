@@ -325,7 +325,7 @@ class CustomOpenAPISchemaGenerator(OpenAPISchemaGenerator):
 class Util:
     data = urlparse(settings.API_HOST)
 
-    def getHostName(self=None):
+    def getHostName(self):
         host = ''
         if settings.API_HOST == '/api/':
             host = 'http://localhost:8000/'
