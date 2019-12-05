@@ -2,7 +2,6 @@ from django.conf.urls import url
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework.documentation import include_docs_urls
-
 from .capability_statement import capability_statement
 
 from api import views
@@ -14,7 +13,7 @@ schema_view = get_schema_view(
         description="CALC API DOCUMENTATION",
         contact=openapi.Contact(email="calc@gsa.gov"),
     ),
-    url="https://api.data.gov/",
+    url=views.Util.getHostName(),
     public=True,
     generator_class=views.CustomOpenAPISchemaGenerator,
 )
