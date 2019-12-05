@@ -13,7 +13,7 @@ schema_view = get_schema_view(
         description="CALC API DOCUMENTATION",
         contact=openapi.Contact(email="calc@gsa.gov"),
     ),
-    url=views.Util.getHostName(),
+    url=views.Util.getHostName(views.Util),
     public=True,
     generator_class=views.CustomOpenAPISchemaGenerator,
 )

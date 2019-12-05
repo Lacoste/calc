@@ -323,22 +323,22 @@ class CustomOpenAPISchemaGenerator(OpenAPISchemaGenerator):
 
 
 class Util:
-    data = urlparse(settings.API_HOST)
-
     def getHostName(self):
+        data = urlparse(settings.API_HOST)
         host = ''
         if settings.API_HOST == '/api/':
             host = 'http://localhost:8000/'
         else:
-            host = self.data.scheme + '://' + self.data.netloc
+            host = data.scheme + '://' + data.netloc
         return host
 
     def getApiBasePath(self):
+        data = urlparse(settings.API_HOST)
         basePath = ''
         if settings.API_HOST == '/api/':
             basePath = '/api/'
         else:
-            basePath = self.data.path
+            basePath = data.path
         return basePath
 
 
