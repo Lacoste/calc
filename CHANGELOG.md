@@ -7,11 +7,41 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## 2019-12-06
+
+### Changed
+
+- Fixes of Snyk 9 high severity and 5 medium severity vulnerabilities.
+
+## 2019-11-19
+
+### Changed
+
+- Fix JavaScript issue of price list upload on Chrome browser.
+- Add disclaimer on CALC under the Exact match box.
+- Calc About page updates.
+
+## 2019-11-19
+
+### Changed
+
+- Admin users has ability to upload Capability Statement file in CALC.
+- Admin users has ability to add URL of a capability statement in CALC.
+- Created API to get Capability statements. Any application can use this service to retriever capability statements by contact number.
+- GSA API Standards Adoption for CALC.
+
+## 2019-08-22
+
+### Changed
+
+- Performed FISMA Annual Self-Assessment CALC.
+
+
 ## 2019-10-08
 
 ### Changed
 
-- Added Option to Upload the MAS Consolidation Pricing Template
+- Added Option to Upload the MAS Consolidation Pricing Template. (#2360)
 - 1 high severity issues fixed (Reported by Synk tool).
 
 
