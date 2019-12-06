@@ -6,6 +6,7 @@ from textwrap import dedent
 from django.http import HttpResponse
 from django.db.models import Avg, Max, Min, Count, StdDev
 from django.utils.safestring import SafeString
+from urllib.parse import urlparse
 
 from markdown import markdown
 from rest_framework import serializers
@@ -317,8 +318,28 @@ def quantize(num, precision=2):
 class CustomOpenAPISchemaGenerator(OpenAPISchemaGenerator):
     def get_schema(self, *args, **kwargs):
         schema = super().get_schema(*args, **kwargs)
-        schema.basePath = '/dev/gsa/calc/'
+        schema.basePath = Util.getApiBasePath(self)
         return schema
+
+
+class Util:
+    def getHostName(self):
+        data = urlparse(settings.API_HOST)
+        host = ''
+        if settings.API_HOST == '/api/':
+            host = 'http://localhost:8000/'
+        else:
+            host = data.scheme + '://' + data.netloc
+        return host
+
+    def getApiBasePath(self):
+        data = urlparse(settings.API_HOST)
+        basePath = ''
+        if settings.API_HOST == '/api/':
+            basePath = '/api/'
+        else:
+            basePath = data.path
+        return basePath
 
 
 class GetRates(APIView):
