@@ -81,9 +81,10 @@
     "lodash.mergewith": "^4.6.2",
     "lodash.template": "4.5.0",
     "lodash-es": "4.17.14",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "elliptic": "^6.5.2",
-    "serialize-javascript":"^2.1.1"
+    "serialize-javascript":"^2.1.1",
+    "kind-of":"^6.0.3"
   },
   "scripts": {
     "gulp": "gulp",
