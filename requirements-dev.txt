@@ -20,9 +20,10 @@ httmock==1.2.6
 tqdm==4.21.0
 
 # These are used to generate the static documentation, which may be
-# served in production; but because they're statically compiled
+# served in production; but because they are statically compiled
 # by CI, they won't be needed by the actual Django app during
 # production, so they can stay here.
 Sphinx==1.5.2
 sphinx-rtd-theme==0.1.9
 recommonmark==0.4.0
+Werkzeug==0.16.0
