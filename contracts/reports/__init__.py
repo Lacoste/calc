@@ -10,7 +10,7 @@ from . import (
 
 ALL_METRICS: List[BaseMetric] = [
     dupes.Metric(),
-    outliers.Metric(),
-    incomplete.Metric(),
+    #outliers.Metric(),
+    #incomplete.Metric(),
     expired.Metric(),
 ]
