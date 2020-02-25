@@ -16,25 +16,25 @@ class Tests(TestCase):
         res = self.client.get('/data-quality-report/')
         self.assertEqual(res.status_code, 200)
 
-    def test_outliers_works(self):
-        get_contract_recipe().make(
-            labor_category='senior outlier',
-            min_years_experience=1,
-            education_level='HS',
-            current_price=999999
-        )
-        get_contract_recipe().make(
-            labor_category='not an outlier',
-            min_years_experience=1,
-            education_level='HS',
-            current_price=FEDERAL_MIN_CONTRACT_RATE
-        )
+    # def test_outliers_works(self):
+    #     get_contract_recipe().make(
+    #         labor_category='senior outlier',
+    #         min_years_experience=1,
+    #         education_level='HS',
+    #         current_price=999999
+    #     )
+    #     get_contract_recipe().make(
+    #         labor_category='not an outlier',
+    #         min_years_experience=1,
+    #         education_level='HS',
+    #         current_price=FEDERAL_MIN_CONTRACT_RATE
+    #     )
 
-        self.assertEqual(reports.outliers.Metric().count(), 1)
+    #     self.assertEqual(reports.outliers.Metric().count(), 1)
 
-        res = self.client.get('/data-quality-report/outliers/')
-        self.assertContains(res, 'senior outlier')
-        self.assertNotContains(res, 'not an outlier')
+    #     res = self.client.get('/data-quality-report/outliers/')
+    #     self.assertContains(res, 'senior outlier')
+    #     self.assertNotContains(res, 'not an outlier')
 
     def test_dupes_works(self):
         get_contract_recipe().make(labor_category='not a dupe')
