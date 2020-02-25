@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.management import call_command
 
 from contracts import reports
-from contracts.loaders.region_10 import FEDERAL_MIN_CONTRACT_RATE
+# from contracts.loaders.region_10 import FEDERAL_MIN_CONTRACT_RATE
 from contracts.mommy_recipes import get_contract_recipe
 
 
