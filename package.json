@@ -85,8 +85,7 @@
     "elliptic": "^6.5.2",
     "serialize-javascript":"^2.1.1",
     "kind-of":"^6.0.3",
-    "minimist": "^1.2.2",
-    "acorn": "^6.4.1"
+    "minimist": "^1.2.2"
   },
   "scripts": {
     "gulp": "gulp",
