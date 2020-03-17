@@ -2,7 +2,7 @@ import sys
 import tempfile
 import subprocess
 from collections import namedtuple
-import djclick as clck
+import djclick as click
 import xml.etree.ElementTree as etree
 from django.core.management.base import CommandError
 from typing import List, Any
@@ -135,9 +135,9 @@ def get_testtype(name: str) -> TestType:
     )
 
 
-@clck.command()
-@clck.pass_verbosity
-@clck.argument('testtype', nargs=-1,
+@click.command()
+@click.pass_verbosity
+@click.argument('testtype', nargs=-1,
                 metavar='[{}]'.format(get_testtype_names(joiner="|")))
 def command(verbosity: int, testtype: List[str]) -> None:
     '''
@@ -156,7 +156,7 @@ def command(verbosity: int, testtype: List[str]) -> None:
     def echo(msg: str, v_level: int, **kwargs: Any) -> None:
         if verbosity < v_level:
             return
-        clck.secho(msg, **kwargs)
+        click.secho(msg, **kwargs)
 
     print_with_rainbow_colors(ASCII_ART_LOGO)
 
