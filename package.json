@@ -60,9 +60,9 @@
     "typescript": "^2.9.2",
     "uswds": "1.6.9",
     "vinyl-named": "^1.1.0",
-    "webpack": "^4.4.1",
+    "webpack": "^4.29.0",
     "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-stream": "^4.0.3",
+    "webpack-stream": "^5.0.0",
     "xhr": "^2.4.0"
   },
   "resolutions": {
@@ -84,7 +84,8 @@
     "node-sass": "^4.13.1",
     "elliptic": "^6.5.2",
     "serialize-javascript":"^2.1.1",
-    "kind-of":"^6.0.3"
+    "kind-of":"^6.0.3",
+    "minimist": "^1.2.2"
   },
   "scripts": {
     "gulp": "gulp",

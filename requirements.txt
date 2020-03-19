@@ -1,13 +1,14 @@
 # Production dependencies
 dj-database-url==0.4.2
 dj-email-url==0.1.0
-django-click==1.2.0
+django-click==2.1.0
+click==6.7
 Django==1.11.28
 django-cors-headers==2.0.2
 django-debug-toolbar==1.6
 django-modeladmin-reorder==0.3.1
 djangorestframework>=3.9.1
-gunicorn==19.6.0
+gunicorn==19.10.0
 psycopg2==2.7.3.2
 six==1.12.0
 whitenoise==3.3.0
@@ -31,6 +32,6 @@ django-session-security==2.6.5
 nltk==3.4.5
 xlsxwriter==0.9.6
 urllib3>=1.25.2
-django-storages==1.1.8
+django-storages==1.7
 boto3==1.9.253
 drf-yasg==1.17.0
