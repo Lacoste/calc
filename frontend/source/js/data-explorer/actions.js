@@ -90,6 +90,7 @@ export function setBusinessSize(size) {
 }
 
 export function setQuery(query) {
+  // console.log("QUERRYYYYYY==="+query)
   return { type: SET_QUERY, query };
 }
 
