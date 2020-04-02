@@ -119,6 +119,7 @@ LaborCategory.defaultProps = {
   children: null,
   queryBy: QUERY_BY_SCHEDULE,
   parentCallback: (''),
+  // search_keywords: ('')
 };
 
 export default connect(

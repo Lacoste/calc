@@ -43,6 +43,7 @@ class App extends React.Component {
     this.state = {
       keywordDisabled: true,
       searchkeyword: "",
+      search_keywords: "",
       laborTyped: "",
       resetFilter: false,
       searchResultCount: 0
