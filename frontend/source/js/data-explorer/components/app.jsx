@@ -150,7 +150,8 @@ class App extends React.Component {
                       <div className="five columns reduce_right_margin keyword_filter">
                         <KeywordFilter 
                           parentCallback={this.setEnteredKeyword} 
-                          keywordDisabled={this.state.keywordDisabled} 
+                          keywordDisabled={this.state.keywordDisabled}
+                          search_keywords={this.state.searchkeyword} 
                           resetFilter={this.state.resetFilter} 
                           laborTyped={this.state.laborTyped}
                         />
