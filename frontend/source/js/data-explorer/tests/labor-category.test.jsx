@@ -1,4 +1,4 @@
-import toJson from 'enzyme-to-json';
+// import toJson from 'enzyme-to-json';
 
 import { MAX_QUERY_LENGTH, QUERY_TYPE_MATCH_ALL } from '../constants';
 import { LaborCategory } from '../components/labor-category';
@@ -41,4 +41,4 @@ describe('<LaborCategory>', () => {
 //     expect(props.setQuery.mock.calls.length).toBe(1);
 //     expect(props.setQuery.mock.calls[0][0]).toBe('newquery');
 //   });
-// });
+});
