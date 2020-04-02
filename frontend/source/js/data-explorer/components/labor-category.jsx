@@ -62,7 +62,7 @@ export class LaborCategory extends React.Component {
   }
 
   handleEnter() {
-    if (this.state.value !== this.props.query) { //WORK
+    if (this.state.value !== this.props.query) { // WORK
       const qry = `${this.state.value}|${this.props.search_keywords}`;
       this.props.setQuery(qry);
       this.sendDataBack(this.state.value);

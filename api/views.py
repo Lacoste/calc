@@ -197,7 +197,6 @@ def get_contracts_queryset(request_params, wage_field):
     """
 
     query = request_params.get('q', None)
-    print(query)
     # Ideally we'd go ahead and return a plain queryset here if there is
     # no query to avoid doing extra work, but before we can do that
     # we'll have to ensure filtering fields can't do anything in the absence
@@ -662,7 +661,6 @@ class GetCapabilityStatement(APIView):
             url = conIns[0].url  # getting url from db
             # response = JsonResponse({'Error': '1', 'ErrorMessage': url})
             # return response
-            print(url)
             return JsonResponse({'Error': '1', 'ErrorMessage': url})
         else:
             AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
