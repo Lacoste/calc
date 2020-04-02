@@ -108,7 +108,7 @@ LaborCategory.propTypes = {
   queryType: PropTypes.string.isRequired,
   queryBy: PropTypes.string,
   setQuery: PropTypes.func.isRequired,
-  search_keywords: PropTypes.any.isRequired,
+  search_keywords: PropTypes.func,
   api: PropTypes.object.isRequired,
   children: PropTypes.any,
   parentCallback: PropTypes.func
