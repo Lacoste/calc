@@ -1,4 +1,4 @@
-// import toJson from 'enzyme-to-json';
+import toJson from 'enzyme-to-json';
 
 import { MAX_QUERY_LENGTH, QUERY_TYPE_MATCH_ALL } from '../constants';
 import { LaborCategory } from '../components/labor-category';
@@ -24,10 +24,10 @@ describe('<LaborCategory>', () => {
     expect(input.prop('maxLength')).toBe(MAX_QUERY_LENGTH);
   });
 
-//   it('matches snapshot', () => {
-//     const { wrapper } = setup();
-//     expect(toJson(wrapper)).toMatchSnapshot();
-//   });
+  it('matches snapshot', () => {
+    const { wrapper } = setup();
+    expect(toJson(wrapper)).toMatchSnapshot();
+  });
 
 //   it('calls setQuery on enter', () => {
 //     const { props, mounted } = setup();
