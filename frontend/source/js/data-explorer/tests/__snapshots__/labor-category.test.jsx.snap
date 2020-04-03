@@ -17,7 +17,7 @@ exports[`<LaborCategory> matches snapshot 1`] = `
     name="q"
     onChange={[Function]}
     onKeyDown={[Function]}
-    placeholder="Type a labor category"
+    placeholder="Type a labor category*"
     type="text"
     value=""
   />
