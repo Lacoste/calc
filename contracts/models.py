@@ -346,7 +346,9 @@ class Contract(models.Model):
     keywords = models.CharField(
         db_index=True, max_length=128, null=True, blank=True)
     certifications = models.CharField(
-        db_index=True, max_length=128, null=True, blank=True
+        db_index=True, max_length=128, null=True, blank=True)
+    description = models.CharField(
+        db_index=True, max_length=1000, null=True, blank=True
     )
 
     # SIN stands for "Special Item Number" and is is a categorization method
