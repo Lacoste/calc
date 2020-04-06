@@ -3,10 +3,10 @@ import xhr from 'xhr';
 import * as qs from 'querystring';
 
 export const API_BASE = '/api';
-export const API_RATES_SCHEDULES = '/schedules';
-export const API_PATH_RATES_CSV = '/rates/csv';
-export const API_PATH_RATES = '/rates';
-export const API_PATH_SEARCH = '/search'; 
+export const API_RATES_SCHEDULES = 'schedules';
+export const API_PATH_RATES_CSV = 'rates/csv';
+export const API_PATH_RATES = 'rates';
+export const API_PATH_SEARCH = 'search'; 
 
 /** 
  * @typedef {Object} ScheduleMetadata
