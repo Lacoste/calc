@@ -21,11 +21,11 @@ export default class API {
   }
 
   get({ uri, data }, callback) {
-    alert('this.basePath');
-    alert(this.basePath);
+    console.log('this.basePath');
+    console.log(this.basePath);
     let path = this.basePath + uri;
-    alert('path');
-    alert(path);
+    console.log('path');
+    console.log(path);
 
     if (data) {
       path += `?${qs.stringify(data)}`;
