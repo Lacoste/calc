@@ -6,7 +6,7 @@ export const API_BASE = '/api';
 export const API_RATES_SCHEDULES = '/schedules';
 export const API_PATH_RATES_CSV = '/rates/csv';
 export const API_PATH_RATES = '/rates';
-export const API_PATH_SEARCH = '/search'; 
+export const API_PATH_SEARCH = '/search';
 
 /** 
  * @typedef {Object} ScheduleMetadata
@@ -21,12 +21,7 @@ export default class API {
   }
 
   get({ uri, data }, callback) {
-    console.log('this.basePath');
-    console.log(this.basePath);
     let path = this.basePath + uri;
-    console.log('path');
-    console.log(path);
-
     if (data) {
       path += `?${qs.stringify(data)}`;
     }
