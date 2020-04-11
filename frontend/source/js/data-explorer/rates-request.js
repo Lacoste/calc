@@ -56,7 +56,6 @@ export default class StoreRatesAutoRequester {
     };
 
     store.dispatch(startRatesRequest());
-
     this.request = this.api.get({
       uri: API_PATH_RATES,
       data: Object.assign(defaults, data),
