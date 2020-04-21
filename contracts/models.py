@@ -350,6 +350,9 @@ class Contract(models.Model):
     description = models.CharField(
         db_index=True, max_length=1000, null=True, blank=True
     )
+    security_clearance = models.CharField(
+        db_index=True, max_length=1000, null=True, blank=True
+    )
 
     # SIN stands for "Special Item Number" and is is a categorization method
     # that groups similar products, services, and solutions together.
