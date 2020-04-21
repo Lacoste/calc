@@ -301,6 +301,14 @@ def get_contracts_queryset(request_params, wage_field):
     if sin:
         contracts = contracts.filter(sin__icontains=sin)
 
+    sin_number = request_params.get('sin_number', None)
+    if sin_number:
+        contracts = contracts.filter(sin__icontains=sin_number)
+
+    security_clearance = request_params.get('security_clearance', None)
+    if security_clearance:
+        contracts = contracts.filter(security_clearance__icontains=security_clearance)
+    print(contracts)
     price = request_params.get('price', None)
     price__gte = request_params.get('price__gte')
     price__lte = request_params.get('price__lte')

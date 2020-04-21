@@ -111,7 +111,7 @@ LaborCategory.propTypes = {
   search_keywords: PropTypes.string,
   api: PropTypes.object.isRequired,
   children: PropTypes.any,
-  parentCallback: PropTypes.string
+  parentCallback: PropTypes.any
 };
 
 LaborCategory.defaultProps = {

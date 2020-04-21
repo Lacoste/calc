@@ -75,7 +75,8 @@ DEFAULT_FIELD_TITLE_MAP_MAS = {
     'unit_of_issue': 'Unit of Issue',
     'price_including_iff': 'Price Offered',
     'keywords': 'Key words',
-    'certifications': 'Identify Required Licenses or Certifications'
+    'certifications': 'Identify Required Licenses or Certifications',
+    'security_clearance': 'Security Clearance Required'
 }
 
 
@@ -142,6 +143,10 @@ class MASConsolidatedPriceListRow(forms.Form):
     )
     keywords = forms.CharField(
         label='Key Words',
+        required=False
+    )
+    security_clearance = forms.CharField(
+        label='Security Clearance Required',
         required=False
     )
     education_level = forms.CharField(
@@ -217,7 +222,8 @@ class MASConsolidatedPriceList(BasePriceList):
                 base_year_rate=row.contract_model_base_year_rate(),
                 sin=row.cleaned_data['sin'],
                 keywords=row.cleaned_data['keywords'],
-                certifications=row.cleaned_data['certifications']
+                certifications=row.cleaned_data['certifications'],
+                security_clearance=row.cleaned_data['security_clearance']
             )
 
     def serialize(self):
