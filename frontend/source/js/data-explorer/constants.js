@@ -86,7 +86,7 @@ export const QUERY_TYPE_LABELS = {
 };
 
 export const SIN_NUMBER = {
-  sin_number: '123',
+  sinNumber: '123',
 };
 
 export const MAX_QUERY_LENGTH = 255;
