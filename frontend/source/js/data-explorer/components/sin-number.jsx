@@ -17,7 +17,7 @@ Sin Number:
       <input
         type="text"
         id={id}
-        name="sin_number"
+        name="sinNumber"
         value={sinNumber}
         onChange={handleChange}
         className={filterActive(sinNumber !== '')}

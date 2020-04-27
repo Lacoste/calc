@@ -100,7 +100,7 @@ function businessSize(state = '', action) {
   return state;
 }
 
-function sinNumber(state = '', action) {
+function sinNumberFunction(state = '', action) {
   if (action.type === SET_SIN_NUMBER) {
     return action.sinNumber;
   }
@@ -203,8 +203,8 @@ const combinedReducer = combineReducers({
   'contract-year': contractYear,
   site,
   business_size: businessSize,
-  sin_number: sinNumber,
-  security_clearance: securityClearence,
+  sinNumber: sinNumberFunction,
+  securityClearance: securityClearence,
   schedule,
   rates,
   'proposed-price': proposedPrice,
