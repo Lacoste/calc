@@ -32,7 +32,8 @@ class GleaningTests(TestCase):
             'unit_of_issue': 'Hour',
             'price_including_iff': '200.0',
             'keywords': 'Process improvement, finance, senior project manager',
-            'certifications': 'PMP'
+            'certifications': 'PMP',
+            'security_clearance': 'No'
         }])
 
     def test_text_formatted_prices_are_gleaned(self):
@@ -85,7 +86,8 @@ class MASConsolidatedPriceListTests(ModelTestCase):
             'sin': '874-1',
             'unit_of_issue': 'Hour',
             'keywords': 'Process improvement, finance, senior project manager',
-            'certifications': 'PMP'
+            'certifications': 'PMP',
+            'security_clearance': 'No'
         })
 
     def test_education_level_is_validated(self):
