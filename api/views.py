@@ -6,6 +6,7 @@ from textwrap import dedent
 from django.http import HttpResponse
 from django.db.models import Avg, Max, Min, Count, StdDev
 from django.utils.safestring import SafeString
+from urllib.parse import urlparse
 
 from markdown import markdown
 from rest_framework import serializers
@@ -21,6 +22,16 @@ from api.serializers import ContractSerializer, ScheduleMetadataSerializer
 from api.utils import get_histogram
 from contracts.models import Contract, EDUCATION_CHOICES, ScheduleMetadata
 from calc.utils import humanlist, backtickify
+from drf_yasg.generators import OpenAPISchemaGenerator
+
+from django.conf import settings
+from django.http import FileResponse
+from botocore.exceptions import ClientError
+from django.http import JsonResponse
+from data_capture.models import capability_statement as conSta
+# from django.shortcuts import redirect
+import boto3
+from django.db.models import Q
 
 
 DOCS_DESCRIPTION = dedent("""
@@ -194,13 +205,32 @@ def get_contracts_queryset(request_params, wage_field):
     # Since our query can be multi-phrase, leave the original queryset alone.
     # Instead, start with an empty queryset, then find matching subsets
     # in the original and chain them together.
+    isSecondaryFilter = False
     if query:
+        queryArray = query.split("|")
+        if len(queryArray) > 1:
+            isSecondaryFilter = True
+
+        query = queryArray[0]
         query_type = request_params.get('query_type', 'match_all')
         query_by = request_params.get('query_by', None)
         contracts = Contract.objects.all().multi_phrase_search(
-            query, query_by, query_type)
+            query.strip(), query_by, query_type)
     else:  # no query, so start with full query set
         contracts = Contract.objects.all()
+
+    if isSecondaryFilter:
+        if queryArray[1] != "":
+            secondryFilter = queryArray[1]
+            secondryFilterArr = secondryFilter.split(',')
+            queryFilters = Q()
+            for filter in secondryFilterArr:
+                if filter != "":
+                    filter = filter.strip()
+                    queryFilters = queryFilters | Q(keywords__icontains=filter) | \
+                        Q(certifications__icontains=filter) | \
+                        Q(description__icontains=filter)
+            contracts = contracts.filter(queryFilters)
 
     # Exclude records w/o rates for the selected contract period.
     # Additional price filtering is already in the CurrentContractManager
@@ -271,6 +301,14 @@ def get_contracts_queryset(request_params, wage_field):
     if sin:
         contracts = contracts.filter(sin__icontains=sin)
 
+    sin_number = request_params.get('sinNumber', None)
+    if sin_number:
+        contracts = contracts.filter(sin__icontains=sin_number)
+
+    security_clearance = request_params.get('securityClearance', None)
+    if security_clearance:
+        contracts = contracts.filter(security_clearance__icontains=security_clearance)
+    print(contracts)
     price = request_params.get('price', None)
     price__gte = request_params.get('price__gte')
     price__lte = request_params.get('price__lte')
@@ -292,7 +330,9 @@ def get_contracts_queryset(request_params, wage_field):
             clean_field = bleach.clean(stripped, tags=[], strip=True)
             raise serializers.ValidationError(f'"{clean_field}" is not a valid field to sort on')
         if field not in SORTABLE_CONTRACT_FIELDS:
-            raise serializers.ValidationError(f'Unable to sort on the field "{field}"')
+            stripped = strip_tags(field)
+            clean_field = bleach.clean(stripped, tags=[], strip=True)
+            raise serializers.ValidationError(f'Unable to sort on the field "{clean_field}"')
 
     return contracts.order_by(*sort)
 
@@ -301,6 +341,33 @@ def quantize(num, precision=2):
     if num is None:
         return None
     return Decimal(num).quantize(Decimal(10) ** -precision)
+
+
+class CustomOpenAPISchemaGenerator(OpenAPISchemaGenerator):
+    def get_schema(self, *args, **kwargs):
+        schema = super().get_schema(*args, **kwargs)
+        schema.basePath = Util.getApiBasePath(self)
+        return schema
+
+
+class Util:
+    def getHostName(self):
+        data = urlparse(settings.API_HOST)
+        host = ''
+        if settings.API_HOST == '/api/':
+            host = 'http://localhost:8000/'
+        else:
+            host = data.scheme + '://' + data.netloc
+        return host
+
+    def getApiBasePath(self):
+        data = urlparse(settings.API_HOST)
+        basePath = ''
+        if settings.API_HOST == '/api/':
+            basePath = '/api/'
+        else:
+            basePath = data.path
+        return basePath
 
 
 class GetRates(APIView):
@@ -560,3 +627,176 @@ class GetAutocomplete(APIView):
             return Response(data)
         else:
             return Response([])
+
+
+class GetCapabilityStatement(APIView):
+    """
+    Returns PDF or Docx for the selected contract.
+
+    """
+
+    schema = AutoSchema(
+        manual_fields=[
+            queryarg(
+                "contract_number",
+                str,
+                """
+                Return capability statement per contract.
+                """
+            ),
+            # queryarg(
+            #     "url",
+            #     str,
+            #     """
+            #     Return url of the submitted contract.
+            #     """
+            # ),
+        ]
+    )
+
+    def check(self, s3, bucket, key):
+        try:
+            s3.head_object(Bucket=bucket, Key=key)
+        except ClientError as e:
+            return int(e.response['Error']['Code']) != 404
+        return True
+
+    def get(self, request, format=None):
+        req = request.GET
+        required_data = req['contract_number']
+        conIns = conSta.objects.filter(contract_number=str(required_data))
+        if conIns:
+            url = conIns[0].url  # getting url from db
+            # response = JsonResponse({'Error': '1', 'ErrorMessage': url})
+            # return response
+            return JsonResponse({'Error': '1', 'ErrorMessage': url})
+        else:
+            AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
+            AWS_REGION = settings.AWS_REGION
+            AWS_BUCKET = settings.AWS_STORAGE_BUCKET_NAME
+            s3 = boto3.client('s3', AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID,
+                              aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+        try:
+            s3bucket = s3.list_objects_v2(Bucket=AWS_BUCKET)
+        except ClientError as e:
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'Invalid AWS Credentials'})
+            return response
+        # Only return the contents if we found some keys
+        if s3bucket['KeyCount'] > 0:
+            all_objects = s3bucket['Contents']
+        else:
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'No Files Found on bucket'})
+            return response
+
+        objectsNeed = []
+        date_arr = []
+        for obj in all_objects:
+            obj_name = str(obj["Key"]).split('.')
+            if required_data == obj_name[0]:
+                objectsNeed.append({obj['LastModified']: obj['Key']})
+                date_arr.append(obj['LastModified'])
+
+        if len(date_arr) == 0:  # If invalid contract number given
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'Invalid Contract Number'})
+            return response
+        else:
+            latest_update = max(date_arr)
+            index_of_latest_update = date_arr.index(latest_update)
+            latest_file = str(objectsNeed[index_of_latest_update].get(
+                              date_arr[index_of_latest_update]))
+
+            if self.check(s3, AWS_BUCKET, latest_file):
+                try:
+                    file = s3.get_object(Bucket=AWS_BUCKET, Key=latest_file)
+                    ext_array = latest_file.split('.')
+                    response = FileResponse(file['Body'], content_type='application/' +
+                                            ext_array[1])
+                    response['Content-Disposition'] = 'attachment; filename="' + latest_file + '"'
+                    return response
+                except FileNotFoundError:
+                    response = JsonResponse({'Error': '1',
+                                            'ErrorMessage': 'Error While Downloading'})
+        return response
+
+
+class GetCapabilityStatementUrl(APIView):
+    """
+    Returns PDF or Docx for the selected contract.
+
+    """
+
+    schema = AutoSchema(
+        manual_fields=[
+            queryarg(
+                "contract_number",
+                str,
+                """
+                Return capability statement url for multiple contracts.
+                """
+            ),
+        ]
+    )
+
+    def check(self, s3, bucket, key):
+        try:
+            s3.head_object(Bucket=bucket, Key=key)
+        except ClientError as e:
+            return int(e.response['Error']['Code']) != 404
+        return True
+
+    def get(self, request, format=None):
+        AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
+        AWS_REGION = settings.AWS_REGION
+        AWS_BUCKET = settings.AWS_STORAGE_BUCKET_NAME
+        s3 = boto3.client('s3', AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID,
+                          aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+        try:
+            s3bucket = s3.list_objects_v2(Bucket=AWS_BUCKET)
+        except ClientError as e:
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'Invalid AWS Credentials'})
+            return response
+
+        if s3bucket['KeyCount'] > 0:
+            all_objects = s3bucket['Contents']
+        else:
+            response = JsonResponse({'Error': '1', 'ErrorMessage': 'No Files Found on bucket'})
+            return response
+        req = request.GET
+        contractnumberlist = req['contract_number']
+        contractnumber_array = contractnumberlist.split(',')
+        # To avoid repeteating in contract number
+        contractnumber_array = list(set(contractnumber_array))
+        data = {}
+        for con in contractnumber_array:
+            conIns = conSta.objects.filter(contract_number=str(con))
+            if conIns:
+                url = conIns[0].url  # getting url from db
+            else:
+                objectsNeed = []
+                date_arr = []
+                for obj in all_objects:
+                    obj_name = str(obj["Key"]).split('.')
+                    if str(con) == obj_name[0]:
+                        objectsNeed.append({obj['LastModified']: obj['Key']})
+                        date_arr.append(obj['LastModified'])
+
+                if len(date_arr) == 0:  # If invalid contract number given
+                    url = "Not Available"
+                else:
+                    latest_update = max(date_arr)
+                    index_of_latest_update = date_arr.index(latest_update)
+                    latest_file = str(objectsNeed[index_of_latest_update].get(
+                                      date_arr[index_of_latest_update]))
+
+                    url = s3.generate_presigned_url(
+                        ClientMethod='get_object',
+                        Params={
+                            'Bucket': AWS_BUCKET,
+                            'Key': latest_file
+                        }
+                    )
+            data[con] = url
+        response = JsonResponse(data)
+        return response

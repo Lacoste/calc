@@ -8,8 +8,8 @@ class Metric(BaseMetric):
     '''
     Find labor rates whose contracts are expired.
     '''
-
     def get_queryset(self):
+        Contract.objects.filter(contract_end__lt=timezone.now()).delete()
         return Contract.objects.filter(
             contract_end__lt=timezone.now()
         )

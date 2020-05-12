@@ -127,7 +127,7 @@ class Region3PriceListRow(forms.Form):
     )
     unit_of_issue = forms.CharField(
         label="Unit of issue",
-        required=False,
+        required=True,
         validators=[hourly_rates_only_validator]
     )
     price_including_iff = forms.DecimalField(
@@ -160,7 +160,7 @@ class Region3PriceListRow(forms.Form):
 
 class Region3PriceList(BasePriceList):
 
-    title = 'Comprehensive Furniture Management Services'
+    title = '71_IIK'
 
     table_template = 'data_capture/price_list/tables/region_3.html'
 

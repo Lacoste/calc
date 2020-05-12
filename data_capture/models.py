@@ -147,7 +147,7 @@ class SubmittedPriceList(models.Model):
     # This is the equivalent of Contract.idv_piid.
     contract_number = models.CharField(
         max_length=128,
-        help_text='This should be the full contract number, e.g. GS-XXX-XXXX.',
+        help_text='List the full contract number, e.g. GSXXXXXXX or 47XXXXXXXXXXX.',
         validators=[RegexValidator(
             regex=r'^[a-zA-Z0-9-_]+$',
             message='Please use only letters, numbers, and dashes (-).')],
@@ -248,6 +248,9 @@ class SubmittedPriceList(models.Model):
                 schedule=self.get_schedule_title(),
                 business_size=self.get_business_size_string(),
                 sin=row.sin,
+                keywords=row.keywords,
+                certifications=row.certifications,
+                security_clearance=row.security_clearance,
             )
 
             contract.adjust_contract_year()
@@ -322,7 +325,9 @@ class SubmittedPriceListRow(models.Model):
     min_years_experience = models.IntegerField()
     base_year_rate = CashField(max_digits=10, decimal_places=2)
     sin = models.TextField(null=True, blank=True)
-
+    keywords = models.TextField(null=True, blank=True)
+    certifications = models.TextField(null=True, blank=True)
+    security_clearance = models.TextField(null=True, blank=True)
     is_muted = models.BooleanField(
         help_text=(
             "Whether to include this row in CALC data once its "
@@ -354,3 +359,8 @@ class SubmittedPriceListRow(models.Model):
         # 'SubmittedPriceListRow object' in Django admin.
 
         return 'Submitted price list row'
+
+
+class capability_statement(models.Model):
+    contract_number = models.CharField(max_length=50, null=False, blank=False)
+    url = models.URLField(max_length=2500, null=False, blank=False)

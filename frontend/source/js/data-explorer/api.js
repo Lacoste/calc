@@ -1,5 +1,4 @@
 // @ts-check
-
 import xhr from 'xhr';
 import * as qs from 'querystring';
 

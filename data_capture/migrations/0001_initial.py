@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='SubmittedPriceList',
             fields=[
                 ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
-                ('contract_number', models.CharField(help_text='This should be the full contract number, e.g. GS-XXX-XXXX.', max_length=128)),
+                ('contract_number', models.CharField(help_text='List the full contract number, e.g. GSXXXXXXX or 47XXXXXXXXXXX.', max_length=128)),
                 ('vendor_name', models.CharField(max_length=128)),
                 ('is_small_business', models.BooleanField()),
                 ('schedule', models.CharField(max_length=128)),

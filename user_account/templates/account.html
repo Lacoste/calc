@@ -1,9 +1,11 @@
+
 {% extends "base.html" %}
 {% load humanize %}
 {% load data_capture %}
-
 {% block body_class %}content--skinny{% endblock %}
-{% block title %}User Account{% endblock %}
+{% block title %}User Account
+<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script></head> 
+{% endblock %}
 {% block body %}
   <div class="container">
     <div class="card">
@@ -68,3 +70,4 @@
     {% endif %}
   </div>
 {% endblock body %}
+

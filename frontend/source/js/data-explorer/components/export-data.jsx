@@ -5,11 +5,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getRatesParameters } from '../rates-request';
-import { API_BASE, API_PATH_RATES_CSV } from '../api';
+import { API_PATH_RATES_CSV } from '../api';
 
 export function ExportData({ querystring }) {
-  const href = `${API_BASE}${API_PATH_RATES_CSV}/${querystring}`;
-
+  /* eslint-disable */
+  const href = `${window.API_HOST}${API_PATH_RATES_CSV}/${querystring}`;
+  /* eslint-enable */
   return (
     <a
       className="usa-button usa-button-primary export-data"

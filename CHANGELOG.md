@@ -7,6 +7,119 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## 2019-12-06
+
+### Changed
+
+- Fixes of Snyk 9 high severity and 5 medium severity vulnerabilities.
+
+## 2019-11-19
+
+### Changed
+
+- Fix JavaScript issue of price list upload on Chrome browser.
+- Add disclaimer on CALC under the Exact match box.
+- Calc About page updates.
+
+## 2019-11-19
+
+### Changed
+
+- Admin users has ability to upload Capability Statement file in CALC.
+- Admin users has ability to add URL of a capability statement in CALC.
+- Created API to get Capability statements. Any application can use this service to retriever capability statements by contact number.
+- GSA API Standards Adoption for CALC.
+
+## 2019-08-22
+
+### Changed
+
+- Performed FISMA Annual Self-Assessment CALC.
+
+
+## 2019-10-08
+
+### Changed
+
+- Added Option to Upload the MAS Consolidation Pricing Template. (#2360)
+- 1 high severity issues fixed (Reported by Synk tool).
+
+
+## 2019-08-20
+
+### Changed
+
+- Update content on “about CALC” page. (#2317)
+- What does CALC do?
+- How can CALC help me?
+- Where do the prices in this tool come from?
+- Explanation of +/-1 standard deviation under CALC’s visualization
+
+## 2019-07-12
+
+### Added
+- Price list upload feature for Schedule 71IIK. (#2310)
+
+## 2019-07-03
+
+### Changed
+- 1 high severity issue fixed (Reported by Synk tool. Upgraded Django version to 1.11.21). (#2303)
+
+## 2019-06-25
+
+### Changed
+- 2 high severity issues fixed (Reported by Synk tool). (#2300)
+
+## 2019-06-20
+
+### Added
+- Implement Session Timeout For Admin Users. (#2298)
+
+## 2019-05-23
+
+### Changed
+- 1 high severity issue fixed (Reported by Synk tool). (#2284)
+
+## 2019-05-16
+
+### Changed
+- Update Linux instances to cflinuxfs3 from cflinuxfs2. (#2281)
+
+## 2019-04-30
+
+### Changed
+- 1 high severity issue fixed (Reported by Synk tool). (#2277)
+
+## 2019-04-19
+
+### Changed
+- 3 high severity and 2 medium severity issues fixed (Reported by Synk tool). (#2275)
+
+## 2019-04-04
+
+### Changed
+- Removed New Relic from Calc App. (#2267)
+
+## 2019-03-29
+
+### Changed
+- Removed Beta Tag from master. (#2264)
+
+## 2019-03-07
+
+### Changed
+- 1 high severity issue fixed (Reported by Synk tool). (#2262)
+
+## 2019-02-22
+
+### Changed
+- RQ Scheduler Version Upgrade. (#2260)
+
+## 2019-02-08
+
+### Changed
+- 6 security issues fixed (Reported by Synk tool). (#2262)
+
 ## [3.2.2][] - 2018-09-28
 
 ### Changed

@@ -343,6 +343,16 @@ class Contract(models.Model):
         db_index=True, max_length=128, null=True, blank=True)
     business_size = models.CharField(
         db_index=True, max_length=128, null=True, blank=True)
+    keywords = models.CharField(
+        db_index=True, max_length=128, null=True, blank=True)
+    certifications = models.CharField(
+        db_index=True, max_length=128, null=True, blank=True)
+    description = models.CharField(
+        db_index=True, max_length=1000, null=True, blank=True
+    )
+    security_clearance = models.CharField(
+        db_index=True, max_length=1000, null=True, blank=True
+    )
 
     # SIN stands for "Special Item Number" and is is a categorization method
     # that groups similar products, services, and solutions together.
