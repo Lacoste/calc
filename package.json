@@ -64,7 +64,8 @@
     "webpack": "^4.29.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-stream": "^5.0.0",
-    "xhr": "^2.4.0"
+    "xhr": "^2.4.0",
+    "fibers": "5.0.0"
   },
   "resolutions": {
     "lodash": "^4.17.12",
