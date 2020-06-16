@@ -7,7 +7,7 @@
     "noUnusedParameters": true,
     "preserveConstEnums": true,
     "strictNullChecks": true,
-    "jsx": "react",
+    "jsx": "react"
   },
   "include": [
     "frontend/source/js/**/*.js"

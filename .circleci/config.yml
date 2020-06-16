@@ -121,8 +121,7 @@ jobs:
       - run:
           name: Run linters and static analysis
           command: |
-            python manage.py ultratest flake8 eslint mypy bandit
-            # typescript
+            python manage.py ultratest flake8 eslint mypy bandit typescript
       - run:
           name: Build front end and run front end tests
           command: |
