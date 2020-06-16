@@ -101,7 +101,7 @@ jobs:
       - run:
           name: Install node dependencies
           command: |
-            yarn run start
+            yarn run
       - save_cache:
           name: Save node deps cache
           key: v1-node-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
