@@ -4,9 +4,10 @@
   "private": true,
   "description": "An estimator for hourly rates on professional services contracts",
   "dependencies": {
+    "@types/node": "^14.0.13",
     "a11y-dialog": "2.5.2",
-    "axe-core": "^2.1.7",
     "asyncawait": "^3.0.0",
+    "axe-core": "^2.1.7",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-jest": "^18.0.0",
@@ -84,8 +85,8 @@
     "lodash-es": "4.17.14",
     "node-sass": "^4.13.1",
     "elliptic": "^6.5.2",
-    "serialize-javascript":"^2.1.1",
-    "kind-of":"^6.0.3",
+    "serialize-javascript": "^2.1.1",
+    "kind-of": "^6.0.3",
     "minimist": "^1.2.2"
   },
   "scripts": {
