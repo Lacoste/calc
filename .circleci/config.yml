@@ -68,6 +68,7 @@ jobs:
             echo ". ~/venv/bin/activate" >> $BASH_ENV
             source $BASH_ENV
 
+            rm -rf node_modules
             pip install -r requirements-dev.txt
       - save_cache:
           name: Save python deps cache
