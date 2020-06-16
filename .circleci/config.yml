@@ -87,7 +87,6 @@ jobs:
           name: Uninstall any old version of gulp (only needed for upgrade)
           command: |
             npm rm --g gulp
-            rm -rf node_modules
       
       - run:
           name: Install yarn and gulp
@@ -102,8 +101,6 @@ jobs:
       - run:
           name: Install node dependencies
           command: |
-            node -v
-            npm -v
             yarn --ignore-engines
       - save_cache:
           name: Save node deps cache
@@ -124,7 +121,8 @@ jobs:
       - run:
           name: Run linters and static analysis
           command: |
-            python manage.py ultratest flake8 eslint mypy bandit typescript
+            python manage.py ultratest flake8 eslint mypy bandit
+            # typescript
       - run:
           name: Build front end and run front end tests
           command: |
