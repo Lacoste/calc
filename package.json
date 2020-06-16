@@ -92,7 +92,7 @@
   "scripts": {
     "gulp": "gulp",
     "eslint": "eslint --max-warnings 0 --ext .jsx --ext .js .",
-    "build-ts": "tsc",
+    "typescript": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
     "analyze-webpack": "webpack-bundle-analyzer -h 0.0.0.0 ./frontend/static/frontend/built/js/stats.json"
