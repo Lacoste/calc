@@ -67,9 +67,7 @@ export function ContractYear({ idPrefix, contractYear, setContractYear }) {
     <div className="filter contract-year">
       <fieldset className="fieldset-inputs">
 
-        <legend>
-Contract year:
-        </legend>
+        <legend>Contract year:</legend>
 
         <span className="filter-more-info">
           <Tooltip text={TOOLTIP}>
@@ -83,9 +81,7 @@ Contract year:
           </Tooltip>
         </span>
 
-        <h3 className="usa-sr-only">
-Contract Year
-        </h3>
+        <h3 className="usa-sr-only">Contract Year</h3>
 
         <ul className="contract-year-block">
           {listItem(CONTRACT_YEAR_CURRENT)}

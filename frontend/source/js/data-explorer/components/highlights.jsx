@@ -21,28 +21,28 @@ export function Highlights({
       <div className="row">
         <div className="standard-deviation-block">
           <h5 className="standard-deviation-title">
-Std deviation -1
+            Std deviation -1
           </h5>
           <h5 className="sd-highlight">
-              $
+            $
             {formatPrice(stdDevMinus)}
           </h5>
         </div>
         <div className="avg-price-block">
           <h5 className="avg-price-title">
-Average price
+            Average price
           </h5>
           <h5 className="avg-price-highlight">
-              $
+            $
             {formatPrice(avgPrice)}
           </h5>
         </div>
         <div className="standard-deviation-block">
           <h5 className="standard-deviation-title">
-Std deviation +1
+            Std deviation +1
           </h5>
           <h5 className="sd-highlight">
-              $
+            $
             {formatPrice(stdDevPlus)}
           </h5>
         </div>

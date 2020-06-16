@@ -242,9 +242,7 @@ class App extends React.Component {
 
           <div className="filter-container columns three">
             <div className="filter-block">
-              <h5 className="filter-title">
-Optional filters
-              </h5>
+              <h5 className="filter-title">Optional filters</h5>
               <LoadableOptionalFilters />
             </div>
           </div>
