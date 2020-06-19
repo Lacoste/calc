@@ -44,6 +44,6 @@ export default class API {
    * @param {function(string|null, ScheduleMetadata[]?)} callback
    */
   getSchedules(callback) {
-    this.get({ uri: API_RATES_SCHEDULES, data: null }, callback);
+    this.get({ uri: API_RATES_SCHEDULES, data: 'null' }, callback);
   }
 }
