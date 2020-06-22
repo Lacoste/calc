@@ -127,7 +127,7 @@ table {
   th,
   th:first-child,
   th:last-child {
-    position: relative;
+    // position: relative;
     padding: $space-2x $space-1x;
   }
   td {
@@ -173,9 +173,9 @@ td.sorted {
     }
   }
   td.table-error-severe {
-    background-color: $color-white;
-    font-weight: $font-weight-bold;
-    padding-left: 1.5rem;
+    // background-color: $color-white;
+    // font-weight: $font-weight-bold;
+    // padding-left: 1.5rem;
     span {
       font-weight: $font-weight-normal;
     }
