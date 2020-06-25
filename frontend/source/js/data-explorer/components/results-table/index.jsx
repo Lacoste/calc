@@ -32,10 +32,6 @@ const { priceForContractYear } = PriceColumn;
 
 export class ResultsTable extends React.Component {
   renderBodyRows() {
-    console.log(this.props.results);
-    console.log(this.props.contractYear)
-    console.log("----====----");
-
     return this.props.results
       .filter(r => !!priceForContractYear(this.props.contractYear, r))
       .map(result => (

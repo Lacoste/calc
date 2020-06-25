@@ -218,7 +218,7 @@ def get_contracts_queryset(request_params, wage_field):
             query.strip(), query_by, query_type)
     else:  # no query, so start with full query set
         contracts = Contract.objects.all()
-    print(len(contracts),'----------------------------1')
+
     if isSecondaryFilter:
         if queryArray[1] != "":
             secondryFilter = queryArray[1]
@@ -235,7 +235,7 @@ def get_contracts_queryset(request_params, wage_field):
     # Exclude records w/o rates for the selected contract period.
     # Additional price filtering is already in the CurrentContractManager
     contracts = contracts.exclude(**{wage_field + '__isnull': True})
-    print(len(contracts),'----------------------------2')
+
     exclude = request_params.getlist('exclude')
     if exclude:
         # getlist only works for key=val&key=val2, not for key=val1,val2
@@ -246,7 +246,6 @@ def get_contracts_queryset(request_params, wage_field):
         # `clean_search` and then exclude those phrases
         exclude = exclude[0].split(',')
         contracts = contracts.exclude(id__in=exclude)
-        print(len(contracts),'----------------------------3')
 
     # *** EXPERIENCE ***
     min_experience = request_params.get('min_experience', None)
@@ -310,7 +309,6 @@ def get_contracts_queryset(request_params, wage_field):
     if security_clearance:
         contracts = contracts.filter(security_clearance__icontains=security_clearance)
     print(contracts)
-    print(len(contracts),'----------------------------4')
     price = request_params.get('price', None)
     price__gte = request_params.get('price__gte')
     price__lte = request_params.get('price__lte')
