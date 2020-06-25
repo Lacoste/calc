@@ -10,7 +10,7 @@ import {
 export function Highlights({
   stdDeviation,
   avgPrice,
-  current_prices,
+  currentPrices,
 }) {
   const stdDevMinus = avgPrice - stdDeviation;
   const stdDevPlus = avgPrice + stdDeviation;
@@ -43,7 +43,7 @@ Average price
           Median Price
           </h5>
           <h5 className="sd-highlight">
-              ${formatPrice(getMedian(current_prices))}
+              ${formatPrice(getMedian(currentPrices))}
           </h5>
         </div>
         <div className="standard-deviation-block">
@@ -63,15 +63,15 @@ Std deviation +1
 Highlights.propTypes = {
   stdDeviation: PropTypes.number.isRequired,
   avgPrice: PropTypes.number.isRequired,
-  current_prices: PropTypes.any.isRequired,
+  currentPrices: PropTypes.any.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     stdDeviation: state.rates.data.first_standard_deviation,
     avgPrice: state.rates.data.average,
-    current_prices:state.rates.data.results.map((n) => n.current_price)
-  };
+    currentPrices: state.rates.data.results.map ((n) => n.currentPrices
+  )};
 }
 
 export default connect(mapStateToProps)(Highlights);
