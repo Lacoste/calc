@@ -21,39 +21,20 @@ export function Highlights({
     <div className="price-block">
       <div className="row">
         <div className="standard-deviation-block">
-          <h5 className="standard-deviation-title">
-Std deviation -1
-          </h5>
-          <h5 className="sd-highlight">
-              $
-            {formatPrice(stdDevMinus)}
-          </h5>
+          <h5 className="standard-deviation-title">Std deviation -1</h5>
+          <h5 className="sd-highlight">${formatPrice(stdDevMinus)}</h5>
         </div>
         <div className="avg-price-block">
-          <h5 className="avg-price-title">
-Average price
-          </h5>
-          <h5 className="avg-price-highlight">
-              $
-            {formatPrice(avgPrice)}
-          </h5>
+          <h5 className="avg-price-title">Average price</h5>
+          <h5 className="avg-price-highlight">${formatPrice(avgPrice)}</h5>
         </div>
         <div className="medianblock standard-deviation-block">
-          <h5 className="standard-deviation-title">
-          Median Price
-          </h5>
-          <h5 className="sd-highlight">
-              $
-            {formatPrice(getMedian(currentPrices))}
-          </h5>
+          <h5 className="standard-deviation-title">Median Price</h5>
+          <h5 className="sd-highlight">${formatPrice(getMedian(currentPrices))}</h5>
         </div>
         <div className="standard-deviation-block">
-          <h5 className="standard-deviation-title">
-Std deviation +1
-          </h5>
-          <h5 className="sd-highlight">
-              $
-            {formatPrice(stdDevPlus)}
+          <h5 className="standard-deviation-title">Std deviation +1</h5>
+          <h5 className="sd-highlight">${formatPrice(stdDevPlus)}
           </h5>
         </div>
       </div>
