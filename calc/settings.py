@@ -364,9 +364,7 @@ UAA_AUTH_URL = 'https://login.fr.cloud.gov/oauth/authorize'
 
 UAA_TOKEN_URL = 'https://uaa.fr.cloud.gov/oauth/token'
 
-# STAGING ID -@TODO fix
-UAA_CLIENT_ID = '45021bd6-c98b-4580-b4c7-ec0498b1ba63'
-# os.environ.get('UAA_CLIENT_ID', 'calc-dev')
+os.environ.get('UAA_CLIENT_ID', 'calc-dev')
 
 UAA_LOGOUT_URL = 'https://login.fr.cloud.gov/logout.do'
 
