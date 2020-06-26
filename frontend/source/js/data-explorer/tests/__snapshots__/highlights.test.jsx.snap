@@ -21,22 +21,6 @@ exports[`<Highlights> matches snapshot 1`] = `
         $
         1
       </h5>
-    </div>
-    <div
-      className="medianblock standard-deviation-block"
-    >
-      <h5
-        className="standard-deviation-title"
-      >
-        Median Price
-      </h5>
-      <h5
-        className="sd-highlight"
-      >
-        $
-        1
-      </h5>
-    </div>  
     <div
       className="avg-price-block"
     >
@@ -52,6 +36,22 @@ exports[`<Highlights> matches snapshot 1`] = `
         2
       </h5>
     </div>
+    </div>
+    <div
+      className="medianblock standard-deviation-block"
+    >
+      <h5
+        className="standard-deviation-title"
+      >
+        Median Price
+      </h5>
+      <h5
+        className="sd-highlight"
+      >
+        $
+        3
+      </h5>
+    </div>  
     <div
       className="standard-deviation-block"
     >
@@ -64,7 +64,7 @@ exports[`<Highlights> matches snapshot 1`] = `
         className="sd-highlight"
       >
         $
-        3
+        4
       </h5>
     </div>
   </div>
