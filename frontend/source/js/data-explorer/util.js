@@ -18,11 +18,9 @@ export const formatFriendlyPrice = (price) => {
 
 export const getMedian = (arr) => {
   let resultMedian = 0;
-  if (arr.length > 0) {
     const mid = Math.floor(arr.length / 2); 
     const nums = [...arr].sort((a, b) => a - b);
     resultMedian = arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
-  }
   return resultMedian;
 };
 
