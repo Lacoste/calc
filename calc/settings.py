@@ -364,11 +364,11 @@ UAA_AUTH_URL = 'https://login.fr.cloud.gov/oauth/authorize'
 
 UAA_TOKEN_URL = 'https://uaa.fr.cloud.gov/oauth/token'
 
-os.environ.get('UAA_CLIENT_ID', 'calc-dev')
+UAA_CLIENT_ID = os.environ.get('UAA_CLIENT_ID', 'calc-dev')
 
 UAA_LOGOUT_URL = 'https://login.fr.cloud.gov/logout.do'
 
-os.environ.get('UAA_CLIENT_SECRET')
+UAA_CLIENT_SECRET = os.environ.get('UAA_CLIENT_SECRET')
 
 LOGIN_URL = 'uaa_client:login'
 
