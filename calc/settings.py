@@ -368,9 +368,7 @@ os.environ.get('UAA_CLIENT_ID', 'calc-dev')
 
 UAA_LOGOUT_URL = 'https://login.fr.cloud.gov/logout.do'
 
-# staging ID -@todo fix
-UAA_CLIENT_SECRET = 'oxYSZ.NA_Shka,9RSpWfrZPxpk3Vjnk.'
-# os.environ.get('UAA_CLIENT_SECRET')
+os.environ.get('UAA_CLIENT_SECRET')
 
 LOGIN_URL = 'uaa_client:login'
 
