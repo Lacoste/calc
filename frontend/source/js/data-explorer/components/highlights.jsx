@@ -44,7 +44,7 @@ export function Highlights({
           </h5>
           <h5 className="sd-highlight">
             $
-            {formatPrice(getMedian(currentPrices))}
+            {formatPrice(currentPrices)}
           </h5>
         </div>
         <div className="standard-deviation-block">
@@ -71,7 +71,7 @@ function mapStateToProps(state) {
   return {
     stdDeviation: state.rates.data.first_standard_deviation,
     avgPrice: state.rates.data.average,
-    currentPrices: state.rates.data.results.map(n => n['current_price']) 
+    currentPrices: getMedian(state.rates.data.results.map(n => n['current_price']))
   };
 }
 
