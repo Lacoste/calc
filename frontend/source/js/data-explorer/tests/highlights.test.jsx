@@ -6,7 +6,6 @@ import makeSetup from './testSetup';
 const defaultProps = {
   stdDeviation: 1.1,
   avgPrice: 2.1,
-  currentPrices: 1.1
 };
 
 const setup = makeSetup(Highlights, defaultProps);
@@ -17,8 +16,7 @@ describe('<Highlights>', () => {
 
     expect(wrapper.find('.sd-highlight').first().text()).toBe('$1');
     expect(wrapper.find('.avg-price-highlight').text()).toBe('$2');
-    expect(wrapper.find('.sd-highlight').text()).toBe('$3');
-    expect(wrapper.find('.sd-highlight').last().text()).toBe('$4');
+    expect(wrapper.find('.sd-highlight').last().text()).toBe('$3');
   });
 
   it('matches snapshot', () => {
